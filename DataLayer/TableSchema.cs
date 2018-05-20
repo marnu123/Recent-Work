@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    class TableSchema
+    public class TableSchema
     {
         private string tableName;
         private List<TableColumn> tableColumns;
@@ -33,7 +33,7 @@ namespace DataLayer
             }
         }
 
-        public TableColumn findPrimaryKey()
+        public TableColumn FindPrimaryKey()
         {
             for (int i = 0; i < tableColumns.Count; i++)
             {

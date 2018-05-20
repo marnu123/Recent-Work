@@ -85,6 +85,7 @@
             this.dgvLocation.Name = "dgvLocation";
             this.dgvLocation.Size = new System.Drawing.Size(742, 140);
             this.dgvLocation.TabIndex = 2;
+            this.dgvLocation.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLocation_CellClick);
             // 
             // label1
             // 

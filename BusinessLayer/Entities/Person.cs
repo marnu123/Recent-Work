@@ -10,17 +10,19 @@ using System.ComponentModel;
 using System.Reflection;
 using DataLayer.Attributes;
 using DataLayer;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
 
     [Table("tblperson")]
-    public class Person : DataObject
+    public class Person : DataObject, IValidatable<Person>
     {
         private int id;
         private string name;
         private string surname;
         private string email;
+        private string oldEmail;
         private string cellNumber;
         private List<Location> locations;
 
@@ -32,8 +34,11 @@ namespace BusinessLayer.Classes
             email = dr["Email"].ToString();
             cellNumber = dr["CellNumber"].ToString();
             locations = null;
+            oldEmail = email;
             //Console.WriteLine("Person {0} Created", Name);
         }
+
+        public Person() { }
 
         public Person(int id, string name, string surname, string email, string cellNumber)
         {
@@ -41,11 +46,12 @@ namespace BusinessLayer.Classes
             this.Name = name;
             this.Surname = surname;
             this.Email = email;
+            oldEmail = email;
             this.CellNumber = cellNumber;
             Locations = null;
         }
 
-        //[Column("PK_PersonID")]
+        [Column("PK_PersonID", true)]
         public int Id { get => id; set => id = value; }
         [Column("FirstName")]
         public string Name { get => name; set => name = value; }
@@ -54,6 +60,9 @@ namespace BusinessLayer.Classes
         [Key]
         [Column("Email")]
         public string Email { get => email; set => email = value; }
+        //Cache old primary key values for update statements
+        [KeyStorage("Email")]
+        public string OldEmail { get => oldEmail; private set => oldEmail = value; }
         [Column("CellNumber")]
         public string CellNumber { get => cellNumber; set => cellNumber = value; }
         //Lazy load locations
@@ -88,6 +97,11 @@ namespace BusinessLayer.Classes
         public static List<Person> Select(params Expression<Func<Person, object>>[] expression)
         {
             return DataObjectFactory.Select<Person>(expression);
+        }
+
+        public bool Validate(IValidator<Person> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
 
         /*public static void UpdatePeople(List<Person> people)

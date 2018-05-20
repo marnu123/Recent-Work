@@ -10,6 +10,7 @@ using DataLayer;
 using DataLayer.Attributes;
 using System.Data;
 using BusinessLayer;
+using BusinessLayer.Validators;
 
 namespace ConsoleApp1
 {
@@ -22,7 +23,21 @@ namespace ConsoleApp1
             Product p = new Product("GEY213", "Geyser Controller", "Controls geyser on/off times", 321.45f,
                 DateTime.Now, "Home Energy Management");
             p.Insert();*/
-            List<Person> people = Person.Select();
+            Client c = new Client(1, "", "", "", "", "A12345678", 1);
+            IEnumerable<string> brokenRules = new List<string>();
+            bool result = c.Validate(out brokenRules);
+            if (result)
+            {
+                Console.WriteLine("Valid id");
+            }
+
+            foreach (string item in brokenRules)
+            {
+                Console.WriteLine(item);
+            }
+
+
+            List<Client> people = Client.Select();
             Person last = people[0];
             /*List<Location> loc = last.Locations;
             Console.WriteLine("Locations for " + last);

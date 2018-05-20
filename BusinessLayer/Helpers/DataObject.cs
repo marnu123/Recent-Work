@@ -10,7 +10,7 @@ namespace DataLayer
 {
     public abstract class DataObject
     {
-        
+        public DataObject() { }
     }
 
     

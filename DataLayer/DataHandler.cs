@@ -12,9 +12,11 @@ using System.Runtime.CompilerServices;
 
 namespace DataLayer
 { 
-    public class DataHandler
+    public partial class DataHandler
     {
         private Dictionary<Type, TableSchema> cache = new Dictionary<Type, TableSchema>();
+
+        public Dictionary<Type, TableSchema> Cache { get => cache; }
 
         private static DataHandler dh = new DataHandler();
         private SqlConnection conn;
@@ -158,12 +160,12 @@ namespace DataLayer
                         if (result == "")
                         {
                             result = parent.TableName + " INNER JOIN " + childTableName + " ON " +
-                                parent.TableName + "." + parent.findPrimaryKey().ColumnName + " = " + childTableName + "." + childKeyCol;
+                                parent.TableName + "." + parent.FindPrimaryKey().ColumnName + " = " + childTableName + "." + childKeyCol;
                         }
                         else
                         {
                             result += " INNER JOIN " + parent.TableName + " ON " +
-                                parent.TableName + "." + parent.findPrimaryKey().ColumnName + " = " + childTableName + "." + childKeyCol;
+                                parent.TableName + "." + parent.FindPrimaryKey().ColumnName + " = " + childTableName + "." + childKeyCol;
                         }
                     }
                 }
@@ -171,59 +173,6 @@ namespace DataLayer
 
             return result;
         }
-
-        /// <summary>
-        /// Select records from the database using the expressions in the Where clause
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        /*public DataTable Select<T>(params Expression<Func<object, object>>[] expression)
-        {
-            Type objType = typeof(T);
-            updateCache(objType);
-            string whereStr = "";
-            string fromStr = "";
-            List<SqlParameter> parms = new List<SqlParameter>();
-            List<Type> tables = new List<Type>();
-
-            if (expression.Length > 0)
-            {
-                List<MemberExpression> selectCols;
-                var colsQuery = from ex in expression where ex.Body.NodeType == ExpressionType.MemberAccess select ex.Body as MemberExpression;
-                selectCols = colsQuery.ToList();
-                List<UnaryExpression> whereCols;
-                var whereQuery = from ex in expression where ex.Body.NodeType == ExpressionType.Convert select ex.Body as UnaryExpression;
-                whereCols = whereQuery.ToList();
-
-                if (whereCols.Count > 0)
-                {
-                    whereStr = " WHERE " + getWhereString(typeof(T), whereCols, out parms, out tables);
-                }
-            }
-
-            if (tables.Count > 1)
-            {
-                fromStr = getFromString(tables);
-            }
-            else
-            {
-                TableSchema table = cache[objType];
-                fromStr = " FROM " + table.TableName;
-            }
-
-            SqlCommand cmd = new SqlCommand("SELECT * " + fromStr + " " + whereStr, conn);
-
-            foreach (SqlParameter parm in parms)
-            {
-                cmd.Parameters.Add(parm);
-            }
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable result = new DataTable();
-            da.Fill(result);
-            return result;
-        }*/
 
         public DataTable Select<T>(params Expression[] expression)
         {
@@ -276,8 +225,8 @@ namespace DataLayer
         public void Update<T>(T entity)
         {
             updateCache(typeof(T));
-            List<SqlParameter> parms = getParameterList<T>(entity);
-            SqlCommand sc = new SqlCommand(getUpdateString(entity.GetType()), conn);
+            List<SqlParameter> parms = getUpdateParameterList<T>(entity);
+            SqlCommand sc = new SqlCommand(getUpdateString(typeof(T)), conn);
             
             foreach (SqlParameter sp in parms)
             {
@@ -290,7 +239,7 @@ namespace DataLayer
         }
 
         private string getUpdateString(Type entity)
-        {
+        { 
             TableSchema schema = cache[entity];
             string resultStr = "UPDATE " + schema.TableName + " SET ";
             List<string> columns = new List<string>();
@@ -301,9 +250,11 @@ namespace DataLayer
             {
                 if (col.IsKey)
                 {
-                    keyCols.Add(col.ColumnName + " = @" + col.ColumnName);
+                    string name = getOldKeyPropertyName(entity, col.PropertyName);
+                    keyCols.Add(col.ColumnName + " = @" + name);
                 }
-                else
+
+                if (!col.IsAutoNumber)
                 {
                     columns.Add(" " + col.ColumnName + " = @" + col.ColumnName);
                 }
@@ -313,6 +264,41 @@ namespace DataLayer
             resultStr += " WHERE " + String.Join(" AND ", keyCols);
 
             return resultStr;
+        }
+
+        private List<SqlParameter> getUpdateParameterList<T>(T entity)
+        {
+            Type type = typeof(T);
+            TableSchema schema = cache[type];
+            List<SqlParameter> result = new List<SqlParameter>();
+
+            foreach (TableColumn col in schema.TableColumns)
+            {
+                if (!col.IsAutoNumber)
+                    result.Add(new SqlParameter("@" + col.ColumnName, type.GetProperty(col.PropertyName).GetValue(entity)));
+
+                if (col.IsKey && !col.IsAutoNumber)
+                {
+                    string name = getOldKeyPropertyName(type, col.PropertyName);
+                    result.Add(new SqlParameter("@" + name, type.GetProperty(name).GetValue(entity)));
+                }
+            }
+
+            return result;
+        }
+
+        //Retrieve the old key for a property
+        //This enables the updating of primary keys
+        private string getOldKeyPropertyName(Type entity, string propertyName)
+        {
+            //PropertyInfo[] props1 = entity.GetProperties();
+
+            var props = from prop in entity.GetProperties()
+                        let attrs = prop.GetCustomAttribute<KeyStorage>()
+                        where attrs != null && attrs.StoredFieldName == propertyName
+                        select prop;
+            return props.First().Name ?? throw new ArgumentException("Class does not contain an KeyStorage field for the " + 
+                "requested property");
         }
 
         public void Delete<T>(T entity)
@@ -348,11 +334,11 @@ namespace DataLayer
             return resultStr;
         }
 
-        public void Insert<T>(T entity)
+        public object Insert<T>(T entity)
         {
             updateCache(typeof(T));
             List<SqlParameter> parms = getParameterList<T>(entity);
-            SqlCommand sc = new SqlCommand(getInsertString(entity.GetType()), conn);
+            SqlCommand sc = new SqlCommand(getInsertString(typeof(T)), conn);
 
             foreach (SqlParameter sp in parms)
             {
@@ -360,8 +346,9 @@ namespace DataLayer
             }
 
             conn.Open();
-            sc.ExecuteNonQuery();
+            object val = sc.ExecuteScalar();
             conn.Close();
+            return val;
         }
 
         private string getInsertString(Type entity)
@@ -380,6 +367,12 @@ namespace DataLayer
             }
 
             resultStr += " (" + String.Join(",", columns.ToArray()) + ")";
+
+            TableColumn primKey = cache[entity].FindPrimaryKey();
+            if (primKey.IsAutoNumber)
+            {
+                resultStr += " OUTPUT INSERTED." + primKey.ColumnName;
+            }
             resultStr += " VALUES(@" + String.Join(",@", columns.ToArray()) + ")";
 
             return resultStr;
@@ -387,7 +380,8 @@ namespace DataLayer
 
         private List<SqlParameter> getParameterList<T>(T entity)
         {
-            Type type = entity.GetType();
+            //Type type = entity.GetType();
+            Type type = typeof(T);
             TableSchema schema = cache[type];
             List<SqlParameter> result = new List<SqlParameter>();
 
@@ -430,7 +424,7 @@ namespace DataLayer
 
                 if (table.Length > 0)
                 {
-                    PropertyInfo[] props = objType.GetProperties();
+                    PropertyInfo[] props = objType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
                     tableCols = new TableSchema(((TableAttribute)table[0]).Name, new List<TableColumn>());
 
                     foreach (PropertyInfo prop in props)
@@ -447,7 +441,7 @@ namespace DataLayer
                             if (col != null)
                             {
                                 tempName = col.Name;
-                                tableCols.TableColumns.Add(new TableColumn(prop.Name, col.Name, prop.GetType()));
+                                tableCols.TableColumns.Add(new TableColumn(prop.Name, col.Name, prop.GetType(), false, col.IsAutoNumber));
                             }
                             else
                             {

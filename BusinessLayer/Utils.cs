@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Classes
+namespace BusinessLayer
 {
     public class Utils
     {
@@ -23,6 +23,16 @@ namespace BusinessLayer.Classes
             }
 
             return result;
+        }
+
+        public static bool IsEmpty(string str)
+        {
+            return str == null || str.Trim() == String.Empty;
+        }
+
+        public static bool IsZeroOrEmpty(int? val)
+        {
+            return val == null || val == 0;
         }
     }
 }

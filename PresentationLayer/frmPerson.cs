@@ -13,44 +13,81 @@ namespace PresentationLayer
 {
     public partial class frmPerson : Form
     {
-        List<Person> people;
+        List<Client> clients;
+        List<Employee> employees;
         Person temp;
+        
         public frmPerson()
         {
             InitializeComponent();
-            people = Person.Select();
-            BindingList<Person> bindList = new BindingList<Person>(people);
-            dgvPerson.DataSource = bindList;
         }
 
-        private void dgvPerson_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void tabClients_FontChanged(object sender, EventArgs e)
         {
-            int id = (int) dgvPerson.Rows[e.RowIndex].Cells["Id"].Value;
-            Person temp = null;
+            
+        }
 
-            foreach (Person p in people)
+        private void tabClients_Enter(object sender, EventArgs e)
+        {
+            if (clients == null)
             {
-                if (p.Id == id)
+                clients = Client.Select();
+                if (clients.Count == 0) lblClientsEmpty.Show();
+                else
                 {
-                    temp = p;
-                    frmPersonDetails frm = new frmPersonDetails(ref temp);
-                    frm.Show();
-                    frm.FormClosed += (Sender, E) => 
-                    {
-                        Show();
-                        dgvPerson.Refresh();
-                    };
-                    Hide();
-                    break;
+                    dgvClients.DataSource = new BindingList<Client>(clients);
+                    lblClientsEmpty.Hide();
                 }
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Employees_Enter(object sender, EventArgs e)
         {
-            temp = new Person(0,"","","","");
-            frmPersonDetails frm = new frmPersonDetails(ref temp, true);
-            frm.Show();
+            if (employees == null)
+            {
+                employees = Employee.Select();
+                if (employees.Count == 0) lblEmployeeEmpty.Show();
+                else
+                {
+                    dgvEmployees.DataSource = new BindingList<Employee>(employees);
+                    lblEmployeeEmpty.Hide();
+                }
+            }
+        }
+
+        private void dgvClients_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id = dgvClients.Rows[e.RowIndex].Cells["ClientId"].Value.ToString();
+            Client temp = null;
+            var q = from c in clients where c.ClientId == id select c;
+            temp = q.First();
+
+            frmPersonDetails frm = new frmPersonDetails(ref temp);
+            Utils.showForm(this, frm, dgvClients, () => clients = Client.Select());
+        }
+
+        private void dgvEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int id = (int)dgvEmployees.Rows[e.RowIndex].Cells["Id"].Value;
+            var q = from c in employees where c.Id == id select c;
+            Employee temp = q.First();
+
+            frmPersonDetails frm = new frmPersonDetails(ref temp);
+            Utils.showForm(this, frm, dgvEmployees, () => employees = Employee.Select());
+        }
+
+        private void btnAddEmployee_Click(object sender, EventArgs e)
+        {
+            Employee emp = new Employee();
+            frmPersonDetails frm = new frmPersonDetails(ref emp, true, true);
+            Utils.showForm(this, frm, dgvEmployees, () => Employee.Select());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Client client = new Client();
+            frmPersonDetails frm = new frmPersonDetails(ref client, true, true);
+            Utils.showForm(this, frm, dgvClients, () => clients = Client.Select());
         }
     }
 }

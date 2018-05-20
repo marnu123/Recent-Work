@@ -67,19 +67,10 @@ namespace BusinessLayer.Classes
                 return new Product(dataRow);
             }
 
-            if (typeof(T) == typeof(OperationType))
-            {
-                return new OperationType(dataRow);
-            }
 
             if (typeof(T) == typeof(Schedule))
             {
                 return new Schedule(dataRow);
-            }
-
-            if (typeof(T) == typeof(Employee_Schedule))
-            {
-                return new Employee_Schedule(dataRow);
             }
 
             if (typeof(T) == typeof(Person_Location))

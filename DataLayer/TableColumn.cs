@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    class TableColumn
+    public class TableColumn
     {
         private string columnName;
         private Type columnType;
