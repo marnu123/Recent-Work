@@ -11,16 +11,18 @@ namespace BusinessLayer.Classes
     public class Location : DataObject
     {
         private int id;
-        private int houseNumber;
+        private string houseNumber;
         private int fK_StreetID;
         private Street street;
         //private City city;
         private List<Product> products;
 
+        public Location() { }
+
         public Location(DataRow dataRow)
         {
             this.Id = Convert.ToInt32(dataRow["PK_LocationID"]);
-            this.HouseNumber = Convert.ToInt32(dataRow["HouseNumber"]);
+            this.HouseNumber = dataRow["HouseNumber"].ToString();
             this.FK_StreetID = Convert.ToInt32(dataRow["FK_StreetID"]);
 
             try
@@ -32,7 +34,7 @@ namespace BusinessLayer.Classes
             //this.FK_CityID = Convert.ToInt32(dataRow["FK_CityID"]);
         }
 
-        public Location(int id, int houseNumber, int fK_StreetID, int fK_CityID, List<Product> products)
+        public Location(int id, string houseNumber, int fK_StreetID, int fK_CityID, List<Product> products)
         {
             this.Id = id;
             this.HouseNumber = houseNumber;
@@ -46,7 +48,7 @@ namespace BusinessLayer.Classes
         [Column("PK_LocationID")]
         public int Id { get => id; set => id = value; }
         [Column("HouseNumber")]
-        public int HouseNumber { get => houseNumber; set => houseNumber = value; }
+        public string HouseNumber { get => houseNumber; set => houseNumber = value; }
         [ForeignKey(typeof(Street))]
         [Column("FK_StreetID")]
         public int FK_StreetID { get => fK_StreetID; set => fK_StreetID = value; }

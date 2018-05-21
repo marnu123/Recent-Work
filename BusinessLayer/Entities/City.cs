@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
     [Table("tblcity")]
-    public class City: DataObject
+    public class City: DataObject, IValidatable<City>
     {
         private int id;
         private string name;
@@ -52,6 +53,11 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return Name;
+        }
+
+        public bool Validate(IValidator<City> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

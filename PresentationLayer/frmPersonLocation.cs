@@ -47,5 +47,17 @@ namespace PresentationLayer
             frmLocationDetails frm = new frmLocationDetails(ref temp);
             Utils.showForm(this, frm, dgvLocation, () => locations = BusinessLayer.Classes.Location.Select());
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Location temp = new Location();
+            frmLocationDetails frm = new frmLocationDetails(ref temp);
+            Utils.showForm(this, frm, dgvLocation, () => locations = BusinessLayer.Classes.Location.Select());
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

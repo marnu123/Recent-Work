@@ -4,11 +4,12 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
     [Table("tblstreet")]
-    public class Street: DataObject
+    public class Street: DataObject, IValidatable<Street>
     {
         private int id;
         private string name;
@@ -73,6 +74,11 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return Name + ", " + AreaCode + ", " + City.ToString();
+        }
+
+        public bool Validate(IValidator<Street> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

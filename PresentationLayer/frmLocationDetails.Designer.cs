@@ -38,11 +38,11 @@
             this.txtHouseNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnManageProducts = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +70,8 @@
             this.cmbCity.Name = "cmbCity";
             this.cmbCity.Size = new System.Drawing.Size(157, 21);
             this.cmbCity.TabIndex = 11;
+            this.cmbCity.SelectedIndexChanged += new System.EventHandler(this.cmbCity_SelectedIndexChanged);
+            this.cmbCity.TextChanged += new System.EventHandler(this.cmbCity_TextChanged);
             // 
             // cmbStreet
             // 
@@ -80,6 +82,7 @@
             this.cmbStreet.Size = new System.Drawing.Size(157, 21);
             this.cmbStreet.TabIndex = 10;
             this.cmbStreet.SelectedIndexChanged += new System.EventHandler(this.cmbStreet_SelectedIndexChanged);
+            this.cmbStreet.TextChanged += new System.EventHandler(this.cmbStreet_TextChanged);
             // 
             // label5
             // 
@@ -141,61 +144,63 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Location Details";
             // 
-            // button7
+            // btnCancel
             // 
-            this.button7.Location = new System.Drawing.Point(29, 314);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(254, 23);
-            this.button7.TabIndex = 21;
-            this.button7.Text = "Cancel";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(29, 314);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(254, 23);
+            this.btnCancel.TabIndex = 21;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnEdit
             // 
-            this.button3.Location = new System.Drawing.Point(118, 285);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 20;
-            this.button3.Text = "Edit";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnEdit.Location = new System.Drawing.Point(118, 285);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 20;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // button2
+            // btnDelete
             // 
-            this.button2.Location = new System.Drawing.Point(208, 285);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Delete";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnDelete.Location = new System.Drawing.Point(208, 285);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 19;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnSave
             // 
-            this.button1.Location = new System.Drawing.Point(29, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSave.Location = new System.Drawing.Point(29, 285);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 18;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
+            // btnManageProducts
             // 
-            this.button4.Location = new System.Drawing.Point(29, 343);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(254, 23);
-            this.button4.TabIndex = 22;
-            this.button4.Text = "Manage Products";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnManageProducts.Location = new System.Drawing.Point(29, 343);
+            this.btnManageProducts.Name = "btnManageProducts";
+            this.btnManageProducts.Size = new System.Drawing.Size(254, 23);
+            this.btnManageProducts.TabIndex = 22;
+            this.btnManageProducts.Text = "Manage Products";
+            this.btnManageProducts.UseVisualStyleBackColor = true;
             // 
             // frmLocationDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnManageProducts);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.panel1);
             this.Name = "frmLocationDetails";
             this.Text = "Location";
@@ -217,10 +222,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbCity;
         private System.Windows.Forms.ComboBox cmbStreet;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnManageProducts;
     }
 }

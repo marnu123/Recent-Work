@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace DataLayer
+namespace BusinessLayer
 {
     public abstract class DataObject
     {

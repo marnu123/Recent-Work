@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnAddLocation = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvLocation = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,8 +40,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnAddLocation);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dgvLocation);
             this.panel1.Controls.Add(this.label1);
@@ -50,23 +50,25 @@
             this.panel1.Size = new System.Drawing.Size(776, 295);
             this.panel1.TabIndex = 3;
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(125, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 23);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(125, 232);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(102, 23);
+            this.btnCancel.TabIndex = 20;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // button1
+            // btnAddLocation
             // 
-            this.button1.Location = new System.Drawing.Point(17, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Add Location";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddLocation.Location = new System.Drawing.Point(17, 232);
+            this.btnAddLocation.Name = "btnAddLocation";
+            this.btnAddLocation.Size = new System.Drawing.Size(102, 23);
+            this.btnAddLocation.TabIndex = 19;
+            this.btnAddLocation.Text = "Add Location";
+            this.btnAddLocation.UseVisualStyleBackColor = true;
+            this.btnAddLocation.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -118,7 +120,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvLocation;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnAddLocation;
     }
 }

@@ -82,6 +82,37 @@ namespace DataLayer
             }
         }
 
+        private object getPropertyValueFromClosure(object obj, string prop)
+        {
+            object result = new object();
+            PropertyInfo[] props = obj.GetType().GetProperties();
+
+            if (props.Count() == 0)
+            {
+                foreach (FieldInfo fi in obj.GetType().GetFields())
+                {
+                    result = getPropertyValueFromClosure(fi.GetValue(obj), prop);
+                    if (result != null) break;
+                }
+            }
+            else
+            {
+                result = obj.GetType().GetProperty(prop).GetValue(obj);
+            }
+
+            return result;
+        }
+
+        private object getValueFromExpression(Expression ex, string prop)
+        {
+            if (ex.NodeType == ExpressionType.Constant)
+            {
+                ConstantExpression ce = (ex as ConstantExpression);
+                return getPropertyValueFromClosure(ce.Value, prop);
+            }
+            else return getValueFromExpression((ex as MemberExpression).Expression, prop);
+        }
+
         private string getWherePart(Expression ex, ref List<SqlParameter> parms, ref List<Type>tables)
         {
             string result = "";
@@ -99,6 +130,18 @@ namespace DataLayer
                         return getWherePart(me.Expression, ref parms, ref tables);
                     }
 
+                    object memberVal;
+                    if (me.Expression.NodeType == ExpressionType.MemberAccess)
+                    {
+                        memberVal = getValueFromExpression(me.Expression, me.Member.Name);
+                        if (memberVal != null)
+                        {
+                            string parmNameToAdd = "@" + parms.Count;
+                            parms.Add(new SqlParameter(parmNameToAdd, memberVal));
+                            return parmNameToAdd;
+                        }
+                    }
+
                     if (!cache.ContainsKey(me.Expression.Type))
                     {
                         updateCache(me.Expression.Type);
@@ -109,6 +152,7 @@ namespace DataLayer
                         tables.Add(me.Expression.Type);
                     }
                     return schema.TableName + "." + schema.FindColumnByPropertyName(me.Member.Name).ColumnName;
+
                 case ExpressionType.Constant:
                     string parmName = "@" + parms.Count;
                     object val = ((ConstantExpression)ex).Value;
