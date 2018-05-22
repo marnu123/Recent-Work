@@ -26,7 +26,7 @@ namespace BusinessLayer.Classes
             Title = dataRow["NotificationTypeTitle"].ToString();
         }
 
-        [Key]
+        [Key(true)]
         [Column("PK_NotificationTypeID")]
         public int Id { get => id; set => id = value; }
         [Column("NotificationTypeTitle")]

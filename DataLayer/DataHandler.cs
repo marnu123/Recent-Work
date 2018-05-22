@@ -321,7 +321,7 @@ namespace DataLayer
                 if (!col.IsAutoNumber)
                     result.Add(new SqlParameter("@" + col.ColumnName, type.GetProperty(col.PropertyName).GetValue(entity)));
 
-                if (col.IsKey && !col.IsAutoNumber)
+                if (col.IsKey)
                 {
                     string name = getOldKeyPropertyName(type, col.PropertyName);
                     result.Add(new SqlParameter("@" + name, type.GetProperty(name).GetValue(entity)));

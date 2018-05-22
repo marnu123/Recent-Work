@@ -11,6 +11,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblcity")]
     public class City: DataObject, IValidatable<City>
     {
@@ -29,7 +30,7 @@ namespace BusinessLayer.Classes
             Name = dataRow["CityName"].ToString();
         }
 
-        [Key]
+        [Key(true)]
         [Column("PK_CityID")]
         public int Id { get => id; set => id = value; }
         [Column("CityName")]
@@ -37,16 +38,6 @@ namespace BusinessLayer.Classes
 
         public static List<City> Select(params Expression<Func<City, object>>[] expression)
         {
-            //DataTable dt = DataHandler.GetInstance().Select(expression);
-            /*DataTable dt = new DataTable();
-            List<City> result = new List<City>();
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                result.Add(new City(dr));
-            }
-
-            return result;*/
             return DataObjectFactory.Select<City>(expression);
         }
 

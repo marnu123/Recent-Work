@@ -21,8 +21,6 @@ namespace BusinessLayer.Classes
                 TableColumn cl = dh.Cache[typeof(T)].FindPrimaryKey();
                 instance.GetType().GetProperty(cl.PropertyName).SetValue(instance, val);
             }
-            //KeyAttribute prop = instance.GetType().GetCustomAttribute<KeyAttribute>();
-
         }
 
         public static void Delete<T>(this T instance)

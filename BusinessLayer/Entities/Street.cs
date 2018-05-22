@@ -8,6 +8,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblstreet")]
     public class Street: DataObject, IValidatable<Street>
     {
@@ -39,7 +40,7 @@ namespace BusinessLayer.Classes
             catch (Exception e) { }
         }
 
-        [Key]
+        [Key(true)]
         [Column("PK_StreetID")]
         public int Id { get => id; set => id = value; }
         [Column("StreetName")]
@@ -52,7 +53,7 @@ namespace BusinessLayer.Classes
             { 
                 if (city == null)
                 {
-                    return City.Select(c => c.Id == FK_CityID)[0];
+                    return City.Select(c => c.Id == fK_CityID)[0];
                 }
                 else
                 {

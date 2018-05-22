@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lstError = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.cmbCity = new System.Windows.Forms.ComboBox();
             this.cmbStreet = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,10 +47,12 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnManageProducts = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.cmbCity);
             this.panel1.Controls.Add(this.cmbStreet);
             this.panel1.Controls.Add(this.label5);
@@ -61,6 +66,33 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 254);
             this.panel1.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lstError);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Location = new System.Drawing.Point(518, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(240, 241);
+            this.panel2.TabIndex = 21;
+            // 
+            // lstError
+            // 
+            this.lstError.FormattingEnabled = true;
+            this.lstError.Location = new System.Drawing.Point(15, 32);
+            this.lstError.Name = "lstError";
+            this.lstError.Size = new System.Drawing.Size(210, 199);
+            this.lstError.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(12, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 18);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Error Box";
             // 
             // cmbCity
             // 
@@ -152,6 +184,7 @@
             this.btnCancel.TabIndex = 21;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnEdit
             // 
@@ -171,6 +204,7 @@
             this.btnDelete.TabIndex = 19;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
@@ -206,6 +240,8 @@
             this.Text = "Location";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -227,5 +263,8 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnManageProducts;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListBox lstError;
+        private System.Windows.Forms.Label label6;
     }
 }

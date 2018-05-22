@@ -14,10 +14,14 @@ namespace PresentationLayer
     public partial class frmPersonLocation : Form
     {
         List<Location> locations;
-        public frmPersonLocation(List<Location> locations)
+        AggregatedPropertyBindingList<Location> loc;
+        Person person;
+
+        public frmPersonLocation(Person person)
         {
             InitializeComponent();
-            this.locations = locations;
+            this.person = person;
+            this.locations = person.Locations;
             dgvLocation.AutoGenerateColumns = false;
             //BindingList<Location> list = new BindingList<Location>(tempLocation);
             dgvLocation.Columns.Add("Id", "Id");
@@ -32,7 +36,7 @@ namespace PresentationLayer
             dgvLocation.Columns.Add("CityName", "City");
             dgvLocation.Columns["CityName"].DataPropertyName = "Street->City->Name";
 
-            AggregatedPropertyBindingList<Location> loc = new AggregatedPropertyBindingList<Location>(locations);
+             loc = new AggregatedPropertyBindingList<Location>(locations);
 
             dgvLocation.DataSource = loc;
         }
@@ -45,14 +49,26 @@ namespace PresentationLayer
             temp = q.First();
 
             frmLocationDetails frm = new frmLocationDetails(ref temp);
-            Utils.showForm(this, frm, dgvLocation, () => locations = BusinessLayer.Classes.Location.Select());
+            Utils.showForm(this, frm, dgvLocation, () =>
+            {
+                //Refresh list
+                person.RefreshLocations();
+                loc = new AggregatedPropertyBindingList<Location>(person.Locations);
+                dgvLocation.DataSource = loc;
+            });
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Location temp = new Location();
             frmLocationDetails frm = new frmLocationDetails(ref temp);
-            Utils.showForm(this, frm, dgvLocation, () => locations = BusinessLayer.Classes.Location.Select());
+            Utils.showForm(this, frm, dgvLocation, () =>
+            {
+                //Refresh list
+                person.RefreshLocations();
+                loc = new AggregatedPropertyBindingList<Location>(person.Locations);
+                dgvLocation.DataSource = loc;
+            });
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace BusinessLayer
 {
-    public class Utils
+    public static class Utils
     {
         public static T[] JoinArrays<T>(T[] arr1, T[] arr2)
         {
@@ -33,6 +36,17 @@ namespace BusinessLayer
         public static bool IsZeroOrEmpty(int? val)
         {
             return val == null || val == 0;
+        }
+
+        public static void DeepCopyInto<T>(this T obj1, ref T obj2)
+        {
+            using (var ms = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj1);
+                ms.Position = 0;
+                obj2 = (T)formatter.Deserialize(ms);
+            }
         }
     }
 }

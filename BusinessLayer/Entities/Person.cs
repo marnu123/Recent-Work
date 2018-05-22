@@ -72,18 +72,7 @@ namespace BusinessLayer.Classes
             {
                 if (locations == null)
                 {
-                    string matchEmail = Email;
-                    //Retrieve all records for this person with relationships
-                    Expression<Func<Person_Location, Location, object>> ex = (pl, l) => (pl.PersonEmail == matchEmail && l.Id == pl.LocationId);
-                    Expression<Func<Location, Street, object>> ex1 = (l, s) => l.FK_StreetID == s.Id;
-                    Expression<Func<Street, City, object>> ex2 = (s, c) => s.FK_CityID == c.Id;
-
-                    Expression[] expList = new Expression[]
-                    {
-                        ex, ex1, ex2
-                    };
-                    //Use the DataOjbectFactory to retrive the correct relationships
-                    locations = DataObjectFactory.Select<Location>(expList);
+                    RefreshLocations();
                 }
                 return locations;
             }
@@ -92,6 +81,22 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return "ID:" + id + " Name:" + name + " Surname:" + surname;
+        }
+
+        public void RefreshLocations()
+        {
+            string matchEmail = Email;
+            //Retrieve all records for this person with relationships
+            Expression<Func<Person_Location, Location, object>> ex = (pl, l) => (pl.PersonEmail == matchEmail && l.Id == pl.LocationId);
+            Expression<Func<Location, Street, object>> ex1 = (l, s) => l.FK_StreetID == s.Id;
+            Expression<Func<Street, City, object>> ex2 = (s, c) => s.FK_CityID == c.Id;
+
+            Expression[] expList = new Expression[]
+            {
+                        ex, ex1, ex2
+            };
+            //Use the DataOjbectFactory to retrive the correct relationships
+            locations = DataObjectFactory.Select<Location>(expList);
         }
 
         public static List<Person> Select(params Expression<Func<Person, object>>[] expression)

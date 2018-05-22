@@ -212,7 +212,7 @@ namespace PresentationLayer
 
         private void button5_Click(object sender, EventArgs e)
         {
-            frmPersonLocation frm = new frmPersonLocation(currentPerson.Locations);
+            frmPersonLocation frm = new frmPersonLocation(currentPerson);
             frm.Show();
             frm.FormClosed += (Sender, E) =>
             {

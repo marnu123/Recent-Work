@@ -8,6 +8,7 @@ using System.Data;
 
 namespace BusinessLayer
 {
+    [Serializable]
     public abstract class DataObject
     {
         public DataObject() { }
