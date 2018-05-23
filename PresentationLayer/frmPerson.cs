@@ -63,7 +63,7 @@ namespace PresentationLayer
             temp = q.First();
 
             frmPersonDetails frm = new frmPersonDetails(ref temp);
-            Utils.showForm(this, frm, dgvClients, () => clients = Client.Select());
+            Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
         }
 
         private void dgvEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -73,21 +73,21 @@ namespace PresentationLayer
             Employee temp = q.First();
 
             frmPersonDetails frm = new frmPersonDetails(ref temp);
-            Utils.showForm(this, frm, dgvEmployees, () => employees = Employee.Select());
+            Utils.ShowForm(this, frm, dgvEmployees, () => employees = Employee.Select());
         }
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             Employee emp = new Employee();
             frmPersonDetails frm = new frmPersonDetails(ref emp, true, true);
-            Utils.showForm(this, frm, dgvEmployees, () => Employee.Select());
+            Utils.ShowForm(this, frm, dgvEmployees, () => Employee.Select());
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             Client client = new Client();
             frmPersonDetails frm = new frmPersonDetails(ref client, true, true);
-            Utils.showForm(this, frm, dgvClients, () => clients = Client.Select());
+            Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
         }
     }
 }

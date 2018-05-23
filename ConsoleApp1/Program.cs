@@ -18,6 +18,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            List<Product> list = Product.Select();
             /*Component cs = new Component("CER123", "Geyser Solenoid", "Solenoid valve for geyser", 123.45f);
             cs.Insert();
             Product p = new Product("GEY213", "Geyser Controller", "Controls geyser on/off times", 321.45f,

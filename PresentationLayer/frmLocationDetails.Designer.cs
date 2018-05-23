@@ -224,6 +224,7 @@
             this.btnManageProducts.TabIndex = 22;
             this.btnManageProducts.Text = "Manage Products";
             this.btnManageProducts.UseVisualStyleBackColor = true;
+            this.btnManageProducts.Click += new System.EventHandler(this.btnManageProducts_Click);
             // 
             // frmLocationDetails
             // 

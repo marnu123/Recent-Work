@@ -21,5 +21,13 @@ namespace BusinessLayer.Helpers
             pl.Insert();
             person.Locations.Add(location);
         }
+
+        public static List<Product> GetProductsForLocation(Location location)
+        {
+            Expression<Func<Product_Location, Product, Manufacturer, ProductCategory, object>> ex = 
+                (pl, p, m, pc) => pl.FK_LocationId == location.Id && p.Id == pl.FK_ProductId && m.Id == p.FK_ManufacturerId
+                && pc.Title == p.FK_ProductCategoryTitle;
+            return DataObjectFactory.Select<Product>(ex);
+        }
     }
 }

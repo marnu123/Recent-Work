@@ -49,7 +49,7 @@ namespace PresentationLayer
             temp = q.First();
 
             frmLocationDetails frm = new frmLocationDetails(ref temp);
-            Utils.showForm(this, frm, dgvLocation, () =>
+            Utils.ShowForm(this, frm, dgvLocation, () =>
             {
                 //Refresh list
                 person.RefreshLocations();
@@ -62,7 +62,7 @@ namespace PresentationLayer
         {
             Location temp = new Location();
             frmLocationDetails frm = new frmLocationDetails(ref temp);
-            Utils.showForm(this, frm, dgvLocation, () =>
+            Utils.ShowForm(this, frm, dgvLocation, () =>
             {
                 //Refresh list
                 person.RefreshLocations();

@@ -4,11 +4,12 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
     [Table("tblproductcategory")]
-    public class ProductCategory : DataObject
+    public class ProductCategory : DataObject, IValidatable<ProductCategory>
     {
         private string title;
         private string description;
@@ -18,6 +19,8 @@ namespace BusinessLayer.Classes
             Title = title;
             Description = description;
         }
+
+        public ProductCategory() { }
 
         public ProductCategory(DataRow dataRow)
         {
@@ -39,6 +42,11 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return "Title: " + Title + " Description: " + Description;
+        }
+
+        public bool Validate(IValidator<ProductCategory> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

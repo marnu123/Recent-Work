@@ -190,5 +190,17 @@ namespace PresentationLayer
             cmbCity.DataBindings.Clear();
             cmbStreet.DataBindings.Clear();
         }
+
+        private void btnManageProducts_Click(object sender, EventArgs e)
+        {
+            List<Product> products = ComplexQueryHelper.GetProductsForLocation(location);
+            frmProduct frm = new frmProduct(ref location, ref products);
+            frm.FormClosed += (s, eventArgs) =>
+            {
+                Show();
+            };
+            frm.Show();
+            Hide();
+        }
     }
 }

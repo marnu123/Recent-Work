@@ -80,12 +80,15 @@
     <Compile Include="Validators\ClientIDValidator.cs" />
     <Compile Include="Validators\ClientValidator.cs" />
     <Compile Include="Validators\LocationValidator.cs" />
+    <Compile Include="Validators\ManufacturerValidator.cs" />
     <Compile Include="Validators\NotificationTypeValidator.cs" />
     <Compile Include="Validators\EmployeeTypeValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\IValidatable.cs" />
     <Compile Include="Validators\IValidator.cs" />
     <Compile Include="Validators\PersonValidator.cs" />
+    <Compile Include="Validators\ProductCategoryValidator.cs" />
+    <Compile Include="Validators\ProductValidator.cs" />
     <Compile Include="Validators\StreetValidator.cs" />
     <Compile Include="Validators\Validator.cs" />
     <Compile Include="Validators\ValidatorFactory.cs" />

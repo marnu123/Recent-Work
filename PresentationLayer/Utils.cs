@@ -9,7 +9,7 @@ namespace PresentationLayer
 {
     class Utils
     {
-        public static void showForm(Form sender, Form form, DataGridView dgvToRefresh, Action refreshMethod)
+        public static void ShowForm(Form sender, Form form, DataGridView dgvToRefresh, Action refreshMethod)
         {
             form.Show();
             form.FormClosed += (Sender, E) =>
