@@ -30,11 +30,20 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnManageComponents = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.b = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lstError = new System.Windows.Forms.ListBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtSerial = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmbManufacturer = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dtpDateAdded = new System.Windows.Forms.DateTimePicker();
             this.nudPrice = new System.Windows.Forms.NumericUpDown();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
@@ -69,14 +78,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
-            this.dtpDateAdded = new System.Windows.Forms.DateTimePicker();
-            this.cmbManufacturer = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtSerial = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -97,11 +102,12 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1108, 514);
+            this.tabControl1.Size = new System.Drawing.Size(1108, 597);
             this.tabControl1.TabIndex = 26;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnManageComponents);
             this.tabPage1.Controls.Add(this.btnCancel);
             this.tabPage1.Controls.Add(this.b);
             this.tabPage1.Controls.Add(this.btnDelete);
@@ -110,14 +116,24 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1100, 488);
+            this.tabPage1.Size = new System.Drawing.Size(1100, 571);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Product";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnManageComponents
+            // 
+            this.btnManageComponents.Location = new System.Drawing.Point(17, 450);
+            this.btnManageComponents.Name = "btnManageComponents";
+            this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
+            this.btnManageComponents.TabIndex = 30;
+            this.btnManageComponents.Text = "Manage Components";
+            this.btnManageComponents.UseVisualStyleBackColor = true;
+            this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
+            // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(17, 450);
+            this.btnCancel.Location = new System.Drawing.Point(17, 479);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(254, 23);
             this.btnCancel.TabIndex = 29;
@@ -157,6 +173,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.txtSerial);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.cmbManufacturer);
@@ -176,6 +193,77 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 412);
             this.panel1.TabIndex = 5;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.lstError);
+            this.panel5.Controls.Add(this.label15);
+            this.panel5.Location = new System.Drawing.Point(492, 15);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(240, 250);
+            this.panel5.TabIndex = 22;
+            // 
+            // lstError
+            // 
+            this.lstError.FormattingEnabled = true;
+            this.lstError.Location = new System.Drawing.Point(15, 32);
+            this.lstError.Name = "lstError";
+            this.lstError.Size = new System.Drawing.Size(210, 199);
+            this.lstError.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(12, 11);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(81, 18);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Error Box";
+            // 
+            // txtSerial
+            // 
+            this.txtSerial.Location = new System.Drawing.Point(17, 59);
+            this.txtSerial.Name = "txtSerial";
+            this.txtSerial.Size = new System.Drawing.Size(157, 20);
+            this.txtSerial.TabIndex = 21;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(14, 43);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(73, 13);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "Serial Number";
+            // 
+            // cmbManufacturer
+            // 
+            this.cmbManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbManufacturer.FormattingEnabled = true;
+            this.cmbManufacturer.Location = new System.Drawing.Point(17, 345);
+            this.cmbManufacturer.Name = "cmbManufacturer";
+            this.cmbManufacturer.Size = new System.Drawing.Size(157, 21);
+            this.cmbManufacturer.TabIndex = 19;
+            this.cmbManufacturer.SelectedIndexChanged += new System.EventHandler(this.cmbManufacturer_SelectedIndexChanged);
+            this.cmbManufacturer.TextChanged += new System.EventHandler(this.cmbManufacturer_TextChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(14, 329);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(70, 13);
+            this.label13.TabIndex = 18;
+            this.label13.Text = "Manufacturer";
+            // 
+            // dtpDateAdded
+            // 
+            this.dtpDateAdded.Location = new System.Drawing.Point(17, 245);
+            this.dtpDateAdded.Name = "dtpDateAdded";
+            this.dtpDateAdded.Size = new System.Drawing.Size(200, 20);
+            this.dtpDateAdded.TabIndex = 17;
             // 
             // nudPrice
             // 
@@ -275,7 +363,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1100, 488);
+            this.tabPage2.Size = new System.Drawing.Size(1100, 571);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Components";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -475,55 +563,11 @@
             this.button9.Text = "Save";
             this.button9.UseVisualStyleBackColor = true;
             // 
-            // dtpDateAdded
-            // 
-            this.dtpDateAdded.Location = new System.Drawing.Point(17, 245);
-            this.dtpDateAdded.Name = "dtpDateAdded";
-            this.dtpDateAdded.Size = new System.Drawing.Size(200, 20);
-            this.dtpDateAdded.TabIndex = 17;
-            // 
-            // cmbManufacturer
-            // 
-            this.cmbManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cmbManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmbManufacturer.FormattingEnabled = true;
-            this.cmbManufacturer.Location = new System.Drawing.Point(17, 345);
-            this.cmbManufacturer.Name = "cmbManufacturer";
-            this.cmbManufacturer.Size = new System.Drawing.Size(157, 21);
-            this.cmbManufacturer.TabIndex = 19;
-            this.cmbManufacturer.SelectedIndexChanged += new System.EventHandler(this.cmbManufacturer_SelectedIndexChanged);
-            this.cmbManufacturer.TextChanged += new System.EventHandler(this.cmbManufacturer_TextChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(14, 329);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(70, 13);
-            this.label13.TabIndex = 18;
-            this.label13.Text = "Manufacturer";
-            // 
-            // txtSerial
-            // 
-            this.txtSerial.Location = new System.Drawing.Point(17, 59);
-            this.txtSerial.Name = "txtSerial";
-            this.txtSerial.Size = new System.Drawing.Size(157, 20);
-            this.txtSerial.TabIndex = 21;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(14, 43);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(73, 13);
-            this.label14.TabIndex = 20;
-            this.label14.Text = "Serial Number";
-            // 
             // frmProductDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1109, 509);
+            this.ClientSize = new System.Drawing.Size(1109, 592);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmProductDetails";
             this.Text = "frmProductDetails";
@@ -531,6 +575,8 @@
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -595,5 +641,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbManufacturer;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.ListBox lstError;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnManageComponents;
     }
 }

@@ -52,6 +52,18 @@
     <Compile Include="frmComponent.Designer.cs">
       <DependentUpon>frmComponent.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmComponentDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmComponentDetails.Designer.cs">
+      <DependentUpon>frmComponentDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfigurationDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfigurationDetails.Designer.cs">
+      <DependentUpon>frmConfigurationDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLocationDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +124,12 @@
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="frmComponent.resx">
       <DependentUpon>frmComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmComponentDetails.resx">
+      <DependentUpon>frmComponentDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfigurationDetails.resx">
+      <DependentUpon>frmConfigurationDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLocationDetails.resx">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>

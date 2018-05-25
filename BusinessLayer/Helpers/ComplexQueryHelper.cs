@@ -29,5 +29,19 @@ namespace BusinessLayer.Helpers
                 && pc.Title == p.FK_ProductCategoryTitle;
             return DataObjectFactory.Select<Product>(ex);
         }
+
+        public static void AddConfigurationsForComponent(Component component, List<Configuration> itemsToAdd)
+        {
+            //List<Component_Configuration> itemsToSave = new List<Component_Configuration>();
+            //Insert all items into the database
+            itemsToAdd.ForEach(item => new Component_Configuration(component.Id, item.PK_ConfigurationID).Insert());
+        }
+
+        public static List<Component> GetComponentsForProduct(Product product)
+        {
+            string id = product.Id;
+            Expression<Func<Option, Component, object>> ex = (o, c) => o.FK_ProductID == id && c.Id == o.FK_ComponentID;
+            return DatabaseHelper.Select<Component>(ex);
+        }
     }
 }

@@ -14,7 +14,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
-
+    [Serializable]
     [Table("tblperson")]
     public class Person : DataObject, IValidatable<Person>
     {
@@ -108,16 +108,5 @@ namespace BusinessLayer.Classes
         {
             return validator.IsValid(this, out brokenRules);
         }
-
-        /*public static void UpdatePeople(List<Person> people)
-        {
-            DataTable dt = new DataTable();
-
-
-            foreach (Person p in people)
-            {
-
-            }
-        }*/
     }
 }

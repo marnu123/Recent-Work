@@ -50,6 +50,8 @@
     <Compile Include="StoredProcedures\IsUniqueEmail.cs" />
     <Compile Include="StoredProcedures\StoredProcedureHelper.cs" />
     <Compile Include="Validators\CityValidator.cs" />
+    <Compile Include="Validators\ComponentValidator.cs" />
+    <Compile Include="Validators\ConfigurationValidator.cs" />
     <Compile Include="Validators\ContractIDValidator.cs" />
     <Compile Include="Entities\ContractType.cs" />
     <Compile Include="Entities\ClientID.cs" />

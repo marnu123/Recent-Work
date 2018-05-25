@@ -8,6 +8,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblmanufacturer")]
     public class Manufacturer : DataObject, IValidatable<Manufacturer>
     {

@@ -32,4 +32,21 @@ namespace SHSTests
             Assert.AreEqual(true, list.Count > 0);
         }
     }
+
+    [TestClass]
+    public class ComponentSelectTest
+    {
+        [TestMethod]
+        public void SelectComponentTest()
+        {
+            List<Component> comps = Component.Select();
+            Assert.AreEqual(true, comps.Count > 0);
+
+            if (comps.Count > 0)
+            {
+                Component c = comps[0];
+                Assert.AreEqual(true, c.Configurations.Count > 0);
+            }
+        }
+    }
 }

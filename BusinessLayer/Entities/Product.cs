@@ -4,11 +4,13 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblproduct")]
-    public class Product : DataObject
+    public class Product : DataObject, IValidatable<Product>
     {
         private string id;
         private string name;
@@ -63,7 +65,22 @@ namespace BusinessLayer.Classes
         public double Price { get => price; set => price = value; }
         [Column("DateAdded")]
         public DateTime DateAdded { get => dateAdded; set => dateAdded = value; }
-        public List<Component> Components { get => components; set => components = value; }
+        public List<Component> Components
+        {
+            get
+            {
+                if (components == null)
+                {
+                    string id = Id;
+                    Expression<Func<Component, Option, object>> ex =
+                        (c, o) => c.Id == o.FK_ComponentID && o.FK_ProductID == id;
+                    components = DatabaseHelper.Select<Component>(ex);
+                }
+
+                return components;
+            }
+            set => components = value;
+        }
         public ProductCategory ProductCategory
         {
             get
@@ -117,6 +134,11 @@ namespace BusinessLayer.Classes
         {
             return "ID: " + Id + " Name: " + Name + " Description: " + Description + " Price: " + Price.ToString() +
                 " DateAdded: " + DateAdded.ToString();
+        }
+
+        public bool Validate(IValidator<Product> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

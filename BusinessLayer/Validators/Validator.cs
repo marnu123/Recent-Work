@@ -26,6 +26,9 @@ namespace BusinessLayer.Validators
                 return Street.Select(s => s.AreaCode == street.AreaCode && s.FK_CityID == street.FK_CityID
                 && s.Name == street.Name).Count == 0;
             }
+            if (typeof(T) == typeof(Manufacturer)) return Manufacturer.Select(m => m.Name == (entity as Manufacturer).Name).Count == 0;
+            if (typeof(T) == typeof(ProductCategory)) return ProductCategory.Select(p => p.Title == (entity as ProductCategory).Title).Count == 0;
+            if (typeof(T) == typeof(Product)) return Product.Select(p => p.Id == (entity as Product).Id).Count == 0;
 
             return true;
         }

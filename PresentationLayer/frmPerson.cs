@@ -57,13 +57,16 @@ namespace PresentationLayer
 
         private void dgvClients_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string id = dgvClients.Rows[e.RowIndex].Cells["ClientId"].Value.ToString();
-            Client temp = null;
-            var q = from c in clients where c.ClientId == id select c;
-            temp = q.First();
+            if (e.RowIndex > -1)
+            {
+                string id = dgvClients.Rows[e.RowIndex].Cells["ClientId"].Value.ToString();
+                Client temp = null;
+                var q = from c in clients where c.ClientId == id select c;
+                temp = q.First();
 
-            frmPersonDetails frm = new frmPersonDetails(ref temp);
-            Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
+                frmPersonDetails frm = new frmPersonDetails(ref temp);
+                Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
+            }
         }
 
         private void dgvEmployees_CellClick(object sender, DataGridViewCellEventArgs e)

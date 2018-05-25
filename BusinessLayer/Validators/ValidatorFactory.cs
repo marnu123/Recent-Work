@@ -21,6 +21,8 @@ namespace BusinessLayer.Validators
             if (typeof(T) == typeof(City)) return (IValidator<T>)new CityValidator();
             if (typeof(T) == typeof(Street)) return (IValidator<T>)new StreetValidator();
             if (typeof(T) == typeof(Location)) return (IValidator<T>)new LocationValidator();
+            if (typeof(T) == typeof(Component)) return (IValidator<T>)new ComponentValidator();
+            if (typeof(T) == typeof(Configuration)) return (IValidator<T>)new ConfigurationValidator();
 
             throw new ArgumentException("T does not implement IValidate<T>");
         }

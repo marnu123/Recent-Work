@@ -4,11 +4,13 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblconfiguration")]
-    public class Configuration : DataObject
+    public class Configuration : DataObject, IValidatable<Configuration>
     {
         private string pK_ConfigurationID;
         private string title;
@@ -20,6 +22,8 @@ namespace BusinessLayer.Classes
             Title = title;
             Value = value;
         }
+
+        public Configuration() { }
 
         public Configuration(DataRow dataRow)
         {
@@ -36,9 +40,19 @@ namespace BusinessLayer.Classes
         [Column("Value")]
         public string Value { get => value; set => this.value = value; }
 
+        public static List<Configuration> Select(params Expression<Func<Configuration, object>>[] expression)
+        {
+            return DatabaseHelper.Select<Configuration>(expression);
+        }
+
         public override string ToString()
         {
             return "PK_ConfigurationID: " + PK_ConfigurationID + " Title: " + Title + " Value: " + Value;
+        }
+
+        public bool Validate(IValidator<Configuration> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }
