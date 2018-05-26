@@ -15,14 +15,16 @@ namespace BusinessLayer.Classes
     [Table("tblcity")]
     public class City: DataObject, IValidatable<City>
     {
-        private int id;
-        private string name;
+        private int id = 0;
+        private string name = "";
 
         public City(int id, string name)
         {
             Id = id;
             Name = name;
         }
+
+        public City() { }
 
         public City(DataRow dataRow)
         {

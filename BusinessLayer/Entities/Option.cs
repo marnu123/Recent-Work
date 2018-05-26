@@ -12,20 +12,20 @@ namespace BusinessLayer.Classes
     {
         private string fK_ProductID;
         private string fK_ComponentID;
-        private int quantity;
+        //private int quantity;
 
-        public Option(string fK_ProductID, string fK_ComponentID, int quantity)
+        public Option(string fK_ProductID, string fK_ComponentID/*, int quantity*/)
         {
             FK_ProductID = fK_ProductID;
             FK_ComponentID = fK_ComponentID;
-            Quantity = quantity;
+            //Quantity = quantity;
         }
 
         public Option(DataRow dataRow)
         {
             FK_ProductID = dataRow["FK_ProductID"].ToString();
             FK_ComponentID = dataRow["FK_ComponentID"].ToString();
-            Quantity = Convert.ToInt32(dataRow["Quantity"]);
+            //Quantity = Convert.ToInt32(dataRow["Quantity"]);
         }
 
         [ForeignKey(typeof(Product))]
@@ -34,12 +34,12 @@ namespace BusinessLayer.Classes
         [ForeignKey(typeof(Component))]
         [Column("FK_ComponentID")]
         public string FK_ComponentID { get => fK_ComponentID; set => fK_ComponentID = value; }
-        [Column("Quantity")]
-        public int Quantity { get => quantity; set => quantity = value; }
+        //[Column("Quantity")]
+        //public int Quantity { get => quantity; set => quantity = value; }
 
         public override string ToString()
         {
-            return "FK_ProductID: " + FK_ProductID + " FK_ComponentID: " + FK_ComponentID + " Quantity: " + Quantity;
+            return "FK_ProductID: " + FK_ProductID + " FK_ComponentID: " + FK_ComponentID;// + " Quantity: " + Quantity;
         }
     }
 }

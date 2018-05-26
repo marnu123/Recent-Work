@@ -45,9 +45,33 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabLocation = new System.Windows.Forms.TabPage();
+            this.tabProducts = new System.Windows.Forms.TabPage();
             this.btnManageProducts = new System.Windows.Forms.Button();
+            this.btnCancelLists = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnRemoveUsed = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnAddAvailable = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.dgvAvailable = new System.Windows.Forms.DataGridView();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.dgvUsed = new System.Windows.Forms.DataGridView();
+            this.label16 = new System.Windows.Forms.Label();
+            this.btnSaveLists = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabLocation.SuspendLayout();
+            this.tabProducts.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAvailable)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsed)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -62,7 +86,7 @@
             this.panel1.Controls.Add(this.txtHouseNumber);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 254);
             this.panel1.TabIndex = 3;
@@ -102,7 +126,7 @@
             this.cmbCity.Name = "cmbCity";
             this.cmbCity.Size = new System.Drawing.Size(157, 21);
             this.cmbCity.TabIndex = 11;
-            this.cmbCity.SelectedIndexChanged += new System.EventHandler(this.cmbCity_SelectedIndexChanged);
+            this.cmbCity.SelectionChangeCommitted += new System.EventHandler(this.cmbCity_SelectedIndexChanged);
             this.cmbCity.TextChanged += new System.EventHandler(this.cmbCity_TextChanged);
             // 
             // cmbStreet
@@ -113,7 +137,7 @@
             this.cmbStreet.Name = "cmbStreet";
             this.cmbStreet.Size = new System.Drawing.Size(157, 21);
             this.cmbStreet.TabIndex = 10;
-            this.cmbStreet.SelectedIndexChanged += new System.EventHandler(this.cmbStreet_SelectedIndexChanged);
+            this.cmbStreet.SelectionChangeCommitted += new System.EventHandler(this.cmbStreet_SelectedIndexChanged);
             this.cmbStreet.TextChanged += new System.EventHandler(this.cmbStreet_TextChanged);
             // 
             // label5
@@ -178,7 +202,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(29, 314);
+            this.btnCancel.Location = new System.Drawing.Point(23, 308);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(254, 23);
             this.btnCancel.TabIndex = 21;
@@ -188,7 +212,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(118, 285);
+            this.btnEdit.Location = new System.Drawing.Point(112, 279);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 20;
@@ -198,7 +222,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(208, 285);
+            this.btnDelete.Location = new System.Drawing.Point(202, 279);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 19;
@@ -208,7 +232,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(29, 285);
+            this.btnSave.Location = new System.Drawing.Point(23, 279);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 18;
@@ -216,33 +240,209 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.button1_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabLocation);
+            this.tabControl1.Controls.Add(this.tabProducts);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1134, 595);
+            this.tabControl1.TabIndex = 23;
+            // 
+            // tabLocation
+            // 
+            this.tabLocation.Controls.Add(this.panel1);
+            this.tabLocation.Controls.Add(this.btnSave);
+            this.tabLocation.Controls.Add(this.btnCancel);
+            this.tabLocation.Controls.Add(this.btnDelete);
+            this.tabLocation.Controls.Add(this.btnEdit);
+            this.tabLocation.Location = new System.Drawing.Point(4, 22);
+            this.tabLocation.Name = "tabLocation";
+            this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLocation.Size = new System.Drawing.Size(1126, 569);
+            this.tabLocation.TabIndex = 0;
+            this.tabLocation.Text = "Location";
+            this.tabLocation.UseVisualStyleBackColor = true;
+            // 
+            // tabProducts
+            // 
+            this.tabProducts.Controls.Add(this.btnManageProducts);
+            this.tabProducts.Controls.Add(this.btnCancelLists);
+            this.tabProducts.Controls.Add(this.panel3);
+            this.tabProducts.Controls.Add(this.btnSaveLists);
+            this.tabProducts.Location = new System.Drawing.Point(4, 22);
+            this.tabProducts.Name = "tabProducts";
+            this.tabProducts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProducts.Size = new System.Drawing.Size(1126, 569);
+            this.tabProducts.TabIndex = 1;
+            this.tabProducts.Text = "Products";
+            this.tabProducts.UseVisualStyleBackColor = true;
+            this.tabProducts.Enter += new System.EventHandler(this.tabProducts_Enter);
+            // 
             // btnManageProducts
             // 
-            this.btnManageProducts.Location = new System.Drawing.Point(29, 343);
+            this.btnManageProducts.Location = new System.Drawing.Point(21, 419);
             this.btnManageProducts.Name = "btnManageProducts";
             this.btnManageProducts.Size = new System.Drawing.Size(254, 23);
-            this.btnManageProducts.TabIndex = 22;
+            this.btnManageProducts.TabIndex = 39;
             this.btnManageProducts.Text = "Manage Products";
             this.btnManageProducts.UseVisualStyleBackColor = true;
             this.btnManageProducts.Click += new System.EventHandler(this.btnManageProducts_Click);
+            // 
+            // btnCancelLists
+            // 
+            this.btnCancelLists.Location = new System.Drawing.Point(150, 390);
+            this.btnCancelLists.Name = "btnCancelLists";
+            this.btnCancelLists.Size = new System.Drawing.Size(125, 23);
+            this.btnCancelLists.TabIndex = 38;
+            this.btnCancelLists.Text = "Cancel";
+            this.btnCancelLists.UseVisualStyleBackColor = true;
+            this.btnCancelLists.Click += new System.EventHandler(this.btnCancelLists_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnRemoveUsed);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.btnAddAvailable);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Location = new System.Drawing.Point(8, 6);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1088, 378);
+            this.panel3.TabIndex = 36;
+            // 
+            // btnRemoveUsed
+            // 
+            this.btnRemoveUsed.Location = new System.Drawing.Point(503, 174);
+            this.btnRemoveUsed.Name = "btnRemoveUsed";
+            this.btnRemoveUsed.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveUsed.TabIndex = 31;
+            this.btnRemoveUsed.Text = "Remove ->";
+            this.btnRemoveUsed.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(13, 33);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(218, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Select an available location and click \"Add\" ";
+            // 
+            // btnAddAvailable
+            // 
+            this.btnAddAvailable.Location = new System.Drawing.Point(503, 134);
+            this.btnAddAvailable.Name = "btnAddAvailable";
+            this.btnAddAvailable.Size = new System.Drawing.Size(75, 23);
+            this.btnAddAvailable.TabIndex = 26;
+            this.btnAddAvailable.Text = "<- Add";
+            this.btnAddAvailable.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.dgvAvailable);
+            this.panel4.Location = new System.Drawing.Point(588, 64);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(484, 306);
+            this.panel4.TabIndex = 25;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(11, 10);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(143, 17);
+            this.label14.TabIndex = 24;
+            this.label14.Text = "Available Products";
+            // 
+            // dgvAvailable
+            // 
+            this.dgvAvailable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAvailable.Location = new System.Drawing.Point(14, 30);
+            this.dgvAvailable.Name = "dgvAvailable";
+            this.dgvAvailable.Size = new System.Drawing.Size(424, 180);
+            this.dgvAvailable.TabIndex = 23;
+            this.dgvAvailable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsed_CellClick);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.label15);
+            this.panel5.Controls.Add(this.dgvUsed);
+            this.panel5.Location = new System.Drawing.Point(13, 64);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(484, 306);
+            this.panel5.TabIndex = 24;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(11, 10);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(114, 17);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Used Products";
+            // 
+            // dgvUsed
+            // 
+            this.dgvUsed.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsed.Location = new System.Drawing.Point(14, 30);
+            this.dgvUsed.Name = "dgvUsed";
+            this.dgvUsed.Size = new System.Drawing.Size(424, 180);
+            this.dgvUsed.TabIndex = 23;
+            this.dgvUsed.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsed_CellClick);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(9, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(175, 20);
+            this.label16.TabIndex = 23;
+            this.label16.Text = "Products at Location";
+            // 
+            // btnSaveLists
+            // 
+            this.btnSaveLists.Location = new System.Drawing.Point(21, 390);
+            this.btnSaveLists.Name = "btnSaveLists";
+            this.btnSaveLists.Size = new System.Drawing.Size(123, 23);
+            this.btnSaveLists.TabIndex = 37;
+            this.btnSaveLists.Text = "Save";
+            this.btnSaveLists.UseVisualStyleBackColor = true;
+            this.btnSaveLists.Click += new System.EventHandler(this.btnSaveLists_Click);
             // 
             // frmLocationDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnManageProducts);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1129, 591);
+            this.Controls.Add(this.tabControl1);
             this.Name = "frmLocationDetails";
             this.Text = "Location";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabLocation.ResumeLayout(false);
+            this.tabProducts.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAvailable)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,9 +463,25 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnManageProducts;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListBox lstError;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabLocation;
+        private System.Windows.Forms.TabPage tabProducts;
+        private System.Windows.Forms.Button btnCancelLists;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnRemoveUsed;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnAddAvailable;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DataGridView dgvAvailable;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DataGridView dgvUsed;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btnSaveLists;
+        private System.Windows.Forms.Button btnManageProducts;
     }
 }

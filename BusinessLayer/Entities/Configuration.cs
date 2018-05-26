@@ -50,6 +50,19 @@ namespace BusinessLayer.Classes
             return "PK_ConfigurationID: " + PK_ConfigurationID + " Title: " + Title + " Value: " + Value;
         }
 
+        public override bool Equals(object obj)
+        {
+            Configuration temp = obj as Configuration;
+            if (obj == null) return false;
+
+            return pK_ConfigurationID == temp.pK_ConfigurationID && Title == temp.Title && temp.Value == Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return PK_ConfigurationID.GetHashCode() ^ Title.GetHashCode() ^ Value.GetHashCode();
+        }
+
         public bool Validate(IValidator<Configuration> validator, out IEnumerable<string> brokenRules)
         {
             return validator.IsValid(this, out brokenRules);

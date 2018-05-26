@@ -21,31 +21,33 @@ namespace PresentationLayer
         Location oldCopy;
         List<City> cities;
         List<Street> streets;
+        List<Product> available;
         bool newStreet = false;
         bool newCity = false;
         bool edit;
         bool insert;
 
-        public frmLocationDetails(ref Location location, bool edit = false, bool insert = false)
-            :this(location, edit, insert) {}
+        public frmLocationDetails(ref Location location, bool insert = false)
+            :this(location, insert) {}
 
-        private frmLocationDetails(Location location, bool edit = false, bool insert = false)
+        private frmLocationDetails(Location location, bool insert = false)
         {
             InitializeComponent();
             this.location = location;
-            oldCopy = new Location();
             location.DeepCopyInto(ref oldCopy);
-            this.edit = edit;
+            this.edit = insert;
             this.insert = insert;
 
             initializeComboBoxes();
             bindFields(location);
-            toggleControlsEnable(edit || insert);
+            toggleControlsEnable(insert);
+            addProductColumns(dgvAvailable);
+            addProductColumns(dgvUsed);
         }
 
         //If a person's locations are being managed, save these details to the original person object
         public frmLocationDetails(ref Person person, ref Location location, bool edit = false, bool insert = false)
-            :this(location, edit, insert)
+            :this(location, insert)
         {
             this.person = person;
         }
@@ -56,8 +58,11 @@ namespace PresentationLayer
             streets = Street.Select();
             bindComboBox(cmbCity, new BindingList<City>(cities), "Name", "Id");
             bindComboBox(cmbStreet, new BindingList<Street>(streets), "Name", "Id");
-            cmbStreet.SelectedIndex = -1;
-            cmbCity.SelectedIndex = -1;
+            if (!insert)
+            {
+                cmbStreet.SelectedIndex = -1;
+                cmbCity.SelectedIndex = -1;
+            }
         }
 
         private void bindFields(Location location)
@@ -108,6 +113,7 @@ namespace PresentationLayer
         private void cmbCity_TextChanged(object sender, EventArgs e)
         {
             newCity = true;
+            cmbCity_SelectedIndexChanged(sender, e);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -115,18 +121,28 @@ namespace PresentationLayer
             IEnumerable<string> brokenRules;
             string msg = "Invalid input.  Please check the Error box";
 
-            if ((newCity || location.Street.City.IsUnique())
-                && location.Street.City.Validate(out brokenRules))
+            if (newCity)
             {
-                location.Street.City.Insert();
-                location.Street.FK_CityID = location.Street.City.Id;
+                City c = new City(0, cmbCity.Text);
+                if (c.IsUnique() && c.Validate(out brokenRules))
+                {
+                    c.Insert();
+                    location.Street.City = c;
+                    location.Street.FK_CityID = c.Id;
+                }
             }
 
-            if ((newStreet || location.Street.IsUnique())
-                && location.Street.Validate(out brokenRules))
+            if (newStreet)
             {
-                location.Street.Insert();
-                location.FK_StreetID = location.Street.Id;
+                Street s = new Street(0, cmbStreet.Text, txtAreaCode.Text, location.Street.City);
+                s.FK_CityID = location.Street.City.Id;
+
+                if (s.IsUnique() && s.Validate(out brokenRules))
+                {
+                    s.Insert();
+                    location.Street = s;
+                    location.FK_StreetID = s.Id;
+                }
             }
 
             if (location.Validate(out brokenRules))
@@ -170,7 +186,7 @@ namespace PresentationLayer
             if (res == DialogResult.Yes)
             {
                 location.Delete();
-                MessageBox.Show("Location Deleted");
+                Close();
             }
         }
 
@@ -194,13 +210,74 @@ namespace PresentationLayer
         private void btnManageProducts_Click(object sender, EventArgs e)
         {
             List<Product> products = ComplexQueryHelper.GetProductsForLocation(location);
-            frmProduct frm = new frmProduct(ref location, ref products);
+            frmProduct frm = new frmProduct();
             frm.FormClosed += (s, eventArgs) =>
             {
                 Show();
             };
             frm.Show();
             Hide();
+        }
+
+        private void dgvUsed_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView temp = sender as DataGridView;
+            temp.ClearSelection();
+            temp.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void tabProducts_Enter(object sender, EventArgs e)
+        {
+            if (available == null) available = Product.Select();
+            bindList(dgvAvailable, available);
+            bindList(dgvUsed, location.Products);
+            btnAddAvailable.Enabled = false;
+            btnRemoveUsed.Enabled = false;
+        }
+
+        private void bindList<T>(DataGridView dgv, List<T> list)
+        {
+            dgv.DataSource = new AggregatedPropertyBindingList<T>(list);
+        }
+
+        private void addProductColumns(DataGridView dataGridView)
+        {
+            dataGridView.AutoGenerateColumns = false;
+            dataGridView.Columns.Add("Id", "Id");
+            dataGridView.Columns["Id"].DataPropertyName = "Id";
+            //dgvLocation.Columns["Id"].DataPropertyName = "Street->Name";
+            dataGridView.Columns.Add("Name", "Name");
+            dataGridView.Columns["Name"].DataPropertyName = "Name";
+
+            dataGridView.Columns.Add("Price", "Price");
+            dataGridView.Columns["Price"].DataPropertyName = "Price";
+
+            dataGridView.Columns.Add("DateAdded", "Date Added");
+            dataGridView.Columns["DateAdded"].DataPropertyName = "DateAdded";
+
+            dataGridView.Columns.Add("ProductCategory", "Category");
+            dataGridView.Columns["ProductCategory"].DataPropertyName = "ProductCategory->Title";
+
+            dataGridView.Columns.Add("Manufacturer", "Manufacturer");
+            dataGridView.Columns["Manufacturer"].DataPropertyName = "Manufacturer->Name";
+
+            dataGridView.Columns.Add("Model", "Model");
+            dataGridView.Columns["Model"].DataPropertyName = "Model";
+        }
+
+        private void btnCancelLists_Click(object sender, EventArgs e)
+        {
+            List<Product> temp = location.Products;
+            location.Products.DeepCopyInto(ref temp);
+            available = Product.Select();
+            bindList(dgvAvailable, available);
+            bindList(dgvUsed, location.Products);
+        }
+
+        private void btnSaveLists_Click(object sender, EventArgs e)
+        {
+            List<Product> diff = Utils.GetDifference(location.Products, oldCopy.Products);
+            ComplexQueryHelper.AddProductsForLocation(location, diff);
         }
     }
 }

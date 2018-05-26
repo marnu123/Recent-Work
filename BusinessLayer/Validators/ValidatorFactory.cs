@@ -23,6 +23,9 @@ namespace BusinessLayer.Validators
             if (typeof(T) == typeof(Location)) return (IValidator<T>)new LocationValidator();
             if (typeof(T) == typeof(Component)) return (IValidator<T>)new ComponentValidator();
             if (typeof(T) == typeof(Configuration)) return (IValidator<T>)new ConfigurationValidator();
+            if (typeof(T) == typeof(Product)) return (IValidator<T>)new ProductValidator();
+            if (typeof(T) == typeof(ProductCategory)) return (IValidator<T>)new ProductCategoryValidator();
+            if (typeof(T) == typeof(Manufacturer)) return (IValidator<T>)new ManufacturerValidator();
 
             throw new ArgumentException("T does not implement IValidate<T>");
         }

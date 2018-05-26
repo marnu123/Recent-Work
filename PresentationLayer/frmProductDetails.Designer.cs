@@ -30,7 +30,6 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnManageComponents = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.b = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -54,42 +53,33 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabComponents = new System.Windows.Forms.TabPage();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
+            this.btnRemoveComponent = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAddComponent = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvAvailableComponents = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvUsedComponents = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
+            this.btnManageComponents = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.tabComponents.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAvailableComponents)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsedComponents)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -98,7 +88,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabComponents);
             this.tabControl1.Location = new System.Drawing.Point(3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -107,7 +97,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.btnManageComponents);
             this.tabPage1.Controls.Add(this.btnCancel);
             this.tabPage1.Controls.Add(this.b);
             this.tabPage1.Controls.Add(this.btnDelete);
@@ -121,19 +110,9 @@
             this.tabPage1.Text = "Product";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnManageComponents
-            // 
-            this.btnManageComponents.Location = new System.Drawing.Point(17, 450);
-            this.btnManageComponents.Name = "btnManageComponents";
-            this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
-            this.btnManageComponents.TabIndex = 30;
-            this.btnManageComponents.Text = "Manage Components";
-            this.btnManageComponents.UseVisualStyleBackColor = true;
-            this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
-            // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(17, 479);
+            this.btnCancel.Location = new System.Drawing.Point(17, 450);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(254, 23);
             this.btnCancel.TabIndex = 29;
@@ -354,35 +333,37 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Product Details";
             // 
-            // tabPage2
+            // tabComponents
             // 
-            this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.panel2);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.button9);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1100, 571);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Components";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabComponents.Controls.Add(this.btnManageComponents);
+            this.tabComponents.Controls.Add(this.button5);
+            this.tabComponents.Controls.Add(this.panel2);
+            this.tabComponents.Controls.Add(this.label7);
+            this.tabComponents.Controls.Add(this.button9);
+            this.tabComponents.Location = new System.Drawing.Point(4, 22);
+            this.tabComponents.Name = "tabComponents";
+            this.tabComponents.Padding = new System.Windows.Forms.Padding(3);
+            this.tabComponents.Size = new System.Drawing.Size(1100, 571);
+            this.tabComponents.TabIndex = 1;
+            this.tabComponents.Text = "Components";
+            this.tabComponents.UseVisualStyleBackColor = true;
+            this.tabComponents.Enter += new System.EventHandler(this.tabComponents_Enter);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(100, 390);
+            this.button5.Location = new System.Drawing.Point(149, 390);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.Size = new System.Drawing.Size(124, 23);
             this.button5.TabIndex = 34;
             this.button5.Text = "Cancel";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.numericUpDown2);
-            this.panel2.Controls.Add(this.label12);
+            this.panel2.Controls.Add(this.btnRemoveComponent);
             this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.button4);
+            this.panel2.Controls.Add(this.btnAddComponent);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.label9);
@@ -391,26 +372,15 @@
             this.panel2.Size = new System.Drawing.Size(1088, 378);
             this.panel2.TabIndex = 22;
             // 
-            // numericUpDown2
+            // btnRemoveComponent
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(503, 188);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(75, 20);
-            this.numericUpDown2.TabIndex = 30;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(500, 171);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 29;
-            this.label12.Text = "Quantity";
+            this.btnRemoveComponent.Location = new System.Drawing.Point(503, 174);
+            this.btnRemoveComponent.Name = "btnRemoveComponent";
+            this.btnRemoveComponent.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveComponent.TabIndex = 31;
+            this.btnRemoveComponent.Text = "Remove ->";
+            this.btnRemoveComponent.UseVisualStyleBackColor = true;
+            this.btnRemoveComponent.Click += new System.EventHandler(this.btnRemoveComponent_Click);
             // 
             // label11
             // 
@@ -422,19 +392,20 @@
             this.label11.TabIndex = 28;
             this.label11.Text = "Select an available component and click \"Add\" ";
             // 
-            // button4
+            // btnAddComponent
             // 
-            this.button4.Location = new System.Drawing.Point(503, 134);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "<- Add";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnAddComponent.Location = new System.Drawing.Point(503, 134);
+            this.btnAddComponent.Name = "btnAddComponent";
+            this.btnAddComponent.Size = new System.Drawing.Size(75, 23);
+            this.btnAddComponent.TabIndex = 26;
+            this.btnAddComponent.Text = "<- Add";
+            this.btnAddComponent.UseVisualStyleBackColor = true;
+            this.btnAddComponent.Click += new System.EventHandler(this.btnAddComponent_Click);
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.dataGridView2);
+            this.panel4.Controls.Add(this.dgvAvailableComponents);
             this.panel4.Location = new System.Drawing.Point(588, 64);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(484, 306);
@@ -450,37 +421,20 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "Available Components";
             // 
-            // dataGridView2
+            // dgvAvailableComponents
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.Column3,
-            this.dataGridViewTextBoxColumn2});
-            this.dataGridView2.Location = new System.Drawing.Point(14, 30);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(424, 127);
-            this.dataGridView2.TabIndex = 23;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Title";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Description";
-            this.Column3.Name = "Column3";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Price";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dgvAvailableComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAvailableComponents.Location = new System.Drawing.Point(14, 30);
+            this.dgvAvailableComponents.Name = "dgvAvailableComponents";
+            this.dgvAvailableComponents.Size = new System.Drawing.Size(424, 180);
+            this.dgvAvailableComponents.TabIndex = 23;
+            this.dgvAvailableComponents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAvailableComponents_CellClick);
+            this.dgvAvailableComponents.SelectionChanged += new System.EventHandler(this.dgvAvailableComponents_SelectionChanged);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.dataGridView1);
+            this.panel3.Controls.Add(this.dgvUsedComponents);
             this.panel3.Location = new System.Drawing.Point(13, 64);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(484, 306);
@@ -496,44 +450,15 @@
             this.label8.TabIndex = 24;
             this.label8.Text = "Components Used in Product";
             // 
-            // dataGridView1
+            // dgvUsedComponents
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column6,
-            this.Column5,
-            this.Column4,
-            this.Column2});
-            this.dataGridView1.Location = new System.Drawing.Point(14, 30);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(424, 127);
-            this.dataGridView1.TabIndex = 23;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Title";
-            this.Column1.Name = "Column1";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Delete";
-            this.Column6.Name = "Column6";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Quantity";
-            this.Column5.Name = "Column5";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Description";
-            this.Column4.Name = "Column4";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Price";
-            this.Column2.Name = "Column2";
+            this.dgvUsedComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsedComponents.Location = new System.Drawing.Point(14, 30);
+            this.dgvUsedComponents.Name = "dgvUsedComponents";
+            this.dgvUsedComponents.Size = new System.Drawing.Size(424, 180);
+            this.dgvUsedComponents.TabIndex = 23;
+            this.dgvUsedComponents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAvailableComponents_CellClick);
+            this.dgvUsedComponents.SelectionChanged += new System.EventHandler(this.dgvUsedComponents_SelectionChanged);
             // 
             // label9
             // 
@@ -558,10 +483,21 @@
             // 
             this.button9.Location = new System.Drawing.Point(19, 390);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.Size = new System.Drawing.Size(124, 23);
             this.button9.TabIndex = 31;
             this.button9.Text = "Save";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // btnManageComponents
+            // 
+            this.btnManageComponents.Location = new System.Drawing.Point(19, 419);
+            this.btnManageComponents.Name = "btnManageComponents";
+            this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
+            this.btnManageComponents.TabIndex = 35;
+            this.btnManageComponents.Text = "Manage Components";
+            this.btnManageComponents.UseVisualStyleBackColor = true;
+            this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
             // 
             // frmProductDetails
             // 
@@ -578,17 +514,16 @@
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabComponents.ResumeLayout(false);
+            this.tabComponents.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAvailableComponents)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsedComponents)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -611,31 +546,21 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabComponents;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvUsedComponents;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dgvAvailableComponents;
         private System.Windows.Forms.NumericUpDown nudPrice;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnAddComponent;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DateTimePicker dtpDateAdded;
         private System.Windows.Forms.TextBox txtSerial;
         private System.Windows.Forms.Label label14;
@@ -644,6 +569,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.ListBox lstError;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnRemoveComponent;
         private System.Windows.Forms.Button btnManageComponents;
     }
 }

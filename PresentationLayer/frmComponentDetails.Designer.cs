@@ -46,17 +46,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabConfiguration = new System.Windows.Forms.TabPage();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.btnCancelConfig = new System.Windows.Forms.Button();
             this.btnSaveConfig = new System.Windows.Forms.Button();
             this.btnAddConfigToCurrent = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnViewConfiguration = new System.Windows.Forms.Button();
+            this.btnInsertConfiguration = new System.Windows.Forms.Button();
             this.dgvAvailableConfigurations = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvCurrentConfigurations = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnInsertConfiguration = new System.Windows.Forms.Button();
-            this.btnViewConfiguration = new System.Windows.Forms.Button();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tcComponent.SuspendLayout();
             this.tabComponent.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -129,25 +132,27 @@
             // 
             // btnComponentCancel
             // 
-            this.btnComponentCancel.Location = new System.Drawing.Point(17, 327);
+            this.btnComponentCancel.Location = new System.Drawing.Point(17, 382);
             this.btnComponentCancel.Name = "btnComponentCancel";
             this.btnComponentCancel.Size = new System.Drawing.Size(254, 23);
             this.btnComponentCancel.TabIndex = 26;
             this.btnComponentCancel.Text = "Cancel";
             this.btnComponentCancel.UseVisualStyleBackColor = true;
+            this.btnComponentCancel.Click += new System.EventHandler(this.btnComponentCancel_Click);
             // 
             // btnComponentEdit
             // 
-            this.btnComponentEdit.Location = new System.Drawing.Point(106, 298);
+            this.btnComponentEdit.Location = new System.Drawing.Point(106, 353);
             this.btnComponentEdit.Name = "btnComponentEdit";
             this.btnComponentEdit.Size = new System.Drawing.Size(75, 23);
             this.btnComponentEdit.TabIndex = 25;
             this.btnComponentEdit.Text = "Edit";
             this.btnComponentEdit.UseVisualStyleBackColor = true;
+            this.btnComponentEdit.Click += new System.EventHandler(this.btnComponentEdit_Click_1);
             // 
             // btnComponentDelete
             // 
-            this.btnComponentDelete.Location = new System.Drawing.Point(196, 298);
+            this.btnComponentDelete.Location = new System.Drawing.Point(196, 353);
             this.btnComponentDelete.Name = "btnComponentDelete";
             this.btnComponentDelete.Size = new System.Drawing.Size(75, 23);
             this.btnComponentDelete.TabIndex = 24;
@@ -157,15 +162,18 @@
             // 
             // btnComponentSave
             // 
-            this.btnComponentSave.Location = new System.Drawing.Point(17, 298);
+            this.btnComponentSave.Location = new System.Drawing.Point(17, 353);
             this.btnComponentSave.Name = "btnComponentSave";
             this.btnComponentSave.Size = new System.Drawing.Size(75, 23);
             this.btnComponentSave.TabIndex = 23;
             this.btnComponentSave.Text = "Save";
             this.btnComponentSave.UseVisualStyleBackColor = true;
+            this.btnComponentSave.Click += new System.EventHandler(this.btnComponentSave_Click);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtID);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.txtDescription);
             this.panel1.Controls.Add(this.txtPrice);
             this.panel1.Controls.Add(this.label4);
@@ -175,12 +183,12 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 275);
+            this.panel1.Size = new System.Drawing.Size(286, 347);
             this.panel1.TabIndex = 7;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(17, 111);
+            this.txtDescription.Location = new System.Drawing.Point(17, 156);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(157, 96);
             this.txtDescription.TabIndex = 17;
@@ -189,7 +197,7 @@
             // txtPrice
             // 
             this.txtPrice.DecimalPlaces = 2;
-            this.txtPrice.Location = new System.Drawing.Point(17, 237);
+            this.txtPrice.Location = new System.Drawing.Point(17, 282);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(157, 20);
             this.txtPrice.TabIndex = 16;
@@ -197,7 +205,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 220);
+            this.label4.Location = new System.Drawing.Point(14, 265);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 6;
@@ -206,7 +214,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 95);
+            this.label3.Location = new System.Drawing.Point(14, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 4;
@@ -214,7 +222,7 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(17, 66);
+            this.txtTitle.Location = new System.Drawing.Point(17, 111);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(157, 20);
             this.txtTitle.TabIndex = 3;
@@ -222,7 +230,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 50);
+            this.label2.Location = new System.Drawing.Point(14, 95);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 13);
             this.label2.TabIndex = 2;
@@ -240,6 +248,7 @@
             // 
             // tabConfiguration
             // 
+            this.tabConfiguration.Controls.Add(this.btnRemove);
             this.tabConfiguration.Controls.Add(this.btnCancelConfig);
             this.tabConfiguration.Controls.Add(this.btnSaveConfig);
             this.tabConfiguration.Controls.Add(this.btnAddConfigToCurrent);
@@ -253,6 +262,16 @@
             this.tabConfiguration.Text = "Configuration";
             this.tabConfiguration.UseVisualStyleBackColor = true;
             this.tabConfiguration.Enter += new System.EventHandler(this.tabPage2_Enter);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(435, 153);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 38;
+            this.btnRemove.Text = "Remove ->";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnCancelConfig
             // 
@@ -294,13 +313,37 @@
             this.panel3.Size = new System.Drawing.Size(424, 370);
             this.panel3.TabIndex = 32;
             // 
+            // btnViewConfiguration
+            // 
+            this.btnViewConfiguration.Location = new System.Drawing.Point(6, 295);
+            this.btnViewConfiguration.Name = "btnViewConfiguration";
+            this.btnViewConfiguration.Size = new System.Drawing.Size(181, 23);
+            this.btnViewConfiguration.TabIndex = 5;
+            this.btnViewConfiguration.Text = "View/Edit Configuration";
+            this.btnViewConfiguration.UseVisualStyleBackColor = true;
+            this.btnViewConfiguration.Click += new System.EventHandler(this.btnViewConfiguration_Click);
+            // 
+            // btnInsertConfiguration
+            // 
+            this.btnInsertConfiguration.Location = new System.Drawing.Point(6, 266);
+            this.btnInsertConfiguration.Name = "btnInsertConfiguration";
+            this.btnInsertConfiguration.Size = new System.Drawing.Size(181, 23);
+            this.btnInsertConfiguration.TabIndex = 4;
+            this.btnInsertConfiguration.Text = "Insert Configuration";
+            this.btnInsertConfiguration.UseVisualStyleBackColor = true;
+            this.btnInsertConfiguration.Click += new System.EventHandler(this.btnInsertConfiguration_Click);
+            // 
             // dgvAvailableConfigurations
             // 
+            this.dgvAvailableConfigurations.AllowUserToAddRows = false;
+            this.dgvAvailableConfigurations.AllowUserToDeleteRows = false;
             this.dgvAvailableConfigurations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAvailableConfigurations.Location = new System.Drawing.Point(6, 56);
             this.dgvAvailableConfigurations.Name = "dgvAvailableConfigurations";
+            this.dgvAvailableConfigurations.ReadOnly = true;
             this.dgvAvailableConfigurations.Size = new System.Drawing.Size(400, 188);
             this.dgvAvailableConfigurations.TabIndex = 3;
+            this.dgvAvailableConfigurations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAvailableConfigurations_CellClick);
             this.dgvAvailableConfigurations.SelectionChanged += new System.EventHandler(this.dgvAvailableConfigurations_SelectionChanged);
             // 
             // label10
@@ -324,11 +367,15 @@
             // 
             // dgvCurrentConfigurations
             // 
+            this.dgvCurrentConfigurations.AllowUserToAddRows = false;
+            this.dgvCurrentConfigurations.AllowUserToDeleteRows = false;
             this.dgvCurrentConfigurations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCurrentConfigurations.Location = new System.Drawing.Point(6, 56);
             this.dgvCurrentConfigurations.Name = "dgvCurrentConfigurations";
+            this.dgvCurrentConfigurations.ReadOnly = true;
             this.dgvCurrentConfigurations.Size = new System.Drawing.Size(386, 188);
             this.dgvCurrentConfigurations.TabIndex = 3;
+            this.dgvCurrentConfigurations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCurrentConfigurations_CellClick);
             // 
             // label5
             // 
@@ -340,33 +387,29 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Current Configuration";
             // 
-            // btnInsertConfiguration
+            // txtID
             // 
-            this.btnInsertConfiguration.Location = new System.Drawing.Point(6, 266);
-            this.btnInsertConfiguration.Name = "btnInsertConfiguration";
-            this.btnInsertConfiguration.Size = new System.Drawing.Size(181, 23);
-            this.btnInsertConfiguration.TabIndex = 4;
-            this.btnInsertConfiguration.Text = "Insert Configuration";
-            this.btnInsertConfiguration.UseVisualStyleBackColor = true;
-            this.btnInsertConfiguration.Click += new System.EventHandler(this.btnInsertConfiguration_Click);
+            this.txtID.Location = new System.Drawing.Point(17, 63);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(157, 20);
+            this.txtID.TabIndex = 19;
             // 
-            // btnViewConfiguration
+            // label6
             // 
-            this.btnViewConfiguration.Location = new System.Drawing.Point(6, 295);
-            this.btnViewConfiguration.Name = "btnViewConfiguration";
-            this.btnViewConfiguration.Size = new System.Drawing.Size(181, 23);
-            this.btnViewConfiguration.TabIndex = 5;
-            this.btnViewConfiguration.Text = "View/Edit Configuration";
-            this.btnViewConfiguration.UseVisualStyleBackColor = true;
-            this.btnViewConfiguration.Click += new System.EventHandler(this.btnViewConfiguration_Click);
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(18, 13);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "ID";
             // 
-            // frmComponent
+            // frmComponentDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(986, 506);
             this.Controls.Add(this.tcComponent);
-            this.Name = "frmComponent";
+            this.Name = "frmComponentDetails";
             this.Text = "frmComponent";
             this.tcComponent.ResumeLayout(false);
             this.tabComponent.ResumeLayout(false);
@@ -417,5 +460,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnInsertConfiguration;
         private System.Windows.Forms.Button btnViewConfiguration;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.Label label6;
     }
 }

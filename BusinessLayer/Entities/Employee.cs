@@ -10,6 +10,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 { 
+    [Serializable]
     [Table("tblemployee")]
     public class Employee: Person, IValidatable<Employee>
     {

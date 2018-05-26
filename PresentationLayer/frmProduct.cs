@@ -27,6 +27,13 @@ namespace PresentationLayer
             bindFields(products);
         }
 
+        public frmProduct()
+        {
+            InitializeComponent();
+            products = Product.Select();
+            bindFields(products);
+        }
+
         private void bindFields(List<Product> products)
         {
             dgvProducts.AutoGenerateColumns = false;
@@ -68,7 +75,10 @@ namespace PresentationLayer
                     frmProductDetails frm = new frmProductDetails(ref location, ref clickedItem);
                     Utils.ShowForm(this, frm, dgvProducts, () =>
                     {
-                        products = ComplexQueryHelper.GetProductsForLocation(location);
+                        if (location == null)
+                            products = Product.Select();
+                        else
+                            products = ComplexQueryHelper.GetProductsForLocation(location);
                         dgvProducts.DataSource = products;
                     });
                 }

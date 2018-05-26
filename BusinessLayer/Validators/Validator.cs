@@ -19,16 +19,36 @@ namespace BusinessLayer.Validators
         public static bool IsUnique<T>(this T entity)
             where T : DataObject
         {
-            if (typeof(T) == typeof(City)) return City.Select(c => c.Name == (entity as City).Name).Count == 0;
+            if (typeof(T) == typeof(City))
+            {
+                City city = entity as City;
+                return City.Select(c => c.Name == city.Name).Count == 0;
+            }
+
             if (typeof(T) == typeof(Street))
             {
                 Street street = entity as Street;
                 return Street.Select(s => s.AreaCode == street.AreaCode && s.FK_CityID == street.FK_CityID
                 && s.Name == street.Name).Count == 0;
             }
-            if (typeof(T) == typeof(Manufacturer)) return Manufacturer.Select(m => m.Name == (entity as Manufacturer).Name).Count == 0;
-            if (typeof(T) == typeof(ProductCategory)) return ProductCategory.Select(p => p.Title == (entity as ProductCategory).Title).Count == 0;
-            if (typeof(T) == typeof(Product)) return Product.Select(p => p.Id == (entity as Product).Id).Count == 0;
+
+            if (typeof(T) == typeof(Manufacturer))
+            {
+                Manufacturer man = entity as Manufacturer;
+                return Manufacturer.Select(m => m.Name == man.Name).Count == 0;
+            }
+
+            if (typeof(T) == typeof(ProductCategory))
+            {
+                ProductCategory cat = entity as ProductCategory;
+                return ProductCategory.Select(p => p.Title == cat.Title).Count == 0;
+            }
+
+            if (typeof(T) == typeof(Product))
+            {
+                Product product = entity as Product;
+                return Product.Select(p => p.Id == product.Id).Count == 0;
+            }
 
             return true;
         }

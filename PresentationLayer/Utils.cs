@@ -20,5 +20,12 @@ namespace PresentationLayer
             };
             sender.Hide();
         }
+
+        public static List<T> GetDifference<T>(List<T> array1, List<T> array2)
+        {
+            return array1.Union(array2).ToList();
+            var diff = array1.Except(array2);
+            return diff.ToList();
+        }
     }
 }

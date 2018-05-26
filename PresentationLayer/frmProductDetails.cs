@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using BusinessLayer.Classes;
 using BusinessLayer;
 using BusinessLayer.Validators;
+using BusinessLayer.Helpers;
+using Comp = BusinessLayer.Classes.Component;
 
 namespace PresentationLayer
 {
@@ -21,6 +23,7 @@ namespace PresentationLayer
         bool insert = false, edit = false, newCategory = false, newManufacturer = false;
         List<Manufacturer> manufacturers;
         List<ProductCategory> productCategories;
+        List<Comp> availableComponents;
 
         public frmProductDetails(ref Location location, ref Product product, bool insert = false)
         {
@@ -36,6 +39,8 @@ namespace PresentationLayer
             productCategories = ProductCategory.Select();
             bindFields(product);
         }
+
+
 
         private void bindFields(Product product)
         {
@@ -104,13 +109,91 @@ namespace PresentationLayer
 
         private void btnManageComponents_Click(object sender, EventArgs e)
         {
-            frmComponent frm = new frmComponent(product, product.Components);
+            frmComponent frm = new frmComponent();
             frm.Show();
             frm.FormClosed += (s, events) =>
             {
                 Show();
             };
             Hide();
+        }
+
+        private void tabComponents_Enter(object sender, EventArgs e)
+        {
+            dgvUsedComponents.DataSource = new BindingList<Comp>(product.Components);
+            availableComponents = getAvailableComponents(product.Components, Comp.Select());
+            dgvAvailableComponents.DataSource = availableComponents;
+            btnAddComponent.Enabled = false;
+            btnRemoveComponent.Enabled = false;
+        }
+
+        private List<Comp> getAvailableComponents(List<Comp> existingItems, List<Comp> newItems)
+        {
+            var query = newItems.Where((item) => existingItems.Contains(item));
+            foreach (Comp config in query.ToList())
+            {
+                newItems.Remove(config);
+            }
+
+            return newItems;
+        }
+
+        private void btnAddComponent_Click(object sender, EventArgs e)
+        {
+            addFromTo(dgvAvailableComponents, dgvUsedComponents, availableComponents, product.Components);
+        }
+
+        private void addFromTo(DataGridView from, DataGridView to, List<Comp> fromList, List<Comp> toList)
+        {
+            if (from.SelectedRows.Count > 0)
+            {
+                Comp temp;
+
+                foreach (DataGridViewRow dr in from.SelectedRows)
+                {
+                    string id = dr.Cells["Id"].Value.ToString();
+                    temp = fromList.Find(c => c.Id == id);
+                    toList.Add(temp);
+                    fromList.Remove(temp);
+                    from.DataSource = new BindingList<Comp>(fromList);
+                    to.DataSource = new BindingList<Comp>(toList);
+                }
+            }
+        }
+
+        private void btnRemoveComponent_Click(object sender, EventArgs e)
+        {
+            addFromTo(dgvUsedComponents, dgvAvailableComponents, product.Components, availableComponents);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            var diff = product.Components.Except(oldCopy.Components);
+            ComplexQueryHelper.AddComponentsForProduct(product, diff.ToList());
+            MessageBox.Show("Product Component composition updated", "Modification status");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            availableComponents = getAvailableComponents(product.Components, Comp.Select());
+            dgvAvailableComponents.DataSource = availableComponents;
+            dgvUsedComponents.DataSource = new BindingList<Comp>(product.Components);
+        }
+
+        private void dgvAvailableComponents_SelectionChanged(object sender, EventArgs e)
+        {
+            btnAddComponent.Enabled = (sender as DataGridView).SelectedRows.Count > 0;
+        }
+
+        private void dgvUsedComponents_SelectionChanged(object sender, EventArgs e)
+        {
+            btnRemoveComponent.Enabled = (sender as DataGridView).SelectedRows.Count > 0;
+        }
+
+        private void dgvAvailableComponents_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView senderTemp = sender as DataGridView;
+            if (e.RowIndex > -1) senderTemp.Rows[e.RowIndex].Selected = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -136,23 +219,36 @@ namespace PresentationLayer
         {
             string msg = "Invalid configuration.  Please check the error box";
             IEnumerable<string> brokenRules;
+            bool isValid = false;
 
             if (newCategory)
             {
                 ProductCategory cat = new ProductCategory(cmbCategory.Text, "");
                 if (cat.Validate(out brokenRules) && Validator.IsUnique(cat))
+                {
                     cat.Insert();
+                    product.ProductCategory = cat;
+                    product.FK_ProductCategoryTitle = cat.Title;
+                    productCategories.Add(cat);
+                }
             }
 
             if (newManufacturer)
             {
                 Manufacturer man = new Manufacturer(0, cmbManufacturer.Text);
                 if (man.Validate(out brokenRules) && Validator.IsUnique(man))
+                {
                     man.Insert();
+                    product.Manufacturer = man;
+                    product.FK_ManufacturerId = man.Id;
+                    manufacturers.Add(man);
+                }
             }
 
             if (product.Validate(out brokenRules))
             {
+                isValid = true;
+
                 if (insert)
                 {
                     product.Insert();
@@ -165,8 +261,8 @@ namespace PresentationLayer
                 }
             }
 
-            lstError.DataSource = brokenRules;
-            MessageBox.Show(msg);
+            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
     }
 }

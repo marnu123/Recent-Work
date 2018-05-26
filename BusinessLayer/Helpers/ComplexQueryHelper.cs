@@ -43,5 +43,20 @@ namespace BusinessLayer.Helpers
             Expression<Func<Option, Component, object>> ex = (o, c) => o.FK_ProductID == id && c.Id == o.FK_ComponentID;
             return DatabaseHelper.Select<Component>(ex);
         }
+
+        public static void AddComponentsForProduct(Product product, List<Component> itemsToAdd)
+        {
+            itemsToAdd.ForEach(item => new Option(product.Id, item.Id).Insert());
+        }
+
+        public static void AddLocationsForPerson(Person person, List<Location> itemsToAdd)
+        {
+            itemsToAdd.ForEach(item => new Person_Location(person.Email, item.Id));
+        }
+
+        public static void AddProductsForLocation(Location location, List<Product> itemsToAdd)
+        {
+            itemsToAdd.ForEach(item => new Product_Location(0, item.Id, location.Id));
+        }
     }
 }

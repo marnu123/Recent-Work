@@ -8,20 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLayer.Classes;
+using Loc = BusinessLayer.Classes.Location;
 
 namespace PresentationLayer
 {
-    public partial class frmPersonLocation : Form
+    public partial class frmLocation : Form
     {
-        List<Location> locations;
+        List<Loc> locations;
         AggregatedPropertyBindingList<Location> loc;
-        Person person;
 
-        public frmPersonLocation(Person person)
+        public frmLocation()
         {
             InitializeComponent();
-            this.person = person;
-            this.locations = person.Locations;
+            this.locations = Loc.Select();
             dgvLocation.AutoGenerateColumns = false;
             //BindingList<Location> list = new BindingList<Location>(tempLocation);
             dgvLocation.Columns.Add("Id", "Id");
@@ -52,8 +51,8 @@ namespace PresentationLayer
             Utils.ShowForm(this, frm, dgvLocation, () =>
             {
                 //Refresh list
-                person.RefreshLocations();
-                loc = new AggregatedPropertyBindingList<Location>(person.Locations);
+                locations = Loc.Select();
+                loc = new AggregatedPropertyBindingList<Location>(locations);
                 dgvLocation.DataSource = loc;
             });
         }
@@ -61,12 +60,12 @@ namespace PresentationLayer
         private void button1_Click(object sender, EventArgs e)
         {
             Location temp = new Location();
-            frmLocationDetails frm = new frmLocationDetails(ref temp);
+            frmLocationDetails frm = new frmLocationDetails(ref temp, true);
             Utils.ShowForm(this, frm, dgvLocation, () =>
             {
                 //Refresh list
-                person.RefreshLocations();
-                loc = new AggregatedPropertyBindingList<Location>(person.Locations);
+                locations = Loc.Select();
+                loc = new AggregatedPropertyBindingList<Location>(locations);
                 dgvLocation.DataSource = loc;
             });
         }

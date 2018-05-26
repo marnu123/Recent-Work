@@ -13,6 +13,7 @@ namespace BusinessLayer.Classes
     public class Component : DataObject, IValidatable<Component>
     {
         private string id;
+        private string oldKey;
         private string title;
         private string description;
         private double price;
@@ -21,6 +22,7 @@ namespace BusinessLayer.Classes
         public Component(string id, string title, string description, double price)
         {
             Id = id;
+            OldKey = id;
             Title = title;
             Description = description;
             Price = price;
@@ -32,11 +34,14 @@ namespace BusinessLayer.Classes
             Title = dataRow["ComponentTitle"].ToString();
             Description = dataRow["ComponentDescription"].ToString();
             Price = (double)dataRow["ComponentPrice"];
+            OldKey = id;
         }
 
         [Key]
         [Column("PK_ComponentID")]
         public string Id { get => id; set => id = value; }
+        [KeyStorage("Id")]
+        public string OldKey { get => oldKey; set => oldKey = value; }
         [Column("ComponentTitle")]
         public string Title { get => title; set => title = value; }
         [Column("ComponentDescription")]
@@ -64,6 +69,24 @@ namespace BusinessLayer.Classes
         public static List<Component> Select(params Expression<Func<Component, object>>[] expression)
         {
             return DatabaseHelper.Select<Component>(expression);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Component temp = obj as Component;
+            if (temp == null) return false;
+
+            return Id == temp.Id && temp.Price == Price && temp.Title == Title;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1} {2}", Id, Price, Title);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode() ^ Title.GetHashCode() ^ Price.GetHashCode();
         }
 
         public bool Validate(IValidator<Component> validator, out IEnumerable<string> brokenRules)

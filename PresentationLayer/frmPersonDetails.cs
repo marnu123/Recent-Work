@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLayer.Classes;
 using BusinessLayer.Validators;
+using BusinessLayer;
+using BusinessLayer.Helpers;
 
 namespace PresentationLayer
 {
     public partial class frmPersonDetails : Form
     {
         Person currentPerson;
+        Person oldCopy;
+        List<Location> available;
         bool insert = false;
         bool newEmployeeType = false;
         bool newNotificationType = false;
@@ -23,10 +27,10 @@ namespace PresentationLayer
         public frmPersonDetails(ref Employee employee, bool edit = false, bool insert = false)
         {
             InitializeComponent();
-            currentPerson = employee;
-            initializeFields(edit, insert);
+            initialise(employee, insert);
             txtID.DataBindings.Add("Text", employee, "EmployeeID");
             txtPassword.DataBindings.Add("Text", employee, "Password");
+
             List<EmployeeType> employeeTypes = EmployeeType.Select();
             BindingList<EmployeeType> bl = new BindingList<EmployeeType>(employeeTypes);
 
@@ -34,10 +38,22 @@ namespace PresentationLayer
             cbmEmployeeType.DataBindings.Add("SelectedValue", employee, "FK_EmployeeTypeId");
 
             if (insert) cbmEmployeeType.SelectedIndex = -1;
-
-            pnlClientDetails.Visible = false;
-            pnlEmployeeDetails.Visible = true;
         }
+
+        private void initialise(Person person, bool insert)
+        {
+            currentPerson = person;
+            initializeFields(insert);
+            this.insert = insert;
+
+            bool clientEnabled = person.GetType() == typeof(Client);
+            pnlClientDetails.Visible = clientEnabled;
+            pnlEmployeeDetails.Visible = !clientEnabled;
+            person.DeepCopyInto(ref oldCopy);
+            createLocationHeadings(dgvAvailable);
+            createLocationHeadings(dgvUsed);
+        }
+
         private void setControlEnabled(bool state)
         {
             txtID.Enabled = state;
@@ -53,10 +69,9 @@ namespace PresentationLayer
         public frmPersonDetails(ref Client client, bool edit = false, bool insert = false)
         {
             InitializeComponent();
-            currentPerson = client;
-            initializeFields(edit, insert);
+            initialise(client, insert);
             txtID.DataBindings.Add("Text", client, "ClientID");
-            pnlClientDetails.Visible = true;
+
             List<NotificationType> notificationTypes = NotificationType.Select();
             BindingList<NotificationType> bl = new BindingList<NotificationType>(notificationTypes);
 
@@ -64,9 +79,6 @@ namespace PresentationLayer
             cmbNotificationType.DataBindings.Add("SelectedValue", client, "FK_NotificationTypeId");
 
             if (insert) cmbNotificationType.SelectedIndex = -1;
-
-            pnlEmployeeDetails.Visible = false;
-            pnlClientDetails.Visible = true;
         }
 
         private void bindComboBox<T>(ComboBox cb, BindingList<T> bindingList, string displayMember, string valueMember)
@@ -80,16 +92,15 @@ namespace PresentationLayer
             cb.DataSource = bindingList;
         }
 
-        private void initializeFields(bool edit, bool insert)
+        private void initializeFields(bool insert)
         {
             this.insert = insert;
             txtName.DataBindings.Add("Text", currentPerson, "Name");
-            txtEmail.DataBindings.Add("Text", currentPerson, "FK_PersonEmail");
+            txtEmail.DataBindings.Add("Text", currentPerson, "Email");
             txtCellNumber.DataBindings.Add("Text", currentPerson, "CellNumber");
             txtSurname.DataBindings.Add("Text", currentPerson, "Surname");
-            editable = edit;
             //Enable controls for edits or inserts
-            setControlEnabled(edit || insert);
+            setControlEnabled(insert);
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -212,7 +223,7 @@ namespace PresentationLayer
 
         private void button5_Click(object sender, EventArgs e)
         {
-            frmPersonLocation frm = new frmPersonLocation(currentPerson);
+            frmLocation frm = new frmLocation();
             frm.Show();
             frm.FormClosed += (Sender, E) =>
             {
@@ -244,6 +255,119 @@ namespace PresentationLayer
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createLocationHeadings(DataGridView dgv)
+        {
+            dgv.Columns.Clear();
+            dgv.AutoGenerateColumns = false;
+            //BindingList<Location> list = new BindingList<Location>(tempLocation);
+            dgv.Columns.Add("Id", "Id");
+            dgv.Columns["Id"].DataPropertyName = "Id";
+
+            dgv.Columns.Add("HouseNumber", "House Number");
+            dgv.Columns["HouseNumber"].DataPropertyName = "HouseNumber";
+
+            dgv.Columns.Add("StreetName", "Street Name");
+            dgv.Columns["StreetName"].DataPropertyName = "Street->Name";
+
+            dgv.Columns.Add("CityName", "City");
+            dgv.Columns["CityName"].DataPropertyName = "Street->City->Name";
+        }
+
+        private void bindList<T>(DataGridView dgv, List<T> list)
+        {
+            AggregatedPropertyBindingList<T> temp = new AggregatedPropertyBindingList<T>(list);
+            dgv.DataSource = temp;
+        }
+
+        private void tabLocations_Enter(object sender, EventArgs e)
+        {
+            available = Utils.GetDifference(currentPerson.Locations, BusinessLayer.Classes.Location.Select());
+            bindList(dgvAvailable, available);
+            bindList(dgvUsed, currentPerson.Locations);
+            btnAddAvailable.Enabled = false;
+            btnRemoveUsed.Enabled = false;
+        }
+
+        private void dgvUsed_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView temp = sender as DataGridView;
+            if (e.RowIndex > -1)
+            {
+                temp.ClearSelection();
+                temp.Rows[e.RowIndex].Selected = true;
+            }
+        }
+
+        private void dgvUsed_SelectionChanged(object sender, EventArgs e)
+        {
+            if ((sender as DataGridView).SelectedRows.Count > 0) btnRemoveUsed.Enabled = true;
+        }
+
+        private void dgvAvailable_SelectionChanged(object sender, EventArgs e)
+        {
+            if ((sender as DataGridView).SelectedRows.Count > 0) btnAddAvailable.Enabled = true;
+        }
+
+        private void btnAddAvailable_Click(object sender, EventArgs e)
+        {
+            addFromTo(dgvAvailable, dgvUsed, available, currentPerson.Locations);
+        }
+
+        private void addFromTo(DataGridView from, DataGridView to, List<Location> fromList, List<Location> toList)
+        {
+            if (from.SelectedRows.Count > 0)
+            {
+                Location temp;
+
+                foreach (DataGridViewRow dr in from.SelectedRows)
+                {
+                    int id = Convert.ToInt32(dr.Cells["Id"].Value);
+                    temp = fromList.Find(c => c.Id == id);
+                    toList.Add(temp);
+                    fromList.Remove(temp);
+
+                    bindList(from, fromList);
+                    bindList(to, toList);
+                }
+            }
+        }
+
+        private void btnRemoveUsed_Click(object sender, EventArgs e)
+        {
+            addFromTo(dgvUsed, dgvAvailable, currentPerson.Locations, available);
+        }
+
+        private void btnSaveLists_Click(object sender, EventArgs e)
+        {
+            List<Location> diff = Utils.GetDifference(oldCopy.Locations, currentPerson.Locations);
+            ComplexQueryHelper.AddLocationsForPerson(currentPerson, diff);            
+        }
+
+        private void btnCancelLists_Click(object sender, EventArgs e)
+        {
+            List<Location> currentLocations = currentPerson.Locations;
+            oldCopy.Locations.DeepCopyInto(ref currentLocations);
+            available = BusinessLayer.Classes.Location.Select();
+            dgvAvailable.DataSource = available;
+            dgvUsed.DataSource = currentPerson.Locations;
+        }
+
+        private void btnManageLocations_Click(object sender, EventArgs e)
+        {
+            frmLocation frm = new frmLocation();
+            frm.Show();
+            frm.FormClosed += (s, events) =>
+            {
+                Show();
+            };
+            Hide();
         }
     }
 }

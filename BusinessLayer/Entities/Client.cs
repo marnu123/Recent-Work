@@ -8,6 +8,7 @@ using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblclient")]
     public class Client : Person, IValidatable<Client>
     {

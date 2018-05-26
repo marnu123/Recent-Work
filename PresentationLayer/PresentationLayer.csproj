@@ -70,6 +70,12 @@
     <Compile Include="frmLocationDetails.Designer.cs">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMenu.Designer.cs">
+      <DependentUpon>frmMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPerson.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,11 +94,11 @@
     <Compile Include="frmPersonLocationProduct.Designer.cs">
       <DependentUpon>frmPersonLocationProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPersonLocation.cs">
+    <Compile Include="frmLocation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPersonLocation.Designer.cs">
-      <DependentUpon>frmPersonLocation.cs</DependentUpon>
+    <Compile Include="frmLocation.Designer.cs">
+      <DependentUpon>frmLocation.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProduct.cs">
       <SubType>Form</SubType>
@@ -134,6 +140,9 @@
     <EmbeddedResource Include="frmLocationDetails.resx">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMenu.resx">
+      <DependentUpon>frmMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPerson.resx">
       <DependentUpon>frmPerson.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,8 +152,8 @@
     <EmbeddedResource Include="frmPersonLocationProduct.resx">
       <DependentUpon>frmPersonLocationProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPersonLocation.resx">
-      <DependentUpon>frmPersonLocation.cs</DependentUpon>
+    <EmbeddedResource Include="frmLocation.resx">
+      <DependentUpon>frmLocation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProduct.resx">
       <DependentUpon>frmProduct.cs</DependentUpon>

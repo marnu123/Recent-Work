@@ -16,11 +16,10 @@ namespace PresentationLayer
     public partial class frmComponent : Form
     {
         List<Comp> componentList;
-        Product product;
 
-        public frmComponent(List<Comp> componentList)
+        public frmComponent()
         {
-            this.componentList = componentList;
+            componentList = Comp.Select();
             initialise();
         }
 
@@ -31,10 +30,9 @@ namespace PresentationLayer
             dgvComponents.DataSource = new BindingList<Comp>(componentList);
         }
 
-        public frmComponent(Product product, List<Comp> componentList)
+        public frmComponent(List<Comp> componentList)
         {
             this.componentList = componentList;
-            this.product = product;
             initialise();
         }
 
@@ -53,7 +51,8 @@ namespace PresentationLayer
                 frmComponentDetails frm = new frmComponentDetails(ref temp);
                 Utils.ShowForm(this, frm, dgvComponents, () =>
                 {
-                    componentList = product != null ? ComplexQueryHelper.GetComponentsForProduct(product) : Comp.Select();
+                    componentList = Comp.Select();
+                    dgvComponents.DataSource = componentList;
                     showNoRows();
                 });
             }
@@ -63,15 +62,12 @@ namespace PresentationLayer
         {
             Comp temp = new Comp("", "", "", 0);
             frmComponentDetails frm;
-
-            if (product != null)
-                frm = new frmComponentDetails(ref product, ref temp, true);
-            else
-                frm = new frmComponentDetails(ref temp, true);
+            frm = new frmComponentDetails(ref temp, true);
 
             Utils.ShowForm(this, frm, dgvComponents, () =>
             {
-                componentList = product != null ? ComplexQueryHelper.GetComponentsForProduct(product) : Comp.Select();
+                componentList = Comp.Select();
+                dgvComponents.DataSource = componentList;
                 showNoRows();
             });
         }

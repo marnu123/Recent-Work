@@ -13,6 +13,7 @@ namespace BusinessLayer.Classes
     public class Product : DataObject, IValidatable<Product>
     {
         private string id;
+        private string oldKey;
         private string name;
         private string description;
         private double price;
@@ -33,6 +34,7 @@ namespace BusinessLayer.Classes
             Price = price;
             DateAdded = dateAdded;
             FK_ProductCategoryTitle = fK_ProductCategoryTitle;
+            OldKey = id;
         }
 
         public Product(DataRow dataRow)
@@ -45,6 +47,7 @@ namespace BusinessLayer.Classes
             FK_ProductCategoryTitle = dataRow["FK_ProductCategoryTitle"].ToString();
             FK_ManufacturerId = Convert.ToInt32(dataRow["FK_ManufacturerID"]);
             Model = dataRow["ProductModel"].ToString();
+            OldKey = Id;
 
             try
             {
@@ -57,6 +60,8 @@ namespace BusinessLayer.Classes
         [Key]
         [Column("PK_ProductID")]
         public string Id { get => id; set => id = value; }
+        [KeyStorage("Id")]
+        public string OldKey { get => oldKey; set => oldKey = value; }
         [Column("ProductName")]
         public string Name { get => name; set => name = value; }
         [Column("ProductDescription")]
@@ -102,7 +107,7 @@ namespace BusinessLayer.Classes
         [ForeignKey(typeof(Manufacturer))]
         [Column("FK_ManufacturerID")]
         public int FK_ManufacturerId { get => fK_ManufacturerId; set => fK_ManufacturerId = value; }
-        [Column("Model")]
+        [Column("ProductModel")]
         public string Model { get => model; set => model = value; }
         public Manufacturer Manufacturer
         {

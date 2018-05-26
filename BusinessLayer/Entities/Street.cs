@@ -12,10 +12,10 @@ namespace BusinessLayer.Classes
     [Table("tblstreet")]
     public class Street: DataObject, IValidatable<Street>
     {
-        private int id;
-        private string name;
-        private string areaCode;
-        private int fK_CityID;
+        private int id = 0;
+        private string name = "";
+        private string areaCode = "";
+        private int fK_CityID = 0;
         private City city;
 
         public Street(int id, string name, string areaCode, City city)
@@ -25,6 +25,8 @@ namespace BusinessLayer.Classes
             AreaCode = areaCode;
             City = city;
         }
+
+        public Street() { }
 
         public Street(DataRow dataRow)
         {
@@ -53,12 +55,10 @@ namespace BusinessLayer.Classes
             { 
                 if (city == null)
                 {
-                    return City.Select(c => c.Id == fK_CityID)[0];
+                    if (fK_CityID == 0) city = new City();
+                    else city = City.Select(c => c.Id == fK_CityID)[0];
                 }
-                else
-                {
-                    return city;
-                }
+                return city;
             }
             set => city = value;
         }

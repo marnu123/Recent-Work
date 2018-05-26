@@ -12,10 +12,10 @@ namespace BusinessLayer.Classes
     [Table("tbllocation")]
     public class Location : DataObject, IValidatable<Location>
     {
-        private int id;
-        private int oldId;
-        private string houseNumber;
-        private int fK_StreetID;
+        private int id = 0;
+        private int oldId = 0;
+        private string houseNumber = "";
+        private int fK_StreetID = 0;
         private Street street;
         //private City city;
         private List<Product> products;
@@ -65,12 +65,15 @@ namespace BusinessLayer.Classes
             {
                 if (street is null)
                 {
-                    return Street.Select(s => s.Id == FK_StreetID)[0];
+                    if (fK_StreetID == 0) street = new Street();
+                    else
+                    {
+                        int id = fK_StreetID;
+                        street = Street.Select(s => s.Id == id)[0];
+                    }
                 }
-                else
-                {
-                    return street;
-                }
+
+                return street;
             }
             set => street = value; }
 
@@ -98,6 +101,19 @@ namespace BusinessLayer.Classes
         public bool Validate(IValidator<Location> validator, out IEnumerable<string> brokenRules)
         {
             return validator.IsValid(this, out brokenRules);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Location temp = obj as Location;
+            if (temp == null) return false;
+
+            return temp.Id == Id && temp.HouseNumber == HouseNumber && temp.FK_StreetID == FK_StreetID;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode() ^ HouseNumber.GetHashCode() ^ FK_StreetID.GetHashCode();
         }
     }
 }
