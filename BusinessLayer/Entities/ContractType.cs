@@ -4,47 +4,49 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
-
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblcontracttype")]
-    public class ContractType : DataObject
+    public class ContractType : DataObject, IValidatable<ContractType>
     {
         private char id;
+        private char oldKey;
         private string title;
-        private int fK_ServiceLevelId;
-        private string fK_ProductCategoryTitle;
+        private char fK_ServiceLevelId;
         private ServiceLevel serviceLevel;
-        private ProductCategory productCategory;
+        private List<ProductCategory> productCategories;
 
-        public ContractType(char id, string title, int fK_ServiceLevelId, string fK_ProductCategoryTitle)
+        public ContractType(char id, string title, char fK_ServiceLevelId, ServiceLevel serviceLevel)
         {
             Id = id;
             Title = title;
             FK_ServiceLevelId = fK_ServiceLevelId;
-            FK_ProductCategoryTitle = fK_ProductCategoryTitle;
+            ServiceLevel = serviceLevel;
+            oldKey = id;
         }
 
         public ContractType(DataRow dataRow)
         {
-            Id = (char)dataRow["PK_ContractTypeID"];
+            Id = Convert.ToChar(dataRow["PK_ContractTypeID"].ToString().Substring(0, 1));
             Title = dataRow["ContractTypeTitle"].ToString();
-            FK_ServiceLevelId = (char) dataRow["FK_ServiceLevelID"];
-            FK_ProductCategoryTitle = dataRow["FK_ProductCategoryTitle"].ToString();
+            FK_ServiceLevelId = Convert.ToChar(dataRow["FK_ServiceLevelID"].ToString().Substring(0, 1));
+            ServiceLevel = new ServiceLevel(dataRow);
+            oldKey = Id;
         }
 
         [Key]
         [Column("PK_ContractTypeID")]
         public char Id { get => id; set => id = value; }
+        [KeyStorage("Id")]
+        public char OldKey { get => oldKey; set => oldKey = value; }
         [Column("ContractTypeTitle")]
         public string Title { get => title; set => title = value; }
         [ForeignKey(typeof(ServiceLevel))]
         [Column("FK_ServiceLevelID")]
-        public int FK_ServiceLevelId { get => fK_ServiceLevelId; set => fK_ServiceLevelId = value; }
-        [ForeignKey(typeof(ProductCategory))]
-        [Column("FK_ProductCategoryTitle")]
-        public string FK_ProductCategoryTitle { get => fK_ProductCategoryTitle; set => fK_ProductCategoryTitle = value; }
+        public char FK_ServiceLevelId { get => fK_ServiceLevelId; set => fK_ServiceLevelId = value; }
         public ServiceLevel ServiceLevel
         {
             get
@@ -62,30 +64,38 @@ namespace BusinessLayer.Classes
                 return serviceLevel;
             }
             set => serviceLevel = value; }
-        public ProductCategory ProductCategory
+        public List<ProductCategory> ProductCategories
         {
             get
             {
-                if (productCategory == null)
+                if (productCategories == null)
                 {
-                    string matchId = fK_ProductCategoryTitle;
-                    List<ProductCategory> temp = ProductCategory.Select(p => p.Title == matchId);
-                    productCategory = temp.Count > 0 ? temp[0] : null;
+                    char matchId = Id;
+                    Expression<Func<ProductCategory, ProductCategory_ContractType, object>> ex =
+                        (pc, pcct) => pc.Title == pcct.FK_ProductCategoryTitle && pcct.FK_ContractTypeID == matchId;
+                    productCategories = DatabaseHelper.Select<ProductCategory>(ex);
                 }
 
-                return productCategory;
+                return productCategories;
             }
-            set => productCategory = value;
+            set => productCategories = value;
         }
 
         public static List<ContractType> Select(params Expression<Func<ContractType, object>>[] expression)
         {
-            return DataObjectFactory.Select<ContractType>(expression);
+            Expression<Func<ContractType, ServiceLevel, object>> ex = (c, s) => c.FK_ServiceLevelId == s.Id;
+            Expression[] list = { ex };
+            return DataObjectFactory.Select<ContractType>(Utils.JoinArrays(expression, list));
         }
 
         public override string ToString()
         {
-            return Id + " " + Title + " " + FK_ServiceLevelId + " " + FK_ProductCategoryTitle;
+            return Id + " " + Title + " " + FK_ServiceLevelId;
+        }
+
+        public bool Validate(IValidator<ContractType> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

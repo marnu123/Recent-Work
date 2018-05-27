@@ -49,5 +49,17 @@ namespace BusinessLayer.Classes
         {
             return validator.IsValid(this, out brokenRules);
         }
+
+        public override bool Equals(object obj)
+        {
+            ProductCategory temp = obj as ProductCategory;
+            if (temp == null) return false;
+            return temp.Title == Title;
+        }
+
+        public override int GetHashCode()
+        {
+            return Title.GetHashCode();
+        }
     }
 }

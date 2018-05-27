@@ -58,9 +58,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lstError = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tcPerson = new System.Windows.Forms.TabControl();
             this.tabPerson = new System.Windows.Forms.TabPage();
             this.tabLocations = new System.Windows.Forms.TabPage();
+            this.btnManageLocations = new System.Windows.Forms.Button();
             this.btnCancelLists = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnRemoveUsed = new System.Windows.Forms.Button();
@@ -75,12 +76,37 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.btnSaveLists = new System.Windows.Forms.Button();
-            this.btnManageLocations = new System.Windows.Forms.Button();
+            this.tabContract = new System.Windows.Forms.TabPage();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.btnSaveContract = new System.Windows.Forms.Button();
+            this.btnCancelContract = new System.Windows.Forms.Button();
+            this.btnDeleteContract = new System.Windows.Forms.Button();
+            this.btnEditContract = new System.Windows.Forms.Button();
+            this.cmbContractType = new System.Windows.Forms.ComboBox();
+            this.txtContractID = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.btnAddContract = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.dgvContracts = new System.Windows.Forms.DataGridView();
+            this.label20 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lstContractError = new System.Windows.Forms.ListBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnlEmployeeDetails.SuspendLayout();
             this.pnlClientDetails.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tcPerson.SuspendLayout();
             this.tabPerson.SuspendLayout();
             this.tabLocations.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -88,6 +114,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAvailable)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsed)).BeginInit();
+            this.tabContract.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).BeginInit();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -378,18 +410,19 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Error Box";
             // 
-            // tabControl1
+            // tcPerson
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tcPerson.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPerson);
-            this.tabControl1.Controls.Add(this.tabLocations);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1324, 628);
-            this.tabControl1.TabIndex = 21;
+            this.tcPerson.Controls.Add(this.tabPerson);
+            this.tcPerson.Controls.Add(this.tabLocations);
+            this.tcPerson.Controls.Add(this.tabContract);
+            this.tcPerson.Location = new System.Drawing.Point(0, 0);
+            this.tcPerson.Name = "tcPerson";
+            this.tcPerson.SelectedIndex = 0;
+            this.tcPerson.Size = new System.Drawing.Size(1324, 628);
+            this.tcPerson.TabIndex = 21;
             // 
             // tabPerson
             // 
@@ -424,6 +457,16 @@
             this.tabLocations.Text = "Locations";
             this.tabLocations.UseVisualStyleBackColor = true;
             this.tabLocations.Enter += new System.EventHandler(this.tabLocations_Enter);
+            // 
+            // btnManageLocations
+            // 
+            this.btnManageLocations.Location = new System.Drawing.Point(19, 419);
+            this.btnManageLocations.Name = "btnManageLocations";
+            this.btnManageLocations.Size = new System.Drawing.Size(254, 23);
+            this.btnManageLocations.TabIndex = 35;
+            this.btnManageLocations.Text = "Manage Locations";
+            this.btnManageLocations.UseVisualStyleBackColor = true;
+            this.btnManageLocations.Click += new System.EventHandler(this.btnManageLocations_Click);
             // 
             // btnCancelLists
             // 
@@ -565,22 +608,272 @@
             this.btnSaveLists.UseVisualStyleBackColor = true;
             this.btnSaveLists.Click += new System.EventHandler(this.btnSaveLists_Click);
             // 
-            // btnManageLocations
+            // tabContract
             // 
-            this.btnManageLocations.Location = new System.Drawing.Point(19, 419);
-            this.btnManageLocations.Name = "btnManageLocations";
-            this.btnManageLocations.Size = new System.Drawing.Size(254, 23);
-            this.btnManageLocations.TabIndex = 35;
-            this.btnManageLocations.Text = "Manage Locations";
-            this.btnManageLocations.UseVisualStyleBackColor = true;
-            this.btnManageLocations.Click += new System.EventHandler(this.btnManageLocations_Click);
+            this.tabContract.Controls.Add(this.panel6);
+            this.tabContract.Location = new System.Drawing.Point(4, 22);
+            this.tabContract.Name = "tabContract";
+            this.tabContract.Padding = new System.Windows.Forms.Padding(3);
+            this.tabContract.Size = new System.Drawing.Size(1316, 602);
+            this.tabContract.TabIndex = 3;
+            this.tabContract.Text = "Contracts";
+            this.tabContract.UseVisualStyleBackColor = true;
+            this.tabContract.Enter += new System.EventHandler(this.tabContract_Enter);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.panel7);
+            this.panel6.Controls.Add(this.label12);
+            this.panel6.Controls.Add(this.panel8);
+            this.panel6.Controls.Add(this.label20);
+            this.panel6.Location = new System.Drawing.Point(8, 6);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1088, 502);
+            this.panel6.TabIndex = 36;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.button1);
+            this.panel7.Controls.Add(this.panel9);
+            this.panel7.Controls.Add(this.dtpEndDate);
+            this.panel7.Controls.Add(this.dtpStartDate);
+            this.panel7.Controls.Add(this.btnSaveContract);
+            this.panel7.Controls.Add(this.btnCancelContract);
+            this.panel7.Controls.Add(this.btnDeleteContract);
+            this.panel7.Controls.Add(this.btnEditContract);
+            this.panel7.Controls.Add(this.cmbContractType);
+            this.panel7.Controls.Add(this.txtContractID);
+            this.panel7.Controls.Add(this.label18);
+            this.panel7.Controls.Add(this.label22);
+            this.panel7.Controls.Add(this.label23);
+            this.panel7.Controls.Add(this.label24);
+            this.panel7.Controls.Add(this.label25);
+            this.panel7.Location = new System.Drawing.Point(518, 64);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(554, 387);
+            this.panel7.TabIndex = 29;
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Location = new System.Drawing.Point(17, 147);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpEndDate.TabIndex = 23;
+            // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.Location = new System.Drawing.Point(17, 102);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpStartDate.TabIndex = 22;
+            // 
+            // btnSaveContract
+            // 
+            this.btnSaveContract.Location = new System.Drawing.Point(17, 290);
+            this.btnSaveContract.Name = "btnSaveContract";
+            this.btnSaveContract.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveContract.TabIndex = 18;
+            this.btnSaveContract.Text = "Save";
+            this.btnSaveContract.UseVisualStyleBackColor = true;
+            this.btnSaveContract.Click += new System.EventHandler(this.btnSaveContract_Click);
+            // 
+            // btnCancelContract
+            // 
+            this.btnCancelContract.Location = new System.Drawing.Point(17, 351);
+            this.btnCancelContract.Name = "btnCancelContract";
+            this.btnCancelContract.Size = new System.Drawing.Size(254, 23);
+            this.btnCancelContract.TabIndex = 21;
+            this.btnCancelContract.Text = "Cancel";
+            this.btnCancelContract.UseVisualStyleBackColor = true;
+            this.btnCancelContract.Click += new System.EventHandler(this.btnCancelContract_Click);
+            // 
+            // btnDeleteContract
+            // 
+            this.btnDeleteContract.Location = new System.Drawing.Point(196, 290);
+            this.btnDeleteContract.Name = "btnDeleteContract";
+            this.btnDeleteContract.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteContract.TabIndex = 19;
+            this.btnDeleteContract.Text = "Delete";
+            this.btnDeleteContract.UseVisualStyleBackColor = true;
+            this.btnDeleteContract.Click += new System.EventHandler(this.btnDeleteContract_Click);
+            // 
+            // btnEditContract
+            // 
+            this.btnEditContract.Location = new System.Drawing.Point(106, 290);
+            this.btnEditContract.Name = "btnEditContract";
+            this.btnEditContract.Size = new System.Drawing.Size(75, 23);
+            this.btnEditContract.TabIndex = 20;
+            this.btnEditContract.Text = "Edit";
+            this.btnEditContract.UseVisualStyleBackColor = true;
+            this.btnEditContract.Click += new System.EventHandler(this.btnEditContract_Click);
+            // 
+            // cmbContractType
+            // 
+            this.cmbContractType.FormattingEnabled = true;
+            this.cmbContractType.Location = new System.Drawing.Point(17, 192);
+            this.cmbContractType.Name = "cmbContractType";
+            this.cmbContractType.Size = new System.Drawing.Size(200, 21);
+            this.cmbContractType.TabIndex = 11;
+            // 
+            // txtContractID
+            // 
+            this.txtContractID.Location = new System.Drawing.Point(17, 63);
+            this.txtContractID.Name = "txtContractID";
+            this.txtContractID.Size = new System.Drawing.Size(200, 20);
+            this.txtContractID.TabIndex = 1;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 47);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(18, 13);
+            this.label18.TabIndex = 10;
+            this.label18.Text = "ID";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(14, 176);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(74, 13);
+            this.label22.TabIndex = 6;
+            this.label22.Text = "Contract Type";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(14, 131);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(52, 13);
+            this.label23.TabIndex = 4;
+            this.label23.Text = "End Date";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(14, 86);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(55, 13);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Start Date";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(13, 11);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(139, 20);
+            this.label25.TabIndex = 1;
+            this.label25.Text = "Contract Details";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(13, 33);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(296, 13);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Click on a contract to reveal its details, or add a new contract";
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.btnAddContract);
+            this.panel8.Controls.Add(this.label19);
+            this.panel8.Controls.Add(this.dgvContracts);
+            this.panel8.Location = new System.Drawing.Point(13, 64);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(484, 387);
+            this.panel8.TabIndex = 24;
+            // 
+            // btnAddContract
+            // 
+            this.btnAddContract.Location = new System.Drawing.Point(14, 290);
+            this.btnAddContract.Name = "btnAddContract";
+            this.btnAddContract.Size = new System.Drawing.Size(123, 23);
+            this.btnAddContract.TabIndex = 40;
+            this.btnAddContract.Text = "Add Contract";
+            this.btnAddContract.UseVisualStyleBackColor = true;
+            this.btnAddContract.Click += new System.EventHandler(this.btnAddContract_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(11, 10);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(100, 17);
+            this.label19.TabIndex = 24;
+            this.label19.Text = "All Contracts";
+            // 
+            // dgvContracts
+            // 
+            this.dgvContracts.AllowUserToAddRows = false;
+            this.dgvContracts.AllowUserToDeleteRows = false;
+            this.dgvContracts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvContracts.Location = new System.Drawing.Point(14, 30);
+            this.dgvContracts.MultiSelect = false;
+            this.dgvContracts.Name = "dgvContracts";
+            this.dgvContracts.Size = new System.Drawing.Size(424, 236);
+            this.dgvContracts.TabIndex = 23;
+            this.dgvContracts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsed_CellClick);
+            this.dgvContracts.SelectionChanged += new System.EventHandler(this.dgvContracts_SelectionChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(9, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(138, 20);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "Client Contracts";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lstContractError);
+            this.panel9.Controls.Add(this.label21);
+            this.panel9.Location = new System.Drawing.Point(300, 11);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(240, 250);
+            this.panel9.TabIndex = 24;
+            // 
+            // lstContractError
+            // 
+            this.lstContractError.FormattingEnabled = true;
+            this.lstContractError.Location = new System.Drawing.Point(15, 32);
+            this.lstContractError.Name = "lstContractError";
+            this.lstContractError.Size = new System.Drawing.Size(210, 199);
+            this.lstContractError.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(12, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(81, 18);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Error Box";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(17, 322);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(254, 23);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "Manage Contract Types";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmPersonDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1120, 612);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tcPerson);
             this.Name = "frmPersonDetails";
             this.Text = "Person Details";
             this.panel1.ResumeLayout(false);
@@ -591,7 +884,7 @@
             this.pnlClientDetails.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tcPerson.ResumeLayout(false);
             this.tabPerson.ResumeLayout(false);
             this.tabLocations.ResumeLayout(false);
             this.tabLocations.PerformLayout();
@@ -603,6 +896,16 @@
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsed)).EndInit();
+            this.tabContract.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -639,7 +942,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label ID;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tcPerson;
         private System.Windows.Forms.TabPage tabPerson;
         private System.Windows.Forms.TabPage tabLocations;
         private System.Windows.Forms.Button btnCancelLists;
@@ -657,6 +960,32 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button btnSaveLists;
         private System.Windows.Forms.Button btnManageLocations;
+        private System.Windows.Forms.TabPage tabContract;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.ComboBox cmbContractType;
+        private System.Windows.Forms.TextBox txtContractID;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataGridView dgvContracts;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button btnSaveContract;
+        private System.Windows.Forms.Button btnCancelContract;
+        private System.Windows.Forms.Button btnDeleteContract;
+        private System.Windows.Forms.Button btnEditContract;
+        private System.Windows.Forms.Button btnAddContract;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.ListBox lstContractError;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -17,6 +17,7 @@ namespace BusinessLayer.Classes
         private int fK_NotificationTypeId;
         private string fK_PersonEmail;
         private string oldClientId;
+        private List<Contract> contracts;
 
         public Client(Person person, string clientID, int fK_NotificationID) 
             :base(person.Id, person.Name, person.Surname, person.Email, person.CellNumber)
@@ -54,6 +55,21 @@ namespace BusinessLayer.Classes
         {
             get => Email;
             set => Email = fK_PersonEmail = value;
+        }
+
+        public List<Contract> Contracts
+        {
+            get
+            {
+                if (contracts == null)
+                {
+                    string personEmail = Email;
+                    contracts = Contract.Select(c => c.FK_ClientId == personEmail);
+                }
+
+                return contracts;
+            }
+            set => contracts = value;
         }
 
         public static List<Client> Select(params Expression<Func<Client, object>>[] expression)

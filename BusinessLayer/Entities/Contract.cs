@@ -4,11 +4,13 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblcontract")]
-    public class Contract : DataObject
+    public class Contract : DataObject, IValidatable<Contract>
     {
         private string id;
         private string fK_ClientId;
@@ -18,13 +20,14 @@ namespace BusinessLayer.Classes
         private Client client;
         private ContractType contractType;
 
-        public Contract(string id, string fK_ClientId, DateTime startDate, DateTime endDate, char contractTypeId)
+        public Contract(string id, string fK_ClientId, DateTime startDate, DateTime endDate, char contractTypeId, ContractType contractType)
         {
             Id = id;
             FK_ClientId = fK_ClientId;
             StartDate = startDate;
             EndDate = endDate;
             FK_ContractTypeId = contractTypeId;
+            ContractType = contractType;
         }
 
         public Contract(DataRow dataRow)
@@ -34,6 +37,8 @@ namespace BusinessLayer.Classes
             StartDate = (DateTime) dataRow["StartDate"];
             EndDate = (DateTime) dataRow["EndDate"];
             FK_ContractTypeId = (char) dataRow["ContractTypeID"];
+            contractType = new ContractType(dataRow);
+            contractType.ServiceLevel = new ServiceLevel(dataRow);
         }
 
         [Key]
@@ -46,6 +51,7 @@ namespace BusinessLayer.Classes
         public DateTime StartDate { get => startDate; set => startDate = value; }
         [Column("EndDate")]
         public DateTime EndDate { get => endDate; set => endDate = value; }
+        [ForeignKey(typeof(ContractType))]
         [Column("FK_ContractTypeID")]
         public char FK_ContractTypeId { get => fK_ContractTypeId; set => fK_ContractTypeId = value; }
         public ContractType ContractType
@@ -84,7 +90,15 @@ namespace BusinessLayer.Classes
 
         public static List<Contract> Select(params Expression<Func<Contract, object>>[] expression)
         {
-            return DataObjectFactory.Select<Contract>(expression);
+            Expression<Func<Contract, ContractType, ServiceLevel, object>> ex =
+                (c, ct, s) => c.FK_ContractTypeId == ct.Id && ct.FK_ServiceLevelId == s.Id;
+            Expression[] list = { ex };
+            return DataObjectFactory.Select<Contract>(Utils.JoinArrays(expression, list));
+        }
+
+        public bool Validate(IValidator<Contract> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

@@ -23,9 +23,8 @@ namespace PresentationLayer
 
         public static List<T> GetDifference<T>(List<T> array1, List<T> array2)
         {
-            return array1.Union(array2).ToList();
-            var diff = array1.Except(array2);
-            return diff.ToList();
+           //return array1.Union(array2).ToList();
+            return array1.Except(array2).ToList();
         }
     }
 }

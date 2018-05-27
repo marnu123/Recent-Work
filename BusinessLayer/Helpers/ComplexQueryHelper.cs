@@ -51,12 +51,18 @@ namespace BusinessLayer.Helpers
 
         public static void AddLocationsForPerson(Person person, List<Location> itemsToAdd)
         {
-            itemsToAdd.ForEach(item => new Person_Location(person.Email, item.Id));
+            itemsToAdd.ForEach(item => new Person_Location(person.Email, item.Id).Insert());
         }
 
         public static void AddProductsForLocation(Location location, List<Product> itemsToAdd)
         {
-            itemsToAdd.ForEach(item => new Product_Location(0, item.Id, location.Id));
+            itemsToAdd.ForEach(item => new Product_Location(0, item.Id, location.Id).Insert());
+        }
+
+        public static void UpdateProductCategoriesForContractType(ContractType contractType, List<ProductCategory> itemsToAdd, List<ProductCategory>itemsToDelete)
+        {
+            itemsToAdd.ForEach(item => new ProductCategory_ContractType(item.Title, contractType.Id).Insert());
+            itemsToDelete.ForEach(item => new ProductCategory_ContractType(item.Title, contractType.Id).Delete());
         }
     }
 }

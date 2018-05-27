@@ -8,29 +8,25 @@ using DataLayer.Attributes;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tblservicelevel")]
     public class ServiceLevel : DataObject
     {
         private char id;
-        private string serviceLevelTitle;
 
-        public ServiceLevel(char id, string serviceLevelTitle)
+        public ServiceLevel(char id)
         {
             Id = id;
-            ServiceLevelTitle = serviceLevelTitle;
         }
 
         public ServiceLevel(DataRow dataRow)
         {
-            Id = (char) dataRow["PK_ServiceLevelID"];
-            ServiceLevelTitle = dataRow["ServiceLevelTitle"].ToString();
+            Id = Convert.ToChar(dataRow["PK_ServiceLevelID"].ToString().Substring(0,1));
         }
 
         [Key]
         [Column("PK_ServiceLevelID")]
         public char Id { get => id; set => id = value; }
-        [Column("ServiceLevelTitle")]
-        public string ServiceLevelTitle { get => serviceLevelTitle; set => serviceLevelTitle = value; }
 
         public static List<ServiceLevel> Select(params Expression<Func<ServiceLevel, object>>[] expression)
         {
@@ -39,7 +35,7 @@ namespace BusinessLayer.Classes
 
         public override string ToString()
         {
-            return Id + " " + ServiceLevelTitle;
+            return Id.ToString();
         }
     }
 }

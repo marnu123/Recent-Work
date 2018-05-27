@@ -1,6 +1,6 @@
 ﻿namespace PresentationLayer
 {
-    partial class frmLocation
+    partial class frmContractType
     {
         /// <summary>
         /// Required designer variable.
@@ -30,25 +30,25 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnAddLocation = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.dgvLocation = new System.Windows.Forms.DataGridView();
+            this.dgvContractTypes = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLocation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContractTypes)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.btnCancel);
-            this.panel1.Controls.Add(this.btnAddLocation);
+            this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.dgvLocation);
+            this.panel1.Controls.Add(this.dgvContractTypes);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 295);
-            this.panel1.TabIndex = 3;
+            this.panel1.TabIndex = 4;
             // 
             // btnCancel
             // 
@@ -58,17 +58,16 @@
             this.btnCancel.TabIndex = 20;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnAddLocation
+            // btnAdd
             // 
-            this.btnAddLocation.Location = new System.Drawing.Point(17, 232);
-            this.btnAddLocation.Name = "btnAddLocation";
-            this.btnAddLocation.Size = new System.Drawing.Size(102, 23);
-            this.btnAddLocation.TabIndex = 19;
-            this.btnAddLocation.Text = "Add Location";
-            this.btnAddLocation.UseVisualStyleBackColor = true;
-            this.btnAddLocation.Click += new System.EventHandler(this.button1_Click);
+            this.btnAdd.Location = new System.Drawing.Point(17, 232);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(102, 23);
+            this.btnAdd.TabIndex = 19;
+            this.btnAdd.Text = "Add Contract Type";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // label2
             // 
@@ -80,14 +79,15 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Click on a row\'s \"View\" button to edit/update its details";
             // 
-            // dgvLocation
+            // dgvContractTypes
             // 
-            this.dgvLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLocation.Location = new System.Drawing.Point(17, 65);
-            this.dgvLocation.Name = "dgvLocation";
-            this.dgvLocation.Size = new System.Drawing.Size(742, 140);
-            this.dgvLocation.TabIndex = 2;
-            this.dgvLocation.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLocation_CellClick);
+            this.dgvContractTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvContractTypes.Location = new System.Drawing.Point(17, 65);
+            this.dgvContractTypes.Name = "dgvContractTypes";
+            this.dgvContractTypes.Size = new System.Drawing.Size(742, 140);
+            this.dgvContractTypes.TabIndex = 2;
+            this.dgvContractTypes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContractTypes_CellClick);
+            this.dgvContractTypes.SelectionChanged += new System.EventHandler(this.dgvContractTypes_SelectionChanged);
             // 
             // label1
             // 
@@ -95,21 +95,21 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(13, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 20);
+            this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Locations";
+            this.label1.Text = "Contract Types";
             // 
-            // frmLocation
+            // frmContractType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel1);
-            this.Name = "frmLocation";
-            this.Text = "Person Locations";
+            this.Name = "frmContractType";
+            this.Text = "frmContractType";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLocation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvContractTypes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,10 +117,10 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvLocation;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnAddLocation;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dgvContractTypes;
+        private System.Windows.Forms.Label label1;
     }
 }

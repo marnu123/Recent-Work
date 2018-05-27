@@ -46,6 +46,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregatedPropertyDescriptor.cs" />
+    <Compile Include="frmCall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCall.Designer.cs">
+      <DependentUpon>frmCall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmContractTypeDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmContractTypeDetails.Designer.cs">
+      <DependentUpon>frmContractTypeDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmComponent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,12 @@
     </Compile>
     <Compile Include="frmConfigurationDetails.Designer.cs">
       <DependentUpon>frmConfigurationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmContractType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmContractType.Designer.cs">
+      <DependentUpon>frmContractType.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLocationDetails.cs">
       <SubType>Form</SubType>
@@ -128,6 +146,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="frmCall.resx">
+      <DependentUpon>frmCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmContractTypeDetails.resx">
+      <DependentUpon>frmContractTypeDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmComponent.resx">
       <DependentUpon>frmComponent.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfigurationDetails.resx">
       <DependentUpon>frmConfigurationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmContractType.resx">
+      <DependentUpon>frmContractType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLocationDetails.resx">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>
@@ -194,6 +221,10 @@
       <Project>{fce5018d-b34f-4f16-8eef-dad860162690}</Project>
       <Name>BusinessLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Images\green answer.png" />
+    <Content Include="Resources\Images\red answer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

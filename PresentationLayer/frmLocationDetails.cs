@@ -120,6 +120,7 @@ namespace PresentationLayer
         {
             IEnumerable<string> brokenRules;
             string msg = "Invalid input.  Please check the Error box";
+            bool isValid = false;
 
             if (newCity)
             {
@@ -147,6 +148,7 @@ namespace PresentationLayer
 
             if (location.Validate(out brokenRules))
             {
+                isValid = true;
                 if (insert)
                 {
                     //Insert a new location for a person only if the person object has been set
@@ -161,8 +163,8 @@ namespace PresentationLayer
                 }
             }
 
-            MessageBox.Show(msg);
-            lstError.DataSource = brokenRules.ToList();  
+            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
         private void toggleControlsEnable(bool state)

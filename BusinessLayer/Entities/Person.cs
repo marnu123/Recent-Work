@@ -35,7 +35,6 @@ namespace BusinessLayer.Classes
             cellNumber = dr["CellNumber"].ToString();
             locations = null;
             oldEmail = email;
-            //Console.WriteLine("Person {0} Created", Name);
         }
 
         public Person() { }
@@ -76,7 +75,8 @@ namespace BusinessLayer.Classes
                 }
                 return locations;
             }
-            set => locations = value; }
+            set => locations = value;
+        }
 
         public override string ToString()
         {

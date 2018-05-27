@@ -46,5 +46,15 @@ namespace PresentationLayer
         {
             showForm(new frmComponent());
         }
+
+        private void btnContractTypes_Click(object sender, EventArgs e)
+        {
+            showForm(new frmContractType());
+        }
+
+        private void btnCaller_Click(object sender, EventArgs e)
+        {
+            showForm(new frmCall(new BusinessLayer.Classes.Call(0, DateTime.Now.AddSeconds(-10), DateTime.Now, "123", "0123456798", ""), true));
+        }
     }
 }

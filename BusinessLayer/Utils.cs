@@ -33,6 +33,11 @@ namespace BusinessLayer
             return str == null || str.Trim() == String.Empty;
         }
 
+        public static bool IsUpAlphabeticChar(char c)
+        {
+            return c > 64 && c < 91;
+        }
+
         public static bool IsZeroOrEmpty(int? val)
         {
             return val == null || val == 0;
@@ -47,6 +52,11 @@ namespace BusinessLayer
                 ms.Position = 0;
                 obj2 = (T)formatter.Deserialize(ms);
             }
+        }
+
+        public static bool IsDateTimeEmpty(DateTime dateTime)
+        {
+            return dateTime == null;
         }
     }
 }

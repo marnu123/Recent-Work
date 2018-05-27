@@ -46,12 +46,17 @@ namespace PresentationLayer
             initializeFields(insert);
             this.insert = insert;
 
+            //Enable the correct components according to the type of client
             bool clientEnabled = person.GetType() == typeof(Client);
             pnlClientDetails.Visible = clientEnabled;
             pnlEmployeeDetails.Visible = !clientEnabled;
+            if (!clientEnabled) tcPerson.TabPages.Remove(tabContract);
+
             person.DeepCopyInto(ref oldCopy);
             createLocationHeadings(dgvAvailable);
             createLocationHeadings(dgvUsed);
+
+            if (person.GetType() == typeof(Client)) createContractColumns(dgvContracts);
         }
 
         private void setControlEnabled(bool state)
@@ -368,6 +373,129 @@ namespace PresentationLayer
                 Show();
             };
             Hide();
+        }
+
+        private void createContractColumns(DataGridView dgv)
+        {
+            dgv.AutoGenerateColumns = false;
+            dgv.Columns.Add("ID", "ID");
+            dgv.Columns["ID"].DataPropertyName = "Id";
+
+            dgv.Columns.Add("StartDate", "Start Date");
+            dgv.Columns["StartDate"].DataPropertyName = "StartDate";
+
+            dgv.Columns.Add("EndDate", "End Date");
+            dgv.Columns["EndDate"].DataPropertyName = "EndDate";
+
+            dgv.Columns.Add("ContractType", "Contract Type");
+            dgv.Columns["ContractType"].DataPropertyName = "ContractType->Title";
+
+            dgv.Columns.Add("ServiceLevel", "Service Level");
+            dgv.Columns["ServiceLevel"].DataPropertyName = "ContractType.ServiceLevel.Title";
+        }
+
+        Contract currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', "", ' ', new ServiceLevel(' ')));
+        Contract oldContract;
+
+        bool contractEdit = false, contractInsert = false;
+
+        private void tabContract_Enter(object sender, EventArgs e)
+        {
+            dgvContracts.DataSource = new AggregatedPropertyBindingList<Contract>(((Client)currentPerson).Contracts);
+            contractEdit = false;
+        }
+
+        private void setEnableContractFields(bool state)
+        {
+            txtContractID.Enabled = state;
+            dtpEndDate.Enabled = state;
+            dtpStartDate.Enabled = state;
+            cmbContractType.Enabled = state;
+            btnSave.Enabled = state;
+        }
+
+        private void bindContractFields(Contract contract)
+        {
+            txtContractID.DataBindings.Add(new Binding("Text", contract, "Id"));
+            dtpEndDate.DataBindings.Add(new Binding("Value", contract, "EndDate"));
+            dtpStartDate.DataBindings.Add(new Binding("Value", contract, "StartDate"));
+            cmbContractType.ValueMember = "Id";
+            cmbContractType.DisplayMember = "Id";
+            cmbContractType.DataBindings.Add(new Binding("SelectedValue", contract.ContractType, "Id"));
+            cmbContractType.DataSource = contract.ContractType;
+        }
+
+        private void dgvContracts_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView temp = sender as DataGridView;
+            if (temp.SelectedRows.Count == 1)
+            {
+                currentContract = (Contract) temp.SelectedRows[0].DataBoundItem;
+                contractEdit = false;
+                setEnableContractFields(false);
+            }
+        }
+
+        private void btnEditContract_Click(object sender, EventArgs e)
+        {
+            contractEdit = true;
+            setEnableContractFields(true);
+            currentContract.DeepCopyInto(ref oldContract);
+        }
+
+        private void btnDeleteContract_Click(object sender, EventArgs e)
+        {
+            currentContract.Delete();
+        }
+
+        private void btnCancelContract_Click(object sender, EventArgs e)
+        {
+            oldContract.DeepCopyInto(ref currentContract);
+        }
+
+        private void btnAddContract_Click(object sender, EventArgs e)
+        {
+            currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', "", ' ', new ServiceLevel(' ')));
+            contractInsert = contractEdit = true;
+            setEnableContractFields(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmContractType frm = new frmContractType();
+            frm.Show();
+            frm.FormClosed += (s, events) =>
+            {
+                Show();
+            };
+            Hide();
+        }
+
+        private void btnSaveContract_Click(object sender, EventArgs e)
+        {
+            IEnumerable<string> brokenRules;
+            bool isValid = currentContract.Validate(out brokenRules);
+            string msg = "Invalid input.  Please check the error box";
+
+            if (isValid)
+            {
+                if (insert)
+                {
+                    currentContract.Insert();
+                    msg = "Contract inserted";
+                    ((Client)currentPerson).Contracts.Add(currentContract);
+                }
+                else
+                {
+                    currentContract.Update();
+                    msg = "Contract updated";
+                }
+
+                contractInsert = contractEdit = false;
+            }
+
+            if (isValid) lstContractError.DataSource = brokenRules.ToList();
+            MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 }
