@@ -7,10 +7,12 @@ using DataLayer.Attributes;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tbltask")]
-    class Task : DataObject
+    public class Task : DataObject
     {
         private string id;
+        private string oldKey;
         private int fK_LocationId;
         private int fK_TaskTypeId;
         private string taskDescription;
@@ -22,6 +24,7 @@ namespace BusinessLayer.Classes
         public Task(string id, int fK_LocationId, int fK_TaskTypeId, string taskDescription, int fK_TaskStatusId)
         {
             Id = id;
+            OldKey = id;
             FK_LocationId = fK_LocationId;
             FK_TaskTypeId = fK_TaskTypeId;
             TaskDescription = taskDescription;
@@ -35,11 +38,14 @@ namespace BusinessLayer.Classes
             FK_TaskTypeId = Convert.ToInt32(dataRow["FK_TaskTypeID"]);
             TaskDescription = dataRow["TaskDescription"].ToString();
             FK_TaskStatusId = Convert.ToInt32(dataRow["FK_TaskStatusID"]);
+            OldKey = id;
         }
 
         [Key]
         [Column("PK_TaskID")]
         public string Id { get => id; set => id = value; }
+        [KeyStorage("Id")]
+        public string OldKey { get => oldKey; set => oldKey = value; }
         [Column("FK_LocationID")]
         public int FK_LocationId { get => fK_LocationId; set => fK_LocationId = value; }
         [Column("FK_TaskTypeID")]
@@ -96,7 +102,12 @@ namespace BusinessLayer.Classes
 
         public static List<Task> Select(params Expression<Func<Task, object>>[] expression)
         {
-            return DataObjectFactory.Select<Task>(expression);
+            Expression<Func<Task, Location, Street, City, TaskStatus, TaskType, object>> ex =
+                (t, l, s, c, ts, tt) => t.FK_LocationId == l.Id && l.FK_StreetID == s.Id && s.FK_CityID == c.Id
+                && ts.Id == t.FK_TaskStatusId && tt.Id == t.FK_TaskTypeId;
+            Expression[] list = { ex };
+
+            return DataObjectFactory.Select<Task>(Utils.JoinArrays(expression, list));
         }
     }
 }

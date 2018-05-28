@@ -113,3 +113,12 @@ namespace PresentationLayer
         }
     }
 }
+
+/*Todo
+ * Add threads that randomly select clients from the database as callers to the call centre.
+ * Add these calls to a queue and allow the operator to accept or decline calls, accessible from the outside
+ * Add events that will allow the form to update when calls are added
+ * Add these occurrences to the database
+ * Run the caller simulator on a separate thread
+ * Show a lsist of currently waiting incoming calls
+ */
