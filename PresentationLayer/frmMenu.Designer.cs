@@ -34,6 +34,7 @@
             this.btnProducts = new System.Windows.Forms.Button();
             this.btnContractTypes = new System.Windows.Forms.Button();
             this.btnCaller = new System.Windows.Forms.Button();
+            this.btnTasks = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPeople
@@ -96,11 +97,22 @@
             this.btnCaller.UseVisualStyleBackColor = true;
             this.btnCaller.Click += new System.EventHandler(this.btnCaller_Click);
             // 
+            // btnTasks
+            // 
+            this.btnTasks.Location = new System.Drawing.Point(285, 295);
+            this.btnTasks.Name = "btnTasks";
+            this.btnTasks.Size = new System.Drawing.Size(124, 23);
+            this.btnTasks.TabIndex = 7;
+            this.btnTasks.Text = "Tasks";
+            this.btnTasks.UseVisualStyleBackColor = true;
+            this.btnTasks.Click += new System.EventHandler(this.btnTasks_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnTasks);
             this.Controls.Add(this.btnCaller);
             this.Controls.Add(this.btnContractTypes);
             this.Controls.Add(this.btnProducts);
@@ -121,5 +133,6 @@
         private System.Windows.Forms.Button btnProducts;
         private System.Windows.Forms.Button btnContractTypes;
         private System.Windows.Forms.Button btnCaller;
+        private System.Windows.Forms.Button btnTasks;
     }
 }
