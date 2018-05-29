@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusinessLayer;
 using BusinessLayer.Classes;
 using BusinessLayer.Validators;
+using BusinessLayer.Helpers;
 
 namespace SHSTests
 {
@@ -47,6 +48,31 @@ namespace SHSTests
                 Component c = comps[0];
                 Assert.AreEqual(true, c.Configurations.Count > 0);
             }
+        }
+    }
+
+    [TestClass]
+    public class DatabaseTests
+    {
+        [TestMethod]
+        public void SelectClientEmails()
+        {
+            Dictionary<string, string> emails = StoredProcedureHelper.GetClientEmails();
+            Assert.AreEqual(true, emails.Count() > 0);
+        }
+
+        [TestMethod]
+        public void SelectUnassignedTasks()
+        {
+            List<TaskWithContract> result = StoredProcedureHelper.GetUnassginedTasksWithContracts();
+            Assert.AreEqual(true, result.Count > 0);
+        }
+
+        [TestMethod]
+        public void SelectScheduledTasks()
+        {
+            List<Schedule> list = StoredProcedureHelper.GetScheduledTasksInProgress();
+            Assert.AreEqual(true, list.Count > 0);
         }
     }
 }

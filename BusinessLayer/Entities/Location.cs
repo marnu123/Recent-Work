@@ -19,7 +19,6 @@ namespace BusinessLayer.Classes
         private Street street;
         //private City city;
         private List<Product> products;
-        private Person person;
 
         public Location() { }
 
@@ -77,23 +76,6 @@ namespace BusinessLayer.Classes
                 return street;
             }
             set => street = value;
-        }
-
-        public Person Person
-        {
-            get
-            {
-                if (person == null)
-                {
-                    Expression<Func<Person, Location, Person_Location, object>> ex =
-                        (p, l, pl) => p.Email == pl.PersonEmail && pl.LocationId == l.Id;
-                    List<Person> result = DatabaseHelper.Select<Person>(ex);
-                    person = result.Count == 1 ? result[0] : null;
-                }
-
-                return person;
-            }
-            set => person = value;
         }
 
         public static List<Location> Select(params Expression<Func<Location, object>>[] expression)

@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using BusinessLayer.Classes;
 using BusinessLayer;
+using BusinessLayer.Helpers;
 using Task = BusinessLayer.Classes.Task;
 
 namespace PresentationLayer
@@ -16,11 +17,20 @@ namespace PresentationLayer
     public partial class frmTask : Form
     {
         List<Task> tasks;
+        AggregatedPropertyBindingList<Task> dataSource;
 
         public frmTask()
         {
             InitializeComponent();
-            tasks = Task.Select();
+            tasks = ComplexQueryHelper.GetCompleteTaskDetails();
+            createColumnHeadings();
+            bindDataGridView();
+        }
+
+        private void bindDataGridView()
+        {
+            dataSource = new AggregatedPropertyBindingList<Task>(tasks);
+            dgvTasks.DataSource = dataSource;
         }
 
         private void createColumnHeadings()
@@ -33,15 +43,21 @@ namespace PresentationLayer
             dgvTasks.Columns["Location"].DataPropertyName = "Location";
 
             dgvTasks.Columns.Add("Client", "Client");
-            dgvTasks.Columns["Client"].DataPropertyName = "Location->Person->Name";
+            dgvTasks.Columns["Client"].DataPropertyName = "Client->Email";
 
             dgvTasks.Columns.Add("Status", "Status");
-            dgvTasks.Columns["Status"].DataPropertyName = "Status->Title";
+            dgvTasks.Columns["Status"].DataPropertyName = "TaskStatus->Title";
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmTaskDetails frm = new frmTaskDetails();
+            frmTaskDetails frm = new frmTaskDetails(new Task("", 0, 0,"", 0), true);
+            Utils.ShowForm(this, frm, dgvTasks, () =>
+            {
+                tasks = Task.Select();
+                dataSource = new AggregatedPropertyBindingList<Task>(tasks);
+                dgvTasks.DataSource = dataSource;
+            });
         }
 
         private void dgvTasks_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -58,7 +74,13 @@ namespace PresentationLayer
             if (dgvTasks.SelectedRows.Count == 1)
             {
                 Task selectedTask = (Task) dgvTasks.SelectedRows[0].DataBoundItem;
-                frmTaskDetails frm = new frmTaskDetails();
+                frmTaskDetails frm = new frmTaskDetails((Task)dgvTasks.SelectedRows[0].DataBoundItem);
+                Utils.ShowForm(this, frm, dgvTasks, () =>
+                {
+                    tasks = Task.Select();
+                    dataSource = new AggregatedPropertyBindingList<Task>(tasks);
+                    dgvTasks.DataSource = dataSource;
+                });
             }
 
         }

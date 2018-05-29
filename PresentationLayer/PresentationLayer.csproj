@@ -136,6 +136,12 @@
     <Compile Include="frmSchedule.Designer.cs">
       <DependentUpon>frmSchedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmScheduleTreeViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScheduleTreeViewForm.Designer.cs">
+      <DependentUpon>frmScheduleTreeViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaskDetails - Copy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSchedule.resx">
       <DependentUpon>frmSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScheduleTreeViewForm.resx">
+      <DependentUpon>frmScheduleTreeViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.cs</DependentUpon>

@@ -7,13 +7,14 @@ using DataLayer.Attributes;
 
 namespace BusinessLayer.Classes
 { 
+    [Serializable]
     [Table("tblschedule")]
-    class Schedule : DataObject
+    public class Schedule : DataObject
     {
         private int id;
         private DateTime timeStart;
-        private float price;
-        private DateTime duration;
+        private double price;
+        private TimeSpan duration;
         private string fK_TaskId;
         private string fK_EmployeeId;
         private Task task;
@@ -24,13 +25,19 @@ namespace BusinessLayer.Classes
         {
             Id = Convert.ToInt32(dataRow["PK_ScheduleID"]);
             TimeStart = (DateTime)dataRow["TimeStart"];
-            Price = (float)dataRow["Price"];
-            Duration = (DateTime)dataRow["Duration"];
+            Price = Convert.ToDouble(dataRow["SchedulePrice"]);
+            Duration = (TimeSpan) dataRow["Duration"];
             FK_TaskId = dataRow["FK_TaskID"].ToString();
             FK_EmployeeId = dataRow["FK_EmployeeID"].ToString();
+
+            try
+            {
+                task = new Task(dataRow);
+            }
+            catch (Exception e) { }
         }
 
-        public Schedule(int id, DateTime timeStart, float price, DateTime duration, string fK_TaskId, string fK_EmployeeId)
+        public Schedule(int id, DateTime timeStart, float price, TimeSpan duration, string fK_TaskId, string fK_EmployeeId)
         {
             Id = id;
             TimeStart = timeStart;
@@ -46,9 +53,9 @@ namespace BusinessLayer.Classes
         [Column("TimeStart")]
         public DateTime TimeStart { get => timeStart; set => timeStart = value; }
         [Column("SchedulePrice")]
-        public float Price { get => price; set => price = value; }
+        public double Price { get => price; set => price = value; }
         [Column("Duration")]
-        public DateTime Duration { get => duration; set => duration = value; }
+        public TimeSpan Duration { get => duration; set => duration = value; }
         [ForeignKey(typeof(Task))]
         [Column("FK_TaskID")]
         public string FK_TaskId { get => fK_TaskId; set => fK_TaskId = value; }

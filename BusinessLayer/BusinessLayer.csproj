@@ -48,10 +48,19 @@
     <Compile Include="Entities\Configuration.cs" />
     <Compile Include="Entities\Contract.cs" />
     <Compile Include="Entities\ProductCategory_ContractType.cs" />
+    <Compile Include="Entities\TaskWithContract.cs" />
     <Compile Include="Helpers\ComplexQueryHelper.cs" />
+    <Compile Include="MinMaxHeap\MaxHeap.cs" />
+    <Compile Include="MinMaxHeap\MinHeap.cs" />
+    <Compile Include="PriorityCalculator.cs" />
+    <Compile Include="StoredProcedures\GetClientEmailAddresses.cs" />
     <Compile Include="StoredProcedures\GetOverlappingContracts.cs" />
+    <Compile Include="StoredProcedures\GetTasksInProgress.cs" />
+    <Compile Include="StoredProcedures\GetTasksWithContracts.cs" />
+    <Compile Include="StoredProcedures\GetUnassignedTasksWithContracts.cs" />
     <Compile Include="StoredProcedures\IsUniqueEmail.cs" />
-    <Compile Include="StoredProcedures\StoredProcedureHelper.cs" />
+    <Compile Include="Helpers\StoredProcedureHelper.cs" />
+    <Compile Include="TaskPrioritiser.cs" />
     <Compile Include="Validators\CityValidator.cs" />
     <Compile Include="Validators\ComponentValidator.cs" />
     <Compile Include="Validators\ConfigurationValidator.cs" />
@@ -97,6 +106,7 @@
     <Compile Include="Validators\ProductCategoryValidator.cs" />
     <Compile Include="Validators\ProductValidator.cs" />
     <Compile Include="Validators\StreetValidator.cs" />
+    <Compile Include="Validators\TaskValidator.cs" />
     <Compile Include="Validators\Validator.cs" />
     <Compile Include="Validators\ValidatorFactory.cs" />
   </ItemGroup>

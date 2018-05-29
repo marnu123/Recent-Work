@@ -187,6 +187,7 @@ namespace DataLayer
                 updateCache(table);
             }
 
+            //When adding tables, use the lowest child during the first iteration
             foreach (Type table in tables)
             {
                 var foreignKeyProps = table.GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(ForeignKeyAttribute)));

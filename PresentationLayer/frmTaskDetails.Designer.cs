@@ -29,6 +29,20 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlClient = new System.Windows.Forms.Panel();
+            this.lstClients = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pnlLocation = new System.Windows.Forms.Panel();
+            this.dgvLocation = new System.Windows.Forms.DataGridView();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.cmbTaskStatus = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.RichTextBox();
             this.cmbTaskType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -36,27 +50,16 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbTaskStatus = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlClient = new System.Windows.Forms.Panel();
-            this.dgvClient = new System.Windows.Forms.DataGridView();
-            this.label9 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.pnlLocation = new System.Windows.Forms.Panel();
-            this.dgvLocation = new System.Windows.Forms.DataGridView();
-            this.label10 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lstError = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlClient.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
-            this.panel2.SuspendLayout();
             this.pnlLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLocation)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,6 +79,141 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 728);
             this.panel1.TabIndex = 4;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.pnlClient);
+            this.flowLayoutPanel1.Controls.Add(this.pnlLocation);
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 317);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(776, 408);
+            this.flowLayoutPanel1.TabIndex = 40;
+            // 
+            // pnlClient
+            // 
+            this.pnlClient.Controls.Add(this.lstClients);
+            this.pnlClient.Controls.Add(this.label9);
+            this.pnlClient.Location = new System.Drawing.Point(3, 3);
+            this.pnlClient.Name = "pnlClient";
+            this.pnlClient.Size = new System.Drawing.Size(275, 228);
+            this.pnlClient.TabIndex = 25;
+            // 
+            // lstClients
+            // 
+            this.lstClients.FormattingEnabled = true;
+            this.lstClients.Location = new System.Drawing.Point(11, 31);
+            this.lstClients.Name = "lstClients";
+            this.lstClients.Size = new System.Drawing.Size(243, 186);
+            this.lstClients.TabIndex = 23;
+            this.lstClients.SelectedValueChanged += new System.EventHandler(this.lstClients_SelectedValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(8, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 17);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Select a Client";
+            // 
+            // pnlLocation
+            // 
+            this.pnlLocation.Controls.Add(this.dgvLocation);
+            this.pnlLocation.Controls.Add(this.label10);
+            this.pnlLocation.Location = new System.Drawing.Point(284, 3);
+            this.pnlLocation.Name = "pnlLocation";
+            this.pnlLocation.Size = new System.Drawing.Size(489, 228);
+            this.pnlLocation.TabIndex = 27;
+            // 
+            // dgvLocation
+            // 
+            this.dgvLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLocation.Location = new System.Drawing.Point(11, 31);
+            this.dgvLocation.Name = "dgvLocation";
+            this.dgvLocation.Size = new System.Drawing.Size(464, 186);
+            this.dgvLocation.TabIndex = 23;
+            this.dgvLocation.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLocation_CellClick);
+            this.dgvLocation.SelectionChanged += new System.EventHandler(this.dgvLocation_SelectionChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(8, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(201, 17);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Select a Location for the Client";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnCancel);
+            this.panel2.Controls.Add(this.btnEdit);
+            this.panel2.Controls.Add(this.btnDelete);
+            this.panel2.Controls.Add(this.btnSave);
+            this.panel2.Location = new System.Drawing.Point(3, 237);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(773, 100);
+            this.panel2.TabIndex = 27;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(14, 48);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(254, 23);
+            this.btnCancel.TabIndex = 41;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(103, 19);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 40;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(193, 19);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 39;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(14, 19);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 38;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // cmbTaskStatus
+            // 
+            this.cmbTaskStatus.FormattingEnabled = true;
+            this.cmbTaskStatus.Location = new System.Drawing.Point(17, 166);
+            this.cmbTaskStatus.Name = "cmbTaskStatus";
+            this.cmbTaskStatus.Size = new System.Drawing.Size(157, 21);
+            this.cmbTaskStatus.TabIndex = 39;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 150);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "Task Status";
             // 
             // txtDescription
             // 
@@ -137,140 +275,40 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Task Details";
             // 
-            // cmbTaskStatus
+            // panel3
             // 
-            this.cmbTaskStatus.FormattingEnabled = true;
-            this.cmbTaskStatus.Location = new System.Drawing.Point(17, 166);
-            this.cmbTaskStatus.Name = "cmbTaskStatus";
-            this.cmbTaskStatus.Size = new System.Drawing.Size(157, 21);
-            this.cmbTaskStatus.TabIndex = 39;
+            this.panel3.Controls.Add(this.lstError);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Location = new System.Drawing.Point(878, 23);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(240, 250);
+            this.panel3.TabIndex = 21;
             // 
-            // label5
+            // lstError
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 150);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 38;
-            this.label5.Text = "Task Status";
+            this.lstError.FormattingEnabled = true;
+            this.lstError.Location = new System.Drawing.Point(15, 32);
+            this.lstError.Name = "lstError";
+            this.lstError.Size = new System.Drawing.Size(210, 199);
+            this.lstError.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // label6
             // 
-            this.flowLayoutPanel1.Controls.Add(this.pnlClient);
-            this.flowLayoutPanel1.Controls.Add(this.pnlLocation);
-            this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 317);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(776, 408);
-            this.flowLayoutPanel1.TabIndex = 40;
-            // 
-            // pnlClient
-            // 
-            this.pnlClient.Controls.Add(this.dgvClient);
-            this.pnlClient.Controls.Add(this.label9);
-            this.pnlClient.Location = new System.Drawing.Point(3, 3);
-            this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(732, 139);
-            this.pnlClient.TabIndex = 25;
-            // 
-            // dgvClient
-            // 
-            this.dgvClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClient.Location = new System.Drawing.Point(11, 31);
-            this.dgvClient.Name = "dgvClient";
-            this.dgvClient.Size = new System.Drawing.Size(713, 93);
-            this.dgvClient.TabIndex = 23;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 17);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Select a Client";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnCancel);
-            this.panel2.Controls.Add(this.btnEdit);
-            this.panel2.Controls.Add(this.btnDelete);
-            this.panel2.Controls.Add(this.btnSave);
-            this.panel2.Location = new System.Drawing.Point(3, 293);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 100);
-            this.panel2.TabIndex = 27;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(14, 48);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(254, 23);
-            this.btnCancel.TabIndex = 41;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(103, 19);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
-            this.btnEdit.TabIndex = 40;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(193, 19);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 39;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(14, 19);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 38;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // pnlLocation
-            // 
-            this.pnlLocation.Controls.Add(this.dgvLocation);
-            this.pnlLocation.Controls.Add(this.label10);
-            this.pnlLocation.Location = new System.Drawing.Point(3, 148);
-            this.pnlLocation.Name = "pnlLocation";
-            this.pnlLocation.Size = new System.Drawing.Size(732, 139);
-            this.pnlLocation.TabIndex = 27;
-            // 
-            // dgvLocation
-            // 
-            this.dgvLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLocation.Location = new System.Drawing.Point(11, 31);
-            this.dgvLocation.Name = "dgvLocation";
-            this.dgvLocation.Size = new System.Drawing.Size(713, 93);
-            this.dgvLocation.TabIndex = 23;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 6);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(201, 17);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "Select a Location for the Client";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(12, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 18);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Error Box";
             // 
             // frmTaskDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(974, 752);
+            this.ClientSize = new System.Drawing.Size(1208, 752);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Name = "frmTaskDetails";
             this.Text = "frmTaskDetails";
@@ -279,11 +317,12 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnlClient.ResumeLayout(false);
             this.pnlClient.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).EndInit();
-            this.panel2.ResumeLayout(false);
             this.pnlLocation.ResumeLayout(false);
             this.pnlLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLocation)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -302,7 +341,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Panel pnlClient;
-        private System.Windows.Forms.DataGridView dgvClient;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnCancel;
@@ -312,5 +350,9 @@
         private System.Windows.Forms.Panel pnlLocation;
         private System.Windows.Forms.DataGridView dgvLocation;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox lstClients;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ListBox lstError;
+        private System.Windows.Forms.Label label6;
     }
 }

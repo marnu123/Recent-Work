@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 using BusinessLayer.Classes;
 using BusinessLayer;
 
@@ -63,6 +62,23 @@ namespace BusinessLayer.Helpers
         {
             itemsToAdd.ForEach(item => new ProductCategory_ContractType(item.Title, contractType.Id).Insert());
             itemsToDelete.ForEach(item => new ProductCategory_ContractType(item.Title, contractType.Id).Delete());
+        }
+
+        public static List<Task> GetCompleteTaskDetails(params Expression[] expression)
+        {
+            Expression<Func<Task, Location, Street, City, TaskStatus, TaskType, object>> ex =
+                (t, l, s, c, ts, tt) => t.FK_LocationId == l.Id && l.FK_StreetID == s.Id && s.FK_CityID == c.Id
+                && ts.Id == t.FK_TaskStatusId && tt.Id == t.FK_TaskTypeId;
+            Expression[] list = { ex };
+            return DatabaseHelper.Select<Task>(Utils.JoinArrays(expression, list));
+        }
+
+        public static List<Location> GetLocationsForPerson(string personEmail)
+        {
+            Expression<Func<Location, Person_Location, Street, City, object>> ex =
+                (l, pl, s, c) => pl.LocationId == l.Id && pl.PersonEmail == personEmail && s.Id == l.FK_StreetID
+                && s.FK_CityID == c.Id;
+            return DatabaseHelper.Select<Location>(ex);
         }
     }
 }

@@ -7,6 +7,7 @@ using DataLayer.Attributes;
 
 namespace BusinessLayer.Classes
 {
+    [Serializable]
     [Table("tbltaskstatus")]
     public class TaskStatus : DataObject
     {

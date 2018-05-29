@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BusinessLayer.Classes;
 
 namespace BusinessLayer.Validators
@@ -28,6 +24,7 @@ namespace BusinessLayer.Validators
             if (typeof(T) == typeof(Manufacturer)) return (IValidator<T>)new ManufacturerValidator();
             if (typeof(T) == typeof(Contract)) return (IValidator<T>)new ContractValidator();
             if (typeof(T) == typeof(ContractType)) return (IValidator<T>)new ContractTypeValidator();
+            if (typeof(T) == typeof(Task)) return (IValidator<T>)new TaskValidator();
 
             throw new ArgumentException("T does not implement IValidate<T>");
         }
