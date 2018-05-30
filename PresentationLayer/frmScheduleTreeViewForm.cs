@@ -64,7 +64,7 @@ namespace PresentationLayer
             for (int i = 0; i < tasks.Count; i++)
             {
                 item = tasks[i].Key.Task;
-                unassignedTasks[i] = new TreeNode(item.Id + ", " + item.FK_ClientId + ", " + tasks[i].Value);
+                unassignedTasks[i] = new TreeNode(item.Id + ", " + item.FK_ClientId + ", " + item.DateAdded.ToShortDateString() + ", " + tasks[i].Key.Contract + ", " + tasks[i].Value);
             }
 
             return unassignedTasks;

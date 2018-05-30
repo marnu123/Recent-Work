@@ -25,6 +25,7 @@ namespace BusinessLayer.Validators
             if (typeof(T) == typeof(Contract)) return (IValidator<T>)new ContractValidator();
             if (typeof(T) == typeof(ContractType)) return (IValidator<T>)new ContractTypeValidator();
             if (typeof(T) == typeof(Task)) return (IValidator<T>)new TaskValidator();
+            if (typeof(T) == typeof(Schedule)) return (IValidator<T>)new ScheduleValidator();
 
             throw new ArgumentException("T does not implement IValidate<T>");
         }

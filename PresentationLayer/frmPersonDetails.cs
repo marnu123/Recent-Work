@@ -293,7 +293,7 @@ namespace PresentationLayer
 
         private void tabLocations_Enter(object sender, EventArgs e)
         {
-            available = Utils.GetDifference(currentPerson.Locations, BusinessLayer.Classes.Location.Select());
+            available = BusinessLayer.Classes.Location.Select().Except(currentPerson.Locations).ToList();
             bindList(dgvAvailable, available);
             bindList(dgvUsed, currentPerson.Locations);
             btnAddAvailable.Enabled = false;
@@ -351,8 +351,10 @@ namespace PresentationLayer
 
         private void btnSaveLists_Click(object sender, EventArgs e)
         {
-            List<Location> diff = Utils.GetDifference(oldCopy.Locations, currentPerson.Locations);
-            ComplexQueryHelper.AddLocationsForPerson(currentPerson, diff);            
+            List<Location> itemsToAdd = currentPerson.Locations.Except(oldCopy.Locations).ToList();
+            List<Location> itemsToDelete = oldCopy.Locations.Except(currentPerson.Locations).ToList();
+            ComplexQueryHelper.UpdateLocationsForPerson(currentPerson, itemsToAdd, itemsToDelete);
+            MessageBox.Show("Locations Updated", "Modification status", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnCancelLists_Click(object sender, EventArgs e)

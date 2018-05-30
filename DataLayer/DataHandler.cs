@@ -414,7 +414,7 @@ namespace DataLayer
             resultStr += " (" + String.Join(",", columns.ToArray()) + ")";
 
             TableColumn primKey = cache[entity].FindPrimaryKey();
-            if (primKey.IsAutoNumber)
+            if (primKey != null && primKey.IsAutoNumber)
             {
                 resultStr += " OUTPUT INSERTED." + primKey.ColumnName;
             }

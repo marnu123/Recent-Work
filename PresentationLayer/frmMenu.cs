@@ -66,5 +66,10 @@ namespace PresentationLayer
         {
             showForm(new frmScheduleTreeViewForm());
         }
+
+        private void btnSchedule_Click(object sender, EventArgs e)
+        {
+            showForm(new frmSchedule());
+        }
     }
 }

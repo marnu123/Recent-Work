@@ -4,14 +4,15 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
+using BusinessLayer.Validators;
 
 namespace BusinessLayer.Classes
 { 
     [Serializable]
     [Table("tblschedule")]
-    public class Schedule : DataObject
+    public class Schedule : DataObject, IValidatable<Schedule>
     {
-        private int id;
+        private string id;
         private DateTime timeStart;
         private double price;
         private TimeSpan duration;
@@ -23,7 +24,7 @@ namespace BusinessLayer.Classes
 
         public Schedule(DataRow dataRow)
         {
-            Id = Convert.ToInt32(dataRow["PK_ScheduleID"]);
+            Id = dataRow["PK_ScheduleID"].ToString();
             TimeStart = (DateTime)dataRow["TimeStart"];
             Price = Convert.ToDouble(dataRow["SchedulePrice"]);
             Duration = (TimeSpan) dataRow["Duration"];
@@ -37,7 +38,7 @@ namespace BusinessLayer.Classes
             catch (Exception e) { }
         }
 
-        public Schedule(int id, DateTime timeStart, float price, TimeSpan duration, string fK_TaskId, string fK_EmployeeId)
+        public Schedule(string id, DateTime timeStart, float price, TimeSpan duration, string fK_TaskId, string fK_EmployeeId)
         {
             Id = id;
             TimeStart = timeStart;
@@ -49,7 +50,7 @@ namespace BusinessLayer.Classes
 
         [Key]
         [Column("PK_ScheduleID")]
-        public int Id { get => id; set => id = value; }
+        public string Id { get => id; set => id = value; }
         [Column("TimeStart")]
         public DateTime TimeStart { get => timeStart; set => timeStart = value; }
         [Column("SchedulePrice")]
@@ -100,6 +101,11 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return "ID: " + Id + " TimeStart: " + TimeStart.ToShortDateString() + " Price: " + Price;
+        }
+
+        public bool Validate(IValidator<Schedule> validator, out IEnumerable<string> brokenRules)
+        {
+            return validator.IsValid(this, out brokenRules);
         }
     }
 }

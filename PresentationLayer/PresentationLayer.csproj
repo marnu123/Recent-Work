@@ -142,11 +142,11 @@
     <Compile Include="frmScheduleTreeViewForm.Designer.cs">
       <DependentUpon>frmScheduleTreeViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTaskDetails - Copy.cs">
+    <Compile Include="frmScheduleDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTaskDetails - Copy.Designer.cs">
-      <DependentUpon>frmTaskDetails - Copy.cs</DependentUpon>
+    <Compile Include="frmScheduleDetails.Designer.cs">
+      <DependentUpon>frmScheduleDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTaskDetails.cs">
       <SubType>Form</SubType>
@@ -215,8 +215,8 @@
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTaskDetails - Copy.resx">
-      <DependentUpon>frmTaskDetails - Copy.cs</DependentUpon>
+    <EmbeddedResource Include="frmScheduleDetails.resx">
+      <DependentUpon>frmScheduleDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskDetails.resx">
       <DependentUpon>frmTaskDetails.cs</DependentUpon>

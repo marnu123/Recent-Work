@@ -19,6 +19,7 @@ namespace BusinessLayer.Classes
         private string fK_PersonEmail;
         private int fK_EmployeeTypeId;
         private string password;
+        private EmployeeType employeeType;
 
         public Employee(Person person, string employeeId, int fK_EmployeeTypeId, string password) 
             :base(person.Id, person.Name, person.Surname, person.Email, person.CellNumber)
@@ -47,6 +48,11 @@ namespace BusinessLayer.Classes
             FK_PersonEmail = dataRow["FK_PersonEmail"].ToString();
             FK_EmployeeTypeId = Convert.ToInt32(dataRow["FK_EmployeeTypeID"]);
             oldEmployeeId = employeeId;
+            try
+            {
+                employeeType = new EmployeeType(dataRow);
+            }
+            catch (Exception e) { }
         }
 
         [Key]
@@ -75,6 +81,22 @@ namespace BusinessLayer.Classes
             {
                 password = getSHA256String(value);
             }
+        }
+
+        public EmployeeType EmployeeType
+        {
+            get
+            {
+                if (employeeType == null)
+                {
+                    int id = FK_EmployeeTypeId;
+                    List<EmployeeType> temp = EmployeeType.Select(et => et.Id == id);
+                    employeeType = temp.Count > 0 ? temp[0] : null;
+                }
+
+                return employeeType;
+            }
+            set => employeeType = value;
         }
 
         public bool ComparePassword(string password)

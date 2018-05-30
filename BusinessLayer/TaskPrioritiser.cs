@@ -41,7 +41,7 @@ namespace BusinessLayer
                 else calculatedPriorities.Add(new KeyValuePair<TaskWithContract, float>(item, cal.CalculatePriority(new ContractID(item.Contract), item.Task.DateAdded)));
             }
 
-            calculatedPriorities.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            calculatedPriorities.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
             return calculatedPriorities;
         }
     }

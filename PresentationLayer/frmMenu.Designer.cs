@@ -35,7 +35,8 @@
             this.btnContractTypes = new System.Windows.Forms.Button();
             this.btnCaller = new System.Windows.Forms.Button();
             this.btnTasks = new System.Windows.Forms.Button();
-            this.btnSchedules = new System.Windows.Forms.Button();
+            this.btnTaskTreeView = new System.Windows.Forms.Button();
+            this.btnSchedule = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPeople
@@ -108,22 +109,33 @@
             this.btnTasks.UseVisualStyleBackColor = true;
             this.btnTasks.Click += new System.EventHandler(this.btnTasks_Click);
             // 
-            // btnSchedules
+            // btnTaskTreeView
             // 
-            this.btnSchedules.Location = new System.Drawing.Point(285, 324);
-            this.btnSchedules.Name = "btnSchedules";
-            this.btnSchedules.Size = new System.Drawing.Size(124, 23);
-            this.btnSchedules.TabIndex = 8;
-            this.btnSchedules.Text = "Schedules";
-            this.btnSchedules.UseVisualStyleBackColor = true;
-            this.btnSchedules.Click += new System.EventHandler(this.btnSchedules_Click);
+            this.btnTaskTreeView.Location = new System.Drawing.Point(285, 324);
+            this.btnTaskTreeView.Name = "btnTaskTreeView";
+            this.btnTaskTreeView.Size = new System.Drawing.Size(124, 23);
+            this.btnTaskTreeView.TabIndex = 8;
+            this.btnTaskTreeView.Text = "Task Tree View";
+            this.btnTaskTreeView.UseVisualStyleBackColor = true;
+            this.btnTaskTreeView.Click += new System.EventHandler(this.btnSchedules_Click);
+            // 
+            // btnSchedule
+            // 
+            this.btnSchedule.Location = new System.Drawing.Point(285, 353);
+            this.btnSchedule.Name = "btnSchedule";
+            this.btnSchedule.Size = new System.Drawing.Size(124, 23);
+            this.btnSchedule.TabIndex = 9;
+            this.btnSchedule.Text = "Schedules";
+            this.btnSchedule.UseVisualStyleBackColor = true;
+            this.btnSchedule.Click += new System.EventHandler(this.btnSchedule_Click);
             // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnSchedules);
+            this.Controls.Add(this.btnSchedule);
+            this.Controls.Add(this.btnTaskTreeView);
             this.Controls.Add(this.btnTasks);
             this.Controls.Add(this.btnCaller);
             this.Controls.Add(this.btnContractTypes);
@@ -146,6 +158,7 @@
         private System.Windows.Forms.Button btnContractTypes;
         private System.Windows.Forms.Button btnCaller;
         private System.Windows.Forms.Button btnTasks;
-        private System.Windows.Forms.Button btnSchedules;
+        private System.Windows.Forms.Button btnTaskTreeView;
+        private System.Windows.Forms.Button btnSchedule;
     }
 }

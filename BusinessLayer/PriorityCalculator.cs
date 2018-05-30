@@ -20,9 +20,9 @@ namespace BusinessLayer
             //Make "A" start at 1
             int clientPriority = contractID.ClientImportance - 64;
             //Use the priorityMultiplier to specify how many days per priority index may pass before a task has to be completed.
-            int maxAllowableDays = contractID.ClientImportance * priorityMultiplier;
-            TimeSpan timePassed = DateTime.Now - dateAdded.AddDays(maxAllowableDays);
-            return timePassed.Days / maxAllowableDays;
+            int maxAllowableDays = clientPriority * priorityMultiplier;
+            TimeSpan timePassed = DateTime.Now - dateAdded;
+            return timePassed.Days / (float) maxAllowableDays;
         }
     }
 }

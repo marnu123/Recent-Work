@@ -48,9 +48,10 @@ namespace BusinessLayer.Helpers
             itemsToAdd.ForEach(item => new Option(product.Id, item.Id).Insert());
         }
 
-        public static void AddLocationsForPerson(Person person, List<Location> itemsToAdd)
+        public static void UpdateLocationsForPerson(Person person, List<Location> itemsToAdd, List<Location> itemsToDelete)
         {
             itemsToAdd.ForEach(item => new Person_Location(person.Email, item.Id).Insert());
+            itemsToDelete.ForEach(item => new Person_Location(person.Email, item.Id).Delete());
         }
 
         public static void AddProductsForLocation(Location location, List<Product> itemsToAdd)
@@ -79,6 +80,13 @@ namespace BusinessLayer.Helpers
                 (l, pl, s, c) => pl.LocationId == l.Id && pl.PersonEmail == personEmail && s.Id == l.FK_StreetID
                 && s.FK_CityID == c.Id;
             return DatabaseHelper.Select<Location>(ex);
+        }
+
+        public static List<Employee> GetAllTechnicians()
+        {
+            Expression<Func<Person, Employee, EmployeeType, object>> ex =
+                (p, e, et) => p.Email == e.FK_PersonEmail && e.FK_EmployeeTypeId == et.Id && et.Title == "Technician";
+            return DatabaseHelper.Select<Employee>(ex);
         }
     }
 }
