@@ -121,67 +121,69 @@ namespace PresentationLayer
         private void btnSave_Click(object sender, EventArgs e)
         {
             string msg = "Invalid input. Please refer to the error box";
-            IEnumerable<string> brokenRules;
+            IEnumerable<string> brokenRules = null;
+            bool isValid = true;
 
-            if (validateCurrent(out brokenRules))
+            if (newEmployeeType)
             {
-                if (newEmployeeType)
+                EmployeeType et = new EmployeeType(0, cbmEmployeeType.Text);
+                isValid = et.Validate(out brokenRules);
+                if (isValid)
                 {
-                    EmployeeType et = new EmployeeType(0, cbmEmployeeType.Text);
-                    if (et.Validate(out brokenRules))
-                    {
-                        et.Insert();
-                        (currentPerson as Employee).FK_EmployeeTypeId = et.Id;
-                    }
-                    else lstError.DataSource = brokenRules;
+                    et.Insert();
+                    (currentPerson as Employee).FK_EmployeeTypeId = et.Id;
                 }
+            }
 
-                if (newNotificationType)
+            if (newNotificationType)
+            {
+                NotificationType nt = new NotificationType(0, cmbNotificationType.Text);
+                isValid = nt.Validate(out brokenRules);
+                if (isValid)
                 {
-                    NotificationType nt = new NotificationType(0, cmbNotificationType.Text);
-                    if (nt.Validate(out brokenRules))
-                    {
-                        nt.Insert();
-                        (currentPerson as Client).FK_NotificationTypeId = nt.Id;
-                    }
-                    else lstError.DataSource = brokenRules;
+                    nt.Insert();
+                    (currentPerson as Client).FK_NotificationTypeId = nt.Id;
                 }
+            }
 
-                if (insert)
+            if (isValid)
+            {
+                isValid = validateCurrent(out brokenRules);
+                if (isValid)
                 {
-                    currentPerson.Insert();
-                    if (currentPerson.GetType() == typeof(Client))
+                    if (insert)
                     {
-                        (currentPerson as Client).Insert();
-                        msg = "Client inserted";
+                        currentPerson.Insert();
+                        if (currentPerson.GetType() == typeof(Client))
+                        {
+                            (currentPerson as Client).Insert();
+                            msg = "Client inserted";
+                        }
+                        else
+                        {
+                            (currentPerson as Employee).Insert();
+                            msg = "Employee inserted";
+                        }
                     }
                     else
                     {
-                        (currentPerson as Employee).Insert();
-                        msg = "Employee inserted";
+                        currentPerson.Update();
+                        if (currentPerson.GetType() == typeof(Client))
+                        {
+                            (currentPerson as Client).Update();
+                            msg = "Client updated";
+                        }
+                        else
+                        {
+                            (currentPerson as Employee).Update();
+                            msg = "Employee updated";
+                        }
                     }
                 }
-                else
-                {
-                    currentPerson.Update();
-                    if (currentPerson.GetType() == typeof(Client))
-                    {
-                        (currentPerson as Client).Update();
-                        msg = "Client updated";
-                    }
-                    else
-                    {
-                        (currentPerson as Employee).Update();
-                        msg = "Employee updated";
-                    }
-                }
-            }
-            else
-            {
-                lstError.DataSource = brokenRules.ToList();
             }
 
-            MessageBox.Show(msg);
+            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
         private bool validateCurrent(out IEnumerable<string> brokenRules)
@@ -396,20 +398,26 @@ namespace PresentationLayer
             dgv.Columns["ServiceLevel"].DataPropertyName = "ContractType.ServiceLevel.Title";
         }
 
-        Contract currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', "", ' ', new ServiceLevel(' ')));
+        Contract currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', ""));
         Contract oldContract;
+        List<ContractType> contractTypes;
+        List<ServiceLevel> serviceLevels;
 
         bool contractEdit = false, contractInsert = false;
 
         private void tabContract_Enter(object sender, EventArgs e)
         {
             dgvContracts.DataSource = new AggregatedPropertyBindingList<Contract>(((Client)currentPerson).Contracts);
+            contractTypes = ContractType.Select();
+            serviceLevels = ServiceLevel.Select();
             contractEdit = false;
+            bindContractFields(currentContract);
+            dgvContracts.DataSource = (currentPerson as Client).Contracts;
+            setEnableContractFields(false);
         }
 
         private void setEnableContractFields(bool state)
         {
-            txtContractID.Enabled = state;
             dtpEndDate.Enabled = state;
             dtpStartDate.Enabled = state;
             cmbContractType.Enabled = state;
@@ -418,13 +426,24 @@ namespace PresentationLayer
 
         private void bindContractFields(Contract contract)
         {
+            txtContractID.DataBindings.Clear();
+            dtpEndDate.DataBindings.Clear();
+            dtpStartDate.DataBindings.Clear();
+            cmbContractType.DataBindings.Clear();
+            cmbCustomerImportance.DataBindings.Clear();
+
             txtContractID.DataBindings.Add(new Binding("Text", contract, "Id"));
             dtpEndDate.DataBindings.Add(new Binding("Value", contract, "EndDate"));
             dtpStartDate.DataBindings.Add(new Binding("Value", contract, "StartDate"));
             cmbContractType.ValueMember = "Id";
             cmbContractType.DisplayMember = "Id";
-            cmbContractType.DataBindings.Add(new Binding("SelectedValue", contract.ContractType, "Id"));
-            cmbContractType.DataSource = contract.ContractType;
+            cmbContractType.DataBindings.Add(new Binding("SelectedValue", contract, "FK_ContractTypeID"));
+            cmbContractType.DataSource = contractTypes;
+
+            cmbCustomerImportance.DataBindings.Add(new Binding("SelectedValue", contract, "FK_ServiceLevelId"));
+            cmbCustomerImportance.DisplayMember = "Id";
+            cmbCustomerImportance.ValueMember = "Id";
+            cmbCustomerImportance.DataSource = serviceLevels;
         }
 
         private void dgvContracts_SelectionChanged(object sender, EventArgs e)
@@ -457,8 +476,9 @@ namespace PresentationLayer
 
         private void btnAddContract_Click(object sender, EventArgs e)
         {
-            currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', "", ' ', new ServiceLevel(' ')));
-            contractInsert = contractEdit = true;
+            currentContract = new Contract("", (currentPerson as Client).ClientId, DateTime.Now, DateTime.Now, ' ', new ContractType(' ', ""));
+            bindContractFields(currentContract);
+            contractInsert = true;
             setEnableContractFields(true);
         }
 
@@ -476,12 +496,14 @@ namespace PresentationLayer
         private void btnSaveContract_Click(object sender, EventArgs e)
         {
             IEnumerable<string> brokenRules;
+            ContractID id = new ContractID(currentContract.StartDate.Year, currentContract.FK_ContractTypeId, currentContract.FK_ServiceLevelId);
+            currentContract.Id = id.ToString();
             bool isValid = currentContract.Validate(out brokenRules);
             string msg = "Invalid input.  Please check the error box";
 
             if (isValid)
             {
-                if (insert)
+                if (contractInsert)
                 {
                     currentContract.Insert();
                     msg = "Contract inserted";
@@ -494,9 +516,10 @@ namespace PresentationLayer
                 }
 
                 contractInsert = contractEdit = false;
+                dgvContracts.DataSource = (currentPerson as Client).Contracts;
             }
 
-            if (isValid) lstContractError.DataSource = brokenRules.ToList();
+            if (!isValid) lstContractError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }

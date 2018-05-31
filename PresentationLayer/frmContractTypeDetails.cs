@@ -53,12 +53,6 @@ namespace PresentationLayer
             cmbID.DataBindings.Add(new Binding("SelectedItem", bindedContractType, "Id"));
             cmbID.DataSource = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
 
-            cmbServiceLevel.DataBindings.Clear();
-            cmbServiceLevel.DataBindings.Add(new Binding("SelectedValue", bindedContractType, "FK_ServiceLevelId"));
-            cmbServiceLevel.DisplayMember = "Id";
-            cmbServiceLevel.ValueMember = "Id";
-            cmbServiceLevel.DataSource = serviceLevels;
-
             txtTitle.DataBindings.Clear();
             txtTitle.DataBindings.Add(new Binding("Text", bindedContractType, "Title"));
         }
@@ -198,7 +192,6 @@ namespace PresentationLayer
         {
             txtTitle.Enabled = state;
             cmbID.Enabled = state;
-            cmbServiceLevel.Enabled = state;
             btnSave.Enabled = state;
         }
 

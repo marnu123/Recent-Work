@@ -15,7 +15,6 @@ namespace BusinessLayer.Validators
         {
             if (!IsUpAlphabeticChar(entity.Id)) yield return "ID must be a single upper case alpahbetic character";
             if (IsEmpty(entity.Title)) yield return "Contract Type Title may not be empty";
-            if (IsZeroOrEmpty(entity.FK_ServiceLevelId)) yield return "A Service Level must be specified";
         }
 
         public bool IsValid(ContractType entity, out IEnumerable<string> brokenRules)

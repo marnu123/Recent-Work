@@ -22,12 +22,25 @@ namespace BusinessLayer.Classes
             Last6Digits = last6Digits;
         }
 
+        public ContractID(int year, char contractType, char clientImportance)
+        {
+            Year = year;
+            ContractType = contractType;
+            ClientImportance = clientImportance;
+            Random rnd = new Random();
+            Last6Digits = rnd.Next(999999);
+        }
+
         public ContractID(string contractIDString)
         {
-            Year = Convert.ToInt32(contractIDString.Substring(0, 4));
-            ContractType = contractIDString[4];
-            ClientImportance = contractIDString[5];
-            Last6Digits = Convert.ToInt32(contractIDString.Substring(6));
+            if (contractIDString.Length == 12)
+            {
+                Year = Convert.ToInt32(contractIDString.Substring(0, 4));
+                ContractType = contractIDString[4];
+                ClientImportance = contractIDString[5];
+                Last6Digits = Convert.ToInt32(contractIDString.Substring(6));
+            }
+            else throw new ArgumentException("The contract ID is not long enough");
         }
 
         public override string ToString()

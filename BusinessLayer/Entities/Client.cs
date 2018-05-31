@@ -63,8 +63,8 @@ namespace BusinessLayer.Classes
             {
                 if (contracts == null)
                 {
-                    string personEmail = Email;
-                    contracts = Contract.Select(c => c.FK_ClientId == personEmail);
+                    string personID = ClientId;
+                    contracts = Contract.Select(c => c.FK_ClientId == personID);
                 }
 
                 return contracts;

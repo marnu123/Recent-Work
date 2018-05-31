@@ -79,6 +79,10 @@
             this.tabContract = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lstContractError = new System.Windows.Forms.ListBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.btnSaveContract = new System.Windows.Forms.Button();
@@ -98,10 +102,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.dgvContracts = new System.Windows.Forms.DataGridView();
             this.label20 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.lstContractError = new System.Windows.Forms.ListBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmbCustomerImportance = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlEmployeeDetails.SuspendLayout();
             this.pnlClientDetails.SuspendLayout();
@@ -117,9 +119,9 @@
             this.tabContract.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).BeginInit();
-            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -633,6 +635,8 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.cmbCustomerImportance);
+            this.panel7.Controls.Add(this.label26);
             this.panel7.Controls.Add(this.button1);
             this.panel7.Controls.Add(this.panel9);
             this.panel7.Controls.Add(this.dtpEndDate);
@@ -652,6 +656,43 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(554, 387);
             this.panel7.TabIndex = 29;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(17, 322);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(254, 23);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "Manage Contract Types";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lstContractError);
+            this.panel9.Controls.Add(this.label21);
+            this.panel9.Location = new System.Drawing.Point(300, 11);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(240, 250);
+            this.panel9.TabIndex = 24;
+            // 
+            // lstContractError
+            // 
+            this.lstContractError.FormattingEnabled = true;
+            this.lstContractError.Location = new System.Drawing.Point(15, 32);
+            this.lstContractError.Name = "lstContractError";
+            this.lstContractError.Size = new System.Drawing.Size(210, 199);
+            this.lstContractError.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(12, 11);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(81, 18);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Error Box";
             // 
             // dtpEndDate
             // 
@@ -717,6 +758,7 @@
             // 
             // txtContractID
             // 
+            this.txtContractID.Enabled = false;
             this.txtContractID.Location = new System.Drawing.Point(17, 63);
             this.txtContractID.Name = "txtContractID";
             this.txtContractID.Size = new System.Drawing.Size(200, 20);
@@ -727,9 +769,9 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(14, 47);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(18, 13);
+            this.label18.Size = new System.Drawing.Size(102, 13);
             this.label18.TabIndex = 10;
-            this.label18.Text = "ID";
+            this.label18.Text = "ID (Auto Generated)";
             // 
             // label22
             // 
@@ -831,42 +873,22 @@
             this.label20.TabIndex = 23;
             this.label20.Text = "Client Contracts";
             // 
-            // panel9
+            // cmbCustomerImportance
             // 
-            this.panel9.Controls.Add(this.lstContractError);
-            this.panel9.Controls.Add(this.label21);
-            this.panel9.Location = new System.Drawing.Point(300, 11);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(240, 250);
-            this.panel9.TabIndex = 24;
+            this.cmbCustomerImportance.FormattingEnabled = true;
+            this.cmbCustomerImportance.Location = new System.Drawing.Point(17, 240);
+            this.cmbCustomerImportance.Name = "cmbCustomerImportance";
+            this.cmbCustomerImportance.Size = new System.Drawing.Size(200, 21);
+            this.cmbCustomerImportance.TabIndex = 27;
             // 
-            // lstContractError
+            // label26
             // 
-            this.lstContractError.FormattingEnabled = true;
-            this.lstContractError.Location = new System.Drawing.Point(15, 32);
-            this.lstContractError.Name = "lstContractError";
-            this.lstContractError.Size = new System.Drawing.Size(210, 199);
-            this.lstContractError.TabIndex = 1;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(12, 11);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(81, 18);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "Error Box";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(17, 322);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(254, 23);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Manage Contract Types";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(14, 224);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(107, 13);
+            this.label26.TabIndex = 26;
+            this.label26.Text = "Customer Importance";
             // 
             // frmPersonDetails
             // 
@@ -901,11 +923,11 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContracts)).EndInit();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -986,6 +1008,8 @@
         private System.Windows.Forms.ListBox lstContractError;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox cmbCustomerImportance;
+        private System.Windows.Forms.Label label26;
     }
 }
 

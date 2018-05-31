@@ -13,6 +13,7 @@ namespace BusinessLayer.Classes
     public class Schedule : DataObject, IValidatable<Schedule>
     {
         private string id;
+        private string oldKey;
         private DateTime timeStart;
         private double price;
         private TimeSpan duration;
@@ -25,6 +26,7 @@ namespace BusinessLayer.Classes
         public Schedule(DataRow dataRow)
         {
             Id = dataRow["PK_ScheduleID"].ToString();
+            OldKey = Id;
             TimeStart = (DateTime)dataRow["TimeStart"];
             Price = Convert.ToDouble(dataRow["SchedulePrice"]);
             Duration = (TimeSpan) dataRow["Duration"];
@@ -41,6 +43,7 @@ namespace BusinessLayer.Classes
         public Schedule(string id, DateTime timeStart, float price, TimeSpan duration, string fK_TaskId, string fK_EmployeeId)
         {
             Id = id;
+            OldKey = Id;
             TimeStart = timeStart;
             Price = price;
             Duration = duration;
@@ -51,6 +54,8 @@ namespace BusinessLayer.Classes
         [Key]
         [Column("PK_ScheduleID")]
         public string Id { get => id; set => id = value; }
+        [KeyStorage("Id")]
+        public string OldKey { get => oldKey; set => oldKey = value; }
         [Column("TimeStart")]
         public DateTime TimeStart { get => timeStart; set => timeStart = value; }
         [Column("SchedulePrice")]
@@ -101,6 +106,20 @@ namespace BusinessLayer.Classes
         public override string ToString()
         {
             return "ID: " + Id + " TimeStart: " + TimeStart.ToShortDateString() + " Price: " + Price;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Schedule temp = obj as Schedule;
+            if (temp == null) return false;
+
+            return temp.Id == Id && temp.Price == Price && temp.TimeStart == TimeStart && temp.FK_TaskId == FK_TaskId &&
+                temp.FK_EmployeeId == FK_EmployeeId;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode() ^ Price.GetHashCode() ^ TimeStart.GetHashCode() ^ FK_TaskId.GetHashCode() ^ FK_EmployeeId.GetHashCode();
         }
 
         public bool Validate(IValidator<Schedule> validator, out IEnumerable<string> brokenRules)

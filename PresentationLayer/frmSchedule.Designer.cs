@@ -79,6 +79,8 @@
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.Size = new System.Drawing.Size(838, 200);
             this.dgvSchedule.TabIndex = 4;
+            this.dgvSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSchedule_CellClick);
+            this.dgvSchedule.SelectionChanged += new System.EventHandler(this.dgvSchedule_SelectionChanged);
             // 
             // label3
             // 

@@ -55,16 +55,49 @@ namespace PresentationLayer
 
         private void lstEmployee_SelectedValueChanged(object sender, EventArgs e)
         {
-            string employeeID = ((Employee)lstEmployee.SelectedItem).EmployeeId;
+            updateSchedules(((Employee)lstEmployee.SelectedItem));
+        }
+
+        private void updateSchedules(Employee selectedEmployee)
+        {
+            string employeeID = selectedEmployee.EmployeeId;
             schedules = new List<Schedule>(Schedule.Select(s => s.FK_EmployeeId == employeeID));
             dgvSchedule.DataSource = new AggregatedPropertyBindingList<Schedule>(schedules);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmScheduleDetails frm = new frmScheduleDetails(new Schedule(0, DateTime.Today, 0, new TimeSpan(0,0,0), "", ""));
-            Utils.ShowForm(this, frm, dgvSchedule, () => { });
+            frmScheduleDetails frm = new frmScheduleDetails(new Schedule("", DateTime.Today.Date, 0, new TimeSpan(0,0,0), "", ""), true);
+            Utils.ShowForm(this, frm, dgvSchedule, () => 
+            {
+                updateSchedules((Employee)lstEmployee.SelectedItem);
+            });
 
+        }
+
+        private void dgvSchedule_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView temp = sender as DataGridView;
+
+            if (e.RowIndex > -1)
+            {
+                temp.ClearSelection();
+                temp.Rows[e.RowIndex].Selected = true;
+            }
+        }
+
+        private void dgvSchedule_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView temp = sender as DataGridView;
+
+            if (temp.SelectedRows.Count == 1)
+            {
+                frmScheduleDetails frm = new frmScheduleDetails((Schedule)temp.SelectedRows[0].DataBoundItem);
+                Utils.ShowForm(this, frm, dgvSchedule, () =>
+                {
+                    updateSchedules((Employee)lstEmployee.SelectedItem);
+                });
+            }
         }
     }
 }

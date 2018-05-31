@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbServiceLevel = new System.Windows.Forms.ComboBox();
             this.cmbID = new System.Windows.Forms.ComboBox();
             this.ID = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -73,10 +71,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cmbServiceLevel);
             this.panel1.Controls.Add(this.cmbID);
             this.panel1.Controls.Add(this.ID);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtTitle);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -84,14 +80,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(443, 250);
             this.panel1.TabIndex = 3;
-            // 
-            // cmbServiceLevel
-            // 
-            this.cmbServiceLevel.FormattingEnabled = true;
-            this.cmbServiceLevel.Location = new System.Drawing.Point(17, 147);
-            this.cmbServiceLevel.Name = "cmbServiceLevel";
-            this.cmbServiceLevel.Size = new System.Drawing.Size(157, 21);
-            this.cmbServiceLevel.TabIndex = 12;
             // 
             // cmbID
             // 
@@ -110,15 +98,6 @@
             this.ID.Size = new System.Drawing.Size(18, 13);
             this.ID.TabIndex = 10;
             this.ID.Text = "ID";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 131);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Service Level";
             // 
             // txtTitle
             // 
@@ -237,7 +216,7 @@
             this.tabContractType.Location = new System.Drawing.Point(4, 22);
             this.tabContractType.Name = "tabContractType";
             this.tabContractType.Padding = new System.Windows.Forms.Padding(3);
-            this.tabContractType.Size = new System.Drawing.Size(799, 427);
+            this.tabContractType.Size = new System.Drawing.Size(1172, 502);
             this.tabContractType.TabIndex = 0;
             this.tabContractType.Text = "Contract Type";
             this.tabContractType.UseVisualStyleBackColor = true;
@@ -423,7 +402,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label ID;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -435,7 +413,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.ComboBox cmbServiceLevel;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabContractType;
         private System.Windows.Forms.TabPage tabCategories;

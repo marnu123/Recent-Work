@@ -40,11 +40,15 @@ namespace PresentationLayer
             foreach (IGrouping<string, Schedule> item in groupedData)
             {
                 toAdd = new TreeNode[item.Count()];
+                TreeNode nodeToAdd;
 
                 lengthToAdd = 0;
                 foreach (Schedule schedule in item)
                 {
-                    toAdd[lengthToAdd++] = new TreeNode(schedule.Id + ", " + schedule.Task.FK_ClientId + ", " + schedule.Task.DateAdded);
+                    nodeToAdd = new TreeNode(schedule.Id + ", " + schedule.Task.FK_ClientId + ", " + schedule.Task.DateAdded);
+                    nodeToAdd.Tag = schedule;
+                    nodeToAdd.Name = "Scheduled Task";
+                    toAdd[lengthToAdd++] = nodeToAdd;
                 }
 
                 result[lengthResult++] = new TreeNode(item.Key, toAdd);
@@ -60,14 +64,100 @@ namespace PresentationLayer
             TreeNode[] unassignedTasks = new TreeNode[tasks.Count];
 
             Task item;
+            TreeNode nodeToAdd;
 
             for (int i = 0; i < tasks.Count; i++)
             {
                 item = tasks[i].Key.Task;
-                unassignedTasks[i] = new TreeNode(item.Id + ", " + item.FK_ClientId + ", " + item.DateAdded.ToShortDateString() + ", " + tasks[i].Key.Contract + ", " + tasks[i].Value);
+                nodeToAdd = new TreeNode(item.Id + ", " + item.FK_ClientId + ", " + item.DateAdded.ToShortDateString() + ", " + tasks[i].Key.Contract + ", " + tasks[i].Value);
+                nodeToAdd.Tag = item;
+                nodeToAdd.Name = "Unassigned Task";
+                unassignedTasks[i] = nodeToAdd;
             }
 
             return unassignedTasks;
+        }
+
+        private void treeNode_OnViewClick(object sender, EventArgs e)
+        {
+            MenuItem clickedMenu = sender as MenuItem;
+
+            TreeNode selectedNode = treeSchedules.SelectedNode;
+            switch (selectedNode.Name)
+            {
+                case "Scheduled Task":
+                    showSchedule((Schedule)selectedNode.Tag);
+                    break;
+
+                case "Unassigned Task":
+                    showTask((Task)selectedNode.Tag);
+                    break;
+            }
+        }
+
+        private void treeNode_OnDeleteClick(object sender, EventArgs e)
+        {
+            DialogResult dlg = MessageBox.Show("Are you sure you want to delete this item?", "Delete confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dlg == DialogResult.Yes)
+            {
+                MenuItem clickedMenu = sender as MenuItem;
+
+                TreeNode selectedNode = treeSchedules.SelectedNode;
+                switch (selectedNode.Name)
+                {
+                    case "Scheduled Task":
+                        ((Schedule)selectedNode.Tag).Delete();
+                        break;
+
+                    case "Unassigned Task":
+                        ((Task)selectedNode.Tag).Delete();
+                        break;
+                }
+
+                selectedNode.Remove();
+                MessageBox.Show("Item deleted", "Modification status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void showTask(Task task)
+        {
+            frmTaskDetails frm = new frmTaskDetails(task);
+            frm.Show();
+            frm.FormClosed += (s, events) => Show();
+            Hide();
+        }
+
+        private void showSchedule(Schedule task)
+        {
+            frmScheduleDetails frm = new frmScheduleDetails(task);
+            frm.Show();
+            frm.FormClosed += (s, events) => Show();
+            Hide();
+        }
+
+        private void treeSchedules_NodeMouseHover(object sender, TreeNodeMouseHoverEventArgs e)
+        {
+            
+        }
+
+        private void treeSchedules_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point p = new Point(e.X, e.Y);
+                TreeNode clickedNode = treeSchedules.GetNodeAt(p);
+                ContextMenu menu = new ContextMenu(new MenuItem[]
+                {
+                    new MenuItem("View", treeNode_OnViewClick),
+                    new MenuItem("Delete", treeNode_OnDeleteClick)
+                });
+
+                if (clickedNode.Name == "Unassigned Task" || clickedNode.Name == "Scheduled Task")
+                {
+                    treeSchedules.SelectedNode = clickedNode;
+                    menu.Show(sender as TreeView, p);
+                }
+            }
         }
     }
 }

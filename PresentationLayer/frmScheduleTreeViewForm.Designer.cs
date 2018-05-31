@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.treeSchedules = new System.Windows.Forms.TreeView();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,6 +43,15 @@
             this.panel1.Size = new System.Drawing.Size(788, 438);
             this.panel1.TabIndex = 0;
             // 
+            // treeSchedules
+            // 
+            this.treeSchedules.Location = new System.Drawing.Point(16, 44);
+            this.treeSchedules.Name = "treeSchedules";
+            this.treeSchedules.Size = new System.Drawing.Size(617, 376);
+            this.treeSchedules.TabIndex = 3;
+            this.treeSchedules.NodeMouseHover += new System.Windows.Forms.TreeNodeMouseHoverEventHandler(this.treeSchedules_NodeMouseHover);
+            this.treeSchedules.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeSchedules_MouseDown);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -53,20 +62,13 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Employee Schedules";
             // 
-            // treeSchedules
-            // 
-            this.treeSchedules.Location = new System.Drawing.Point(16, 44);
-            this.treeSchedules.Name = "treeSchedules";
-            this.treeSchedules.Size = new System.Drawing.Size(617, 376);
-            this.treeSchedules.TabIndex = 3;
-            // 
-            // frmScheduleTreeViewForm1
+            // frmScheduleTreeViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel1);
-            this.Name = "frmScheduleTreeViewForm1";
+            this.Name = "frmScheduleTreeViewForm";
             this.Text = "frmScheduleTreeViewForm1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

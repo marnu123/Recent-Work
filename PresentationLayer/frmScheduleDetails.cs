@@ -31,14 +31,24 @@ namespace PresentationLayer
             employees = technicians;
             initialise(schedule, insert);
         }
+        
+        //Update the split date time object where one variable represents data from two components
+        private void setDateTime(DateTimePicker date, DateTimePicker time, DateTime dateTime)
+        {
+            date.Value = dateTime.Date;
+            time.Value = DateTime.Today.Date.Add(dateTime.TimeOfDay);
+        }
 
         private void initialise(Schedule schedule, bool insert)
         {
             InitializeComponent();
+            nudCost.Maximum = decimal.MaxValue;
+            nudCost.Minimum = decimal.MinValue;
             createDataGridColumns();
             this.insert = insert;
             this.schedule = schedule;
             schedule.DeepCopyInto(ref oldCopy);
+            employees = ComplexQueryHelper.GetAllTechnicians();
             tasks = StoredProcedureHelper.GetUnassginedTasksWithContracts();
             bindFields(schedule);
             setFieldsEnable(insert);
@@ -61,11 +71,13 @@ namespace PresentationLayer
         {
             txtID.Enabled = state;
             dtpDuration.Enabled = state;
+            dtpStartDate.Enabled = state;
             dtpStartTime.Enabled = state;
             nudCost.Enabled = state;
             lstEmployee.Enabled = state;
             dgvTask.Enabled = state;
             btnSave.Enabled = state;
+            btnViewTask.Enabled = !state;
 
             if (insert)
             {
@@ -82,7 +94,7 @@ namespace PresentationLayer
         private void btnCancel_Click(object sender, EventArgs e)
         {
             oldCopy.DeepCopyInto(ref schedule);
-            dtpDuration.Value = DateTime.Today.Add(schedule.Duration);
+            setDateTime(dtpStartDate, dtpStartTime, schedule.TimeStart);
             setFieldsEnable(false);
             edit = insert = false;
         }
@@ -106,7 +118,11 @@ namespace PresentationLayer
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            schedule.Duration = DateTime.Today - dtpDuration.Value;
+            schedule.Duration = dtpDuration.Value.TimeOfDay;
+            schedule.TimeStart = dtpStartDate.Value.Add(dtpStartTime.Value.TimeOfDay);
+            TaskWithContract selectedTask = dgvTask.SelectedRows.Count == 1 ? (TaskWithContract)dgvTask.SelectedRows[0].DataBoundItem : null;
+            schedule.FK_TaskId = selectedTask != null ? selectedTask.Task.Id : "";
+
             string msg = "Invalid input.  Please check the error box";
             IEnumerable<string> brokenRules;
             bool isValid = schedule.Validate(out brokenRules);
@@ -132,17 +148,24 @@ namespace PresentationLayer
             MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
+        private void btnViewTask_Click(object sender, EventArgs e)
+        {
+            frmTaskDetails frm = new frmTaskDetails(schedule.Task);
+            Utils.ShowForm(this, frm, dgvTask, () => { });
+        }
+
         private void bindFields(Schedule schedule)
         {
             txtID.DataBindings.Add(new Binding("Text", schedule, "Id"));
-            dtpStartTime.DataBindings.Add(new Binding("Value", schedule, "TimeStart"));
             nudCost.DataBindings.Add(new Binding("Value", schedule, "Price"));
 
             //Display workaround because the date time picker does not support timespan datatypes
             dtpDuration.Value = DateTime.Today.Add(schedule.Duration);
+            setDateTime(dtpStartDate, dtpStartTime, schedule.TimeStart);
 
+            lstEmployee.DataBindings.Add(new Binding("SelectedValue", schedule, "FK_EmployeeId"));
             lstEmployee.DisplayMember = "EmployeeId";
-            lstEmployee.ValueMember = "EmployeeID";
+            lstEmployee.ValueMember = "EmployeeId";
             lstEmployee.DataSource = employees;
 
             dgvTask.DataSource = new AggregatedPropertyBindingList<TaskWithContract>(tasks);

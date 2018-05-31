@@ -57,7 +57,7 @@ namespace PresentationLayer
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ContractType temp = new ContractType(' ', "", ' ', new ServiceLevel(' '));
+            ContractType temp = new ContractType(' ', "");
             frmContractTypeDetails frm = new frmContractTypeDetails(temp, true);
             Utils.ShowForm(this, frm, dgvContractTypes, refreshScreen);
         }
