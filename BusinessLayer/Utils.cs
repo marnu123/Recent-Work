@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace BusinessLayer
 {
@@ -57,6 +58,20 @@ namespace BusinessLayer
         public static bool IsDateTimeEmpty(DateTime dateTime)
         {
             return dateTime == null;
+        }
+
+        public static string GetSHA256String(string text)
+        {
+            SHA256 generator = new SHA256Managed();
+            byte[] hash = generator.ComputeHash(Encoding.UTF8.GetBytes(text));
+            StringBuilder hashedString = new StringBuilder();
+
+            foreach (byte b in hash)
+            {
+                hashedString.Append(b.ToString("x2"));
+            }
+
+            return hashedString.ToString();
         }
     }
 }

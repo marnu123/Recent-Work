@@ -168,8 +168,9 @@ namespace PresentationLayer
 
         private void button9_Click(object sender, EventArgs e)
         {
-            var diff = product.Components.Except(oldCopy.Components);
-            ComplexQueryHelper.AddComponentsForProduct(product, diff.ToList());
+            List<Comp> itemsToAdd = product.Components.Except(oldCopy.Components).ToList();
+            List<Comp> itemsToDelete = oldCopy.Components.Except(product.Components).ToList();
+            ComplexQueryHelper.UpdateComponentsForProduct(product, itemsToAdd, itemsToDelete);
             MessageBox.Show("Product Component composition updated", "Modification status");
         }
 

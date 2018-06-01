@@ -43,9 +43,10 @@ namespace BusinessLayer.Helpers
             return DatabaseHelper.Select<Component>(ex);
         }
 
-        public static void AddComponentsForProduct(Product product, List<Component> itemsToAdd)
+        public static void UpdateComponentsForProduct(Product product, List<Component> itemsToAdd, List<Component> itemsToDelete)
         {
             itemsToAdd.ForEach(item => new Option(product.Id, item.Id).Insert());
+            itemsToDelete.ForEach(item => new Option(product.Id, item.Id).Delete());
         }
 
         public static void UpdateLocationsForPerson(Person person, List<Location> itemsToAdd, List<Location> itemsToDelete)
@@ -54,9 +55,10 @@ namespace BusinessLayer.Helpers
             itemsToDelete.ForEach(item => new Person_Location(person.Email, item.Id).Delete());
         }
 
-        public static void AddProductsForLocation(Location location, List<Product> itemsToAdd)
+        public static void UpdateProductsForLocation(Location location, List<Product> itemsToAdd, List<Product> itemsToDelete)
         {
             itemsToAdd.ForEach(item => new Product_Location(0, item.Id, location.Id).Insert());
+            itemsToDelete.ForEach(item => new Product_Location(0, item.Id, location.Id).Delete());
         }
 
         public static void UpdateProductCategoriesForContractType(ContractType contractType, List<ProductCategory> itemsToAdd, List<ProductCategory>itemsToDelete)
@@ -87,6 +89,15 @@ namespace BusinessLayer.Helpers
             Expression<Func<Person, Employee, EmployeeType, object>> ex =
                 (p, e, et) => p.Email == e.FK_PersonEmail && e.FK_EmployeeTypeId == et.Id && et.Title == "Technician";
             return DatabaseHelper.Select<Employee>(ex);
+        }
+
+        public static Employee ValidLogin(string email, string password)
+        {
+            string encodedPassword = Utils.GetSHA256String(password);
+            Expression<Func<Employee, object>> ex =
+                e => e.FK_PersonEmail == email && e.Password == encodedPassword;
+            List<Employee> result = Employee.Select(ex);
+            return result.Count == 1 ? result[0] : null;
         }
     }
 }

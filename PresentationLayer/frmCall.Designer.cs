@@ -38,7 +38,12 @@
             this.txtInformation = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.pnlStartCall = new System.Windows.Forms.Panel();
+            this.txtNewNumber = new System.Windows.Forms.MaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnCallStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pnlStartCall.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAnswer
@@ -129,12 +134,51 @@
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Save Information";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // pnlStartCall
+            // 
+            this.pnlStartCall.Controls.Add(this.btnCallStart);
+            this.pnlStartCall.Controls.Add(this.label2);
+            this.pnlStartCall.Controls.Add(this.txtNewNumber);
+            this.pnlStartCall.Location = new System.Drawing.Point(36, 253);
+            this.pnlStartCall.Name = "pnlStartCall";
+            this.pnlStartCall.Size = new System.Drawing.Size(200, 100);
+            this.pnlStartCall.TabIndex = 0;
+            // 
+            // txtNewNumber
+            // 
+            this.txtNewNumber.Location = new System.Drawing.Point(46, 30);
+            this.txtNewNumber.Mask = "000 000 0000";
+            this.txtNewNumber.Name = "txtNewNumber";
+            this.txtNewNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtNewNumber.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(43, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Number";
+            // 
+            // btnCallStart
+            // 
+            this.btnCallStart.Location = new System.Drawing.Point(45, 56);
+            this.btnCallStart.Name = "btnCallStart";
+            this.btnCallStart.Size = new System.Drawing.Size(107, 23);
+            this.btnCallStart.TabIndex = 14;
+            this.btnCallStart.Text = "Start Call";
+            this.btnCallStart.UseVisualStyleBackColor = true;
+            this.btnCallStart.Click += new System.EventHandler(this.btnCallStart_Click);
             // 
             // frmCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 394);
+            this.Controls.Add(this.pnlStartCall);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtInformation);
@@ -147,6 +191,8 @@
             this.Name = "frmCall";
             this.Text = "Call";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.pnlStartCall.ResumeLayout(false);
+            this.pnlStartCall.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +209,9 @@
         private System.Windows.Forms.TextBox txtInformation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Panel pnlStartCall;
+        private System.Windows.Forms.Button btnCallStart;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox txtNewNumber;
     }
 }

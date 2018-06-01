@@ -27,10 +27,12 @@ namespace BusinessLayer.Classes
             LocationId = Convert.ToInt32(dataRow["FK_LocationID"]);
         }
 
+        [Key]
         [ForeignKey(typeof(Person))]
         [Column("FK_PersonEmail")]
         public string PersonEmail { get => personEmail; set => personEmail = value; }
 
+        [Key]
         [ForeignKey(typeof(Location))]
         [Column("FK_LocationID")]
         public int LocationId { get => locationId; set => locationId = value; }

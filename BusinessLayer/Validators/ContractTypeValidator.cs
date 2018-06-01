@@ -13,7 +13,9 @@ namespace BusinessLayer.Validators
     {
         public IEnumerable<string> BrokenRules(ContractType entity)
         {
+            char contractTypeID = entity.Id;
             if (!IsUpAlphabeticChar(entity.Id)) yield return "ID must be a single upper case alpahbetic character";
+            else if (ContractType.Select(c => c.Id == contractTypeID).Count != 0) yield return "The ID must be unique";
             if (IsEmpty(entity.Title)) yield return "Contract Type Title may not be empty";
         }
 

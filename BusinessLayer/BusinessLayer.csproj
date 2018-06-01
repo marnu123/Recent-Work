@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallCentre\CallerQueue.cs" />
+    <Compile Include="CallCentre\ICallerQueue.cs" />
     <Compile Include="Entities\Call.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Client.cs" />
@@ -50,14 +52,13 @@
     <Compile Include="Entities\ProductCategory_ContractType.cs" />
     <Compile Include="Entities\TaskWithContract.cs" />
     <Compile Include="Helpers\ComplexQueryHelper.cs" />
-    <Compile Include="MinMaxHeap\MaxHeap.cs" />
-    <Compile Include="MinMaxHeap\MinHeap.cs" />
     <Compile Include="PriorityCalculator.cs" />
     <Compile Include="StoredProcedures\GetClientEmailAddresses.cs" />
     <Compile Include="StoredProcedures\GetOverlappingContracts.cs" />
     <Compile Include="StoredProcedures\GetTasksInProgress.cs" />
     <Compile Include="StoredProcedures\GetTasksWithContracts.cs" />
     <Compile Include="StoredProcedures\GetUnassignedTasksWithContracts.cs" />
+    <Compile Include="StoredProcedures\GetUniqueCellNumbers.cs" />
     <Compile Include="StoredProcedures\IsUniqueEmail.cs" />
     <Compile Include="Helpers\StoredProcedureHelper.cs" />
     <Compile Include="TaskPrioritiser.cs" />

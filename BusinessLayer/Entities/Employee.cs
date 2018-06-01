@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
-using System.Security.Cryptography;
 using System.Text;
 using BusinessLayer.Validators;
 
@@ -79,7 +78,7 @@ namespace BusinessLayer.Classes
             get => password;
             set
             {
-                password = getSHA256String(value);
+                password = Utils.GetSHA256String(value);
             }
         }
 
@@ -104,25 +103,11 @@ namespace BusinessLayer.Classes
             return this.password == password;
         }
 
-        private string getSHA256String(string password)
-        {
-            SHA256 generator = new SHA256Managed();
-            byte[] hash = generator.ComputeHash(Encoding.UTF8.GetBytes(password));
-            StringBuilder hashedString = new StringBuilder();
-
-            foreach (byte b in hash)
-            {
-                hashedString.Append(b.ToString("x2"));
-            }
-
-            return hashedString.ToString();
-        }
-
         public static List<Employee> Select(params Expression<Func<Employee, object>>[] expression)
         {
             Expression<Func<Person, Employee, object>> ex = (p, c) => p.Email == c.FK_PersonEmail;
             Expression[] exList = { ex };
-            return DataObjectFactory.Select<Employee>(Utils.JoinArrays(expression, exList));
+            return DataObjectFactory.Select<Employee>(Utils.JoinArrays(exList, expression));
         }
 
         public bool Validate(IValidator<Employee> validator, out IEnumerable<string> brokenRules)

@@ -25,9 +25,11 @@ namespace BusinessLayer.Classes
             FK_ConfigurationID = dataRow["FK_ConfigurationID"].ToString();
         }
 
+        [Key]
         [ForeignKey(typeof(Component))]
         [Column("FK_ComponentID")]
         public string FK_ComponentID { get => fK_ComponentID; set => fK_ComponentID = value; }
+        [Key]
         [ForeignKey(typeof(Configuration))]
         [Column("FK_ConfigurationID")]
         public string FK_ConfigurationID { get => fK_ConfigurationID; set => fK_ConfigurationID = value; }

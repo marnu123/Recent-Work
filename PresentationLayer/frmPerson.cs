@@ -92,5 +92,19 @@ namespace PresentationLayer
             frmPersonDetails frm = new frmPersonDetails(ref client, true, true);
             Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchterm = "%" + txtSearchterm.Text + "%";
+            clients = Client.Select(c => c.FK_PersonEmail != searchterm);
+            dgvClients.DataSource = new AggregatedPropertyBindingList<Client>(clients);
+        }
+
+        private void btnSearchEmployee_Click(object sender, EventArgs e)
+        {
+            string searchterm = "%" + txtEmployeeSearch.Text + "%";
+            employees = Employee.Select(c => c.FK_PersonEmail != searchterm);
+            dgvEmployees.DataSource = new AggregatedPropertyBindingList<Employee>(employees);
+        }
     }
 }

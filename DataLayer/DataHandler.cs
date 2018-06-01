@@ -77,6 +77,8 @@ namespace DataLayer
                     return " > ";
                 case ExpressionType.GreaterThanOrEqual:
                     return " >= ";
+                case ExpressionType.NotEqual:
+                    return " LIKE ";
                 default:
                     throw new ArgumentException("Type not supported by DataHandler");
             }
@@ -113,7 +115,7 @@ namespace DataLayer
             else return getValueFromExpression((ex as MemberExpression).Expression, prop);
         }
 
-        private string getWherePart(Expression ex, ref List<SqlParameter> parms, ref List<Type>tables)
+        private string getWherePart(Expression ex, ref List<SqlParameter> parms, ref List<Type>tables, string memberName = "")
         {
             string result = "";
 
@@ -127,7 +129,7 @@ namespace DataLayer
                     //Add tables to the cache that have not yet been saved
                     if (me.Expression.NodeType == ExpressionType.Constant)
                     {
-                        return getWherePart(me.Expression, ref parms, ref tables);
+                        return getWherePart(me.Expression, ref parms, ref tables, me.Member.Name);
                     }
 
                     object memberVal;
@@ -162,7 +164,7 @@ namespace DataLayer
                     //Determine whether the expression is a closure type.  If yes, retrieve the value
                     if (isClosure)
                     {
-                        objectValue = val.GetType().GetFields()[0].GetValue(val);
+                        objectValue = val.GetType().GetFields().Where(f => f.Name == memberName).ToList()[0].GetValue(val);
                     }
                     else
                     {

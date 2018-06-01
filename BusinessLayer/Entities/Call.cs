@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Attributes;
 using DataLayer;
+using System.Data;
 
 namespace BusinessLayer.Classes
 {
@@ -18,8 +19,9 @@ namespace BusinessLayer.Classes
         private string fK_EmployeeId;
         private string cellNumber;
         private string capturedInformation;
+        private bool isOutgoing;
 
-        public Call(int id, DateTime timeStart, DateTime timeEnd, string fK_EmployeeId, string cellNumber, string capturedInformation)
+        public Call(int id, DateTime timeStart, DateTime timeEnd, string fK_EmployeeId, string cellNumber, string capturedInformation, bool isOutgoing)
         {
             this.Id = id;
             this.TimeStart = timeStart;
@@ -27,6 +29,18 @@ namespace BusinessLayer.Classes
             this.FK_EmployeeId = fK_EmployeeId;
             this.CellNumber = cellNumber;
             this.CapturedInformation = capturedInformation;
+            this.isOutgoing = isOutgoing;
+        }
+
+        public Call(DataRow dataRow)
+        {
+            this.Id = Convert.ToInt32(dataRow["PK_CallID"]);
+            this.TimeStart = (DateTime)dataRow["TimeStart"];
+            this.TimeEnd = (DateTime)dataRow["TimeEnd"];
+            this.FK_EmployeeId = dataRow["FK_EmployeeID"].ToString();
+            this.CellNumber = dataRow["CellNumber"].ToString();
+            this.CapturedInformation = dataRow["CapturedInformation"].ToString();
+            this.isOutgoing = Convert.ToBoolean(dataRow["IsOutgoing"]);
         }
 
         public Call() { }
@@ -45,10 +59,29 @@ namespace BusinessLayer.Classes
         public string CellNumber { get => cellNumber; set => cellNumber = value; }
         [Column("CapturedInformation")]
         public string CapturedInformation { get => capturedInformation; set => capturedInformation = value; }
+        [Column("IsOutgoing")]
+        public bool IsOutgoing { get => isOutgoing; set => isOutgoing = value; }
 
         public static List<Call> Select(params Expression<Func<Call, object>>[] expression)
         {
             return DataObjectFactory.Select<Call>(expression);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Call temp = obj as Call;
+            if (temp == null) return false;
+            return temp.Id == Id && temp.IsOutgoing == IsOutgoing && temp.TimeEnd == TimeEnd && temp.TimeStart == TimeStart && temp.FK_EmployeeId == FK_EmployeeId;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} {1} {2} {3} {4}", Id, isOutgoing, TimeStart, TimeEnd, FK_EmployeeId);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode() ^ IsOutgoing.GetHashCode() ^ TimeStart.GetHashCode() ^ TimeEnd.GetHashCode() ^ FK_EmployeeId.GetHashCode();
         }
     }
 }

@@ -278,8 +278,9 @@ namespace PresentationLayer
 
         private void btnSaveLists_Click(object sender, EventArgs e)
         {
-            List<Product> diff = Utils.GetDifference(location.Products, oldCopy.Products);
-            ComplexQueryHelper.AddProductsForLocation(location, diff);
+            List<Product> itemsToAdd = location.Products.Except(oldCopy.Products).ToList();
+            List<Product> itemsToDelete = oldCopy.Products.Except(location.Products).ToList();
+            ComplexQueryHelper.UpdateProductsForLocation(location, itemsToAdd, itemsToDelete);
         }
     }
 }

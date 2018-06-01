@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnPeople = new System.Windows.Forms.Button();
             this.btnLocations = new System.Windows.Forms.Button();
             this.btnComponents = new System.Windows.Forms.Button();
@@ -37,6 +38,8 @@
             this.btnTasks = new System.Windows.Forms.Button();
             this.btnTaskTreeView = new System.Windows.Forms.Button();
             this.btnSchedule = new System.Windows.Forms.Button();
+            this.notifyIncomingCall = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnCallLog = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPeople
@@ -101,7 +104,7 @@
             // 
             // btnTasks
             // 
-            this.btnTasks.Location = new System.Drawing.Point(285, 295);
+            this.btnTasks.Location = new System.Drawing.Point(285, 346);
             this.btnTasks.Name = "btnTasks";
             this.btnTasks.Size = new System.Drawing.Size(124, 23);
             this.btnTasks.TabIndex = 7;
@@ -111,7 +114,7 @@
             // 
             // btnTaskTreeView
             // 
-            this.btnTaskTreeView.Location = new System.Drawing.Point(285, 324);
+            this.btnTaskTreeView.Location = new System.Drawing.Point(285, 375);
             this.btnTaskTreeView.Name = "btnTaskTreeView";
             this.btnTaskTreeView.Size = new System.Drawing.Size(124, 23);
             this.btnTaskTreeView.TabIndex = 8;
@@ -121,7 +124,7 @@
             // 
             // btnSchedule
             // 
-            this.btnSchedule.Location = new System.Drawing.Point(285, 353);
+            this.btnSchedule.Location = new System.Drawing.Point(285, 404);
             this.btnSchedule.Name = "btnSchedule";
             this.btnSchedule.Size = new System.Drawing.Size(124, 23);
             this.btnSchedule.TabIndex = 9;
@@ -129,11 +132,31 @@
             this.btnSchedule.UseVisualStyleBackColor = true;
             this.btnSchedule.Click += new System.EventHandler(this.btnSchedule_Click);
             // 
+            // notifyIncomingCall
+            // 
+            this.notifyIncomingCall.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIncomingCall.BalloonTipText = "Call Incoming";
+            this.notifyIncomingCall.BalloonTipTitle = "Call Incoming";
+            this.notifyIncomingCall.Text = "Call Incoming";
+            this.notifyIncomingCall.Visible = true;
+            this.notifyIncomingCall.BalloonTipClicked += new System.EventHandler(this.notifyIncomingCall_BalloonTipClicked);
+            // 
+            // btnCallLog
+            // 
+            this.btnCallLog.Location = new System.Drawing.Point(285, 295);
+            this.btnCallLog.Name = "btnCallLog";
+            this.btnCallLog.Size = new System.Drawing.Size(124, 23);
+            this.btnCallLog.TabIndex = 10;
+            this.btnCallLog.Text = "Call Log";
+            this.btnCallLog.UseVisualStyleBackColor = true;
+            this.btnCallLog.Click += new System.EventHandler(this.btnCallLog_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCallLog);
             this.Controls.Add(this.btnSchedule);
             this.Controls.Add(this.btnTaskTreeView);
             this.Controls.Add(this.btnTasks);
@@ -160,5 +183,7 @@
         private System.Windows.Forms.Button btnTasks;
         private System.Windows.Forms.Button btnTaskTreeView;
         private System.Windows.Forms.Button btnSchedule;
+        private System.Windows.Forms.NotifyIcon notifyIncomingCall;
+        private System.Windows.Forms.Button btnCallLog;
     }
 }

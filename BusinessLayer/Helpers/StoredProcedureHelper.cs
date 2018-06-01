@@ -55,5 +55,18 @@ namespace BusinessLayer.Helpers
 
             return result;
         }
+
+        public static List<string> GetUniqueCellNumbers()
+        {
+            DataTable dt = DataHandler.GetInstance().ExecuteProcedure(new GetUniqueCellNumbers());
+            List<string> result = new List<string>();
+            
+            foreach (DataRow dr in dt.Rows)
+            {
+                result.Add(dr["CellNumber"].ToString());
+            }
+
+            return result;
+        }
     }
 }

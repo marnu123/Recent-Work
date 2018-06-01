@@ -31,20 +31,27 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabClients = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.lblClientsEmpty = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvClients = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.Employees = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblEmployeeEmpty = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.btnAddEmployee = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblEmployeeEmpty = new System.Windows.Forms.Label();
-            this.lblClientsEmpty = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSearchterm = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSearchEmployee = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtEmployeeSearch = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabClients.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -52,6 +59,8 @@
             this.Employees.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -82,29 +91,30 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.lblClientsEmpty);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dgvClients);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 295);
+            this.panel1.Size = new System.Drawing.Size(776, 365);
             this.panel1.TabIndex = 5;
             // 
-            // button2
+            // lblClientsEmpty
             // 
-            this.button2.Location = new System.Drawing.Point(125, 232);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 23);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.lblClientsEmpty.AutoSize = true;
+            this.lblClientsEmpty.Location = new System.Drawing.Point(335, 189);
+            this.lblClientsEmpty.Name = "lblClientsEmpty";
+            this.lblClientsEmpty.Size = new System.Drawing.Size(92, 13);
+            this.lblClientsEmpty.TabIndex = 22;
+            this.lblClientsEmpty.Text = "No Results Found";
+            this.lblClientsEmpty.Visible = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(17, 232);
+            this.button1.Location = new System.Drawing.Point(17, 314);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(102, 23);
             this.button1.TabIndex = 19;
@@ -128,9 +138,9 @@
             this.dgvClients.AllowUserToDeleteRows = false;
             this.dgvClients.AllowUserToOrderColumns = true;
             this.dgvClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClients.Location = new System.Drawing.Point(17, 65);
+            this.dgvClients.Location = new System.Drawing.Point(17, 115);
             this.dgvClients.Name = "dgvClients";
-            this.dgvClients.Size = new System.Drawing.Size(742, 140);
+            this.dgvClients.Size = new System.Drawing.Size(742, 172);
             this.dgvClients.TabIndex = 2;
             this.dgvClients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClients_CellClick);
             // 
@@ -158,6 +168,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.lblEmployeeEmpty);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.btnAddEmployee);
@@ -166,12 +177,22 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(784, 295);
+            this.panel2.Size = new System.Drawing.Size(784, 380);
             this.panel2.TabIndex = 6;
+            // 
+            // lblEmployeeEmpty
+            // 
+            this.lblEmployeeEmpty.AutoSize = true;
+            this.lblEmployeeEmpty.Location = new System.Drawing.Point(347, 205);
+            this.lblEmployeeEmpty.Name = "lblEmployeeEmpty";
+            this.lblEmployeeEmpty.Size = new System.Drawing.Size(92, 13);
+            this.lblEmployeeEmpty.TabIndex = 21;
+            this.lblEmployeeEmpty.Text = "No Results Found";
+            this.lblEmployeeEmpty.Visible = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(125, 232);
+            this.button3.Location = new System.Drawing.Point(125, 318);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(102, 23);
             this.button3.TabIndex = 20;
@@ -180,7 +201,7 @@
             // 
             // btnAddEmployee
             // 
-            this.btnAddEmployee.Location = new System.Drawing.Point(17, 232);
+            this.btnAddEmployee.Location = new System.Drawing.Point(17, 318);
             this.btnAddEmployee.Name = "btnAddEmployee";
             this.btnAddEmployee.Size = new System.Drawing.Size(102, 23);
             this.btnAddEmployee.TabIndex = 19;
@@ -204,9 +225,9 @@
             this.dgvEmployees.AllowUserToDeleteRows = false;
             this.dgvEmployees.AllowUserToOrderColumns = true;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmployees.Location = new System.Drawing.Point(17, 65);
+            this.dgvEmployees.Location = new System.Drawing.Point(17, 131);
             this.dgvEmployees.Name = "dgvEmployees";
-            this.dgvEmployees.Size = new System.Drawing.Size(742, 140);
+            this.dgvEmployees.Size = new System.Drawing.Size(742, 181);
             this.dgvEmployees.TabIndex = 2;
             this.dgvEmployees.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellClick);
             // 
@@ -220,25 +241,76 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Employees";
             // 
-            // lblEmployeeEmpty
+            // panel3
             // 
-            this.lblEmployeeEmpty.AutoSize = true;
-            this.lblEmployeeEmpty.Location = new System.Drawing.Point(346, 131);
-            this.lblEmployeeEmpty.Name = "lblEmployeeEmpty";
-            this.lblEmployeeEmpty.Size = new System.Drawing.Size(92, 13);
-            this.lblEmployeeEmpty.TabIndex = 21;
-            this.lblEmployeeEmpty.Text = "No Results Found";
-            this.lblEmployeeEmpty.Visible = false;
+            this.panel3.Controls.Add(this.btnSearch);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.txtSearchterm);
+            this.panel3.Location = new System.Drawing.Point(17, 55);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(464, 59);
+            this.panel3.TabIndex = 26;
             // 
-            // lblClientsEmpty
+            // btnSearch
             // 
-            this.lblClientsEmpty.AutoSize = true;
-            this.lblClientsEmpty.Location = new System.Drawing.Point(338, 129);
-            this.lblClientsEmpty.Name = "lblClientsEmpty";
-            this.lblClientsEmpty.Size = new System.Drawing.Size(92, 13);
-            this.lblClientsEmpty.TabIndex = 22;
-            this.lblClientsEmpty.Text = "No Results Found";
-            this.lblClientsEmpty.Visible = false;
+            this.btnSearch.Location = new System.Drawing.Point(310, 15);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(102, 23);
+            this.btnSearch.TabIndex = 28;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 20);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 13);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Search by Email";
+            // 
+            // txtSearchterm
+            // 
+            this.txtSearchterm.Location = new System.Drawing.Point(110, 17);
+            this.txtSearchterm.Name = "txtSearchterm";
+            this.txtSearchterm.Size = new System.Drawing.Size(184, 20);
+            this.txtSearchterm.TabIndex = 26;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnSearchEmployee);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.txtEmployeeSearch);
+            this.panel4.Location = new System.Drawing.Point(17, 66);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(464, 59);
+            this.panel4.TabIndex = 27;
+            // 
+            // btnSearchEmployee
+            // 
+            this.btnSearchEmployee.Location = new System.Drawing.Point(310, 15);
+            this.btnSearchEmployee.Name = "btnSearchEmployee";
+            this.btnSearchEmployee.Size = new System.Drawing.Size(102, 23);
+            this.btnSearchEmployee.TabIndex = 28;
+            this.btnSearchEmployee.Text = "Search";
+            this.btnSearchEmployee.UseVisualStyleBackColor = true;
+            this.btnSearchEmployee.Click += new System.EventHandler(this.btnSearchEmployee_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(18, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 13);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Search by Email";
+            // 
+            // txtEmployeeSearch
+            // 
+            this.txtEmployeeSearch.Location = new System.Drawing.Point(110, 17);
+            this.txtEmployeeSearch.Name = "txtEmployeeSearch";
+            this.txtEmployeeSearch.Size = new System.Drawing.Size(184, 20);
+            this.txtEmployeeSearch.TabIndex = 26;
             // 
             // frmPerson
             // 
@@ -257,6 +329,10 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -266,7 +342,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabClients;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvClients;
@@ -280,5 +355,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblClientsEmpty;
         private System.Windows.Forms.Label lblEmployeeEmpty;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtSearchterm;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btnSearchEmployee;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtEmployeeSearch;
     }
 }

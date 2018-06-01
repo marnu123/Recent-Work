@@ -392,10 +392,10 @@ namespace PresentationLayer
             dgv.Columns["EndDate"].DataPropertyName = "EndDate";
 
             dgv.Columns.Add("ContractType", "Contract Type");
-            dgv.Columns["ContractType"].DataPropertyName = "ContractType->Title";
+            dgv.Columns["ContractType"].DataPropertyName = "FK_ContractTypeId";
 
             dgv.Columns.Add("ServiceLevel", "Service Level");
-            dgv.Columns["ServiceLevel"].DataPropertyName = "ContractType.ServiceLevel.Title";
+            dgv.Columns["ServiceLevel"].DataPropertyName = "FK_ServiceLevelId";
         }
 
         Contract currentContract = new Contract("", "", DateTime.Now, DateTime.Now, ' ', new ContractType(' ', ""));
@@ -407,7 +407,7 @@ namespace PresentationLayer
 
         private void tabContract_Enter(object sender, EventArgs e)
         {
-            dgvContracts.DataSource = new AggregatedPropertyBindingList<Contract>(((Client)currentPerson).Contracts);
+            refreshContracts();
             contractTypes = ContractType.Select();
             serviceLevels = ServiceLevel.Select();
             contractEdit = false;
@@ -422,6 +422,7 @@ namespace PresentationLayer
             dtpStartDate.Enabled = state;
             cmbContractType.Enabled = state;
             btnSave.Enabled = state;
+            cmbCustomerImportance.Enabled = state;
         }
 
         private void bindContractFields(Contract contract)
@@ -454,6 +455,7 @@ namespace PresentationLayer
                 currentContract = (Contract) temp.SelectedRows[0].DataBoundItem;
                 contractEdit = false;
                 setEnableContractFields(false);
+                bindContractFields(currentContract);
             }
         }
 
@@ -466,7 +468,17 @@ namespace PresentationLayer
 
         private void btnDeleteContract_Click(object sender, EventArgs e)
         {
-            currentContract.Delete();
+            if (Utils.ConfirmDelete("Are you sure you want to delete this contract?"))
+            {
+                currentContract.Delete();
+                (currentPerson as Client).Contracts.Remove(currentContract);
+                refreshContracts();
+            }
+        }
+
+        private void refreshContracts()
+        {
+            dgvContracts.DataSource = new AggregatedPropertyBindingList<Contract>((currentPerson as Client).Contracts);
         }
 
         private void btnCancelContract_Click(object sender, EventArgs e)
@@ -488,6 +500,8 @@ namespace PresentationLayer
             frm.Show();
             frm.FormClosed += (s, events) =>
             {
+                contractTypes = ContractType.Select();
+                cmbContractType.DataSource = contractTypes;
                 Show();
             };
             Hide();
@@ -516,7 +530,7 @@ namespace PresentationLayer
                 }
 
                 contractInsert = contractEdit = false;
-                dgvContracts.DataSource = (currentPerson as Client).Contracts;
+                refreshContracts();
             }
 
             if (!isValid) lstContractError.DataSource = brokenRules.ToList();

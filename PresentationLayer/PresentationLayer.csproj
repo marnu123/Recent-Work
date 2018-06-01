@@ -46,11 +46,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregatedPropertyDescriptor.cs" />
+    <Compile Include="CallSimulator.cs" />
     <Compile Include="frmCall.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmCall.Designer.cs">
       <DependentUpon>frmCall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCallDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCallDetails.Designer.cs">
+      <DependentUpon>frmCallDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCallLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCallLog.Designer.cs">
+      <DependentUpon>frmCallLog.cs</DependentUpon>
     </Compile>
     <Compile Include="frmContractTypeDetails.cs">
       <SubType>Form</SubType>
@@ -87,6 +100,12 @@
     </Compile>
     <Compile Include="frmLocationDetails.Designer.cs">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMenu.cs">
       <SubType>Form</SubType>
@@ -167,6 +186,12 @@
     <EmbeddedResource Include="frmCall.resx">
       <DependentUpon>frmCall.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCallDetails.resx">
+      <DependentUpon>frmCallDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCallLog.resx">
+      <DependentUpon>frmCallLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmContractTypeDetails.resx">
       <DependentUpon>frmContractTypeDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -184,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLocationDetails.resx">
       <DependentUpon>frmLocationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>

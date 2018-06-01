@@ -26,5 +26,10 @@ namespace PresentationLayer
            //return array1.Union(array2).ToList();
             return array1.Except(array2).ToList();
         }
+
+        public static bool ConfirmDelete(string msg)
+        {
+            return DialogResult.Yes == MessageBox.Show(msg, "Delete confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
     }
 }

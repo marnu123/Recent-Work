@@ -36,9 +36,11 @@ namespace BusinessLayer.Classes
         //[Key]
         //[Column("PK_Product_LocationID")]
         public int Id { get => id; set => id = value; }
+        [Key]
         [ForeignKey(typeof(Product))]
         [Column("FK_ProductID")]
         public string FK_ProductId { get => fK_ProductId; set => fK_ProductId = value; }
+        [Key]
         [ForeignKey(typeof(Location))]
         [Column("FK_LocationID")]
         public int FK_LocationId { get => fK_LocationId; set => fK_LocationId = value; }
