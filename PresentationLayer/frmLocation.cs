@@ -52,7 +52,7 @@ namespace PresentationLayer
             {
                 //Refresh list
                 locations = Loc.Select();
-                loc = new AggregatedPropertyBindingList<Location>(locations);
+                loc = new AggregatedPropertyBindingList<Loc>(locations);
                 dgvLocation.DataSource = loc;
             });
         }
@@ -65,7 +65,7 @@ namespace PresentationLayer
             {
                 //Refresh list
                 locations = Loc.Select();
-                loc = new AggregatedPropertyBindingList<Location>(locations);
+                loc = new AggregatedPropertyBindingList<Loc>(locations);
                 dgvLocation.DataSource = loc;
             });
         }

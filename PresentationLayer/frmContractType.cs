@@ -44,7 +44,7 @@ namespace PresentationLayer
                             select c;
                 ContractType selected = query.ToList().First();
 
-                frmContractTypeDetails frm = new frmContractTypeDetails(selected);
+                frmContractTypeDetails frm = new frmContractTypeDetails(selected, contractTypes.Select(c => c.Id).ToList());
                 Utils.ShowForm(this, frm, dgvContractTypes, refreshScreen);
             }
         }
@@ -58,7 +58,7 @@ namespace PresentationLayer
         private void btnAdd_Click(object sender, EventArgs e)
         {
             ContractType temp = new ContractType(' ', "");
-            frmContractTypeDetails frm = new frmContractTypeDetails(temp, true);
+            frmContractTypeDetails frm = new frmContractTypeDetails(temp, contractTypes.Select(c => c.Id).ToList(), true);
             Utils.ShowForm(this, frm, dgvContractTypes, refreshScreen);
         }
     }

@@ -125,7 +125,7 @@ namespace PresentationLayer
                 }
             }
 
-            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            lstError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 

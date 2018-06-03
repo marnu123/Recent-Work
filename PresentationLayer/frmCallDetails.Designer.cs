@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbxOutgoing = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtInfo = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
             this.ID = new System.Windows.Forms.Label();
             this.txtCellNumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtEmployeeID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtTimeEnd = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtTimeStart = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtInfo = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbxOutgoing = new System.Windows.Forms.CheckBox();
-            this.txtTimeStart = new System.Windows.Forms.TextBox();
-            this.txtTimeEnd = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,8 +67,38 @@
             this.panel1.Size = new System.Drawing.Size(578, 466);
             this.panel1.TabIndex = 3;
             // 
+            // cbxOutgoing
+            // 
+            this.cbxOutgoing.AutoSize = true;
+            this.cbxOutgoing.Enabled = false;
+            this.cbxOutgoing.Location = new System.Drawing.Point(17, 409);
+            this.cbxOutgoing.Name = "cbxOutgoing";
+            this.cbxOutgoing.Size = new System.Drawing.Size(89, 17);
+            this.cbxOutgoing.TabIndex = 14;
+            this.cbxOutgoing.Text = "Outgoing Call";
+            this.cbxOutgoing.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 265);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(105, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Captured Information";
+            // 
+            // txtInfo
+            // 
+            this.txtInfo.Enabled = false;
+            this.txtInfo.Location = new System.Drawing.Point(17, 281);
+            this.txtInfo.Multiline = true;
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.Size = new System.Drawing.Size(435, 109);
+            this.txtInfo.TabIndex = 11;
+            // 
             // txtID
             // 
+            this.txtID.Enabled = false;
             this.txtID.Location = new System.Drawing.Point(17, 63);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(157, 20);
@@ -85,6 +115,7 @@
             // 
             // txtCellNumber
             // 
+            this.txtCellNumber.Enabled = false;
             this.txtCellNumber.Location = new System.Drawing.Point(17, 237);
             this.txtCellNumber.Name = "txtCellNumber";
             this.txtCellNumber.Size = new System.Drawing.Size(157, 20);
@@ -101,6 +132,7 @@
             // 
             // txtEmployeeID
             // 
+            this.txtEmployeeID.Enabled = false;
             this.txtEmployeeID.Location = new System.Drawing.Point(17, 192);
             this.txtEmployeeID.Name = "txtEmployeeID";
             this.txtEmployeeID.Size = new System.Drawing.Size(157, 20);
@@ -115,6 +147,14 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Employee ID";
             // 
+            // txtTimeEnd
+            // 
+            this.txtTimeEnd.Enabled = false;
+            this.txtTimeEnd.Location = new System.Drawing.Point(17, 147);
+            this.txtTimeEnd.Name = "txtTimeEnd";
+            this.txtTimeEnd.Size = new System.Drawing.Size(157, 20);
+            this.txtTimeEnd.TabIndex = 5;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -123,6 +163,14 @@
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Time End";
+            // 
+            // txtTimeStart
+            // 
+            this.txtTimeStart.Enabled = false;
+            this.txtTimeStart.Location = new System.Drawing.Point(17, 102);
+            this.txtTimeStart.Name = "txtTimeStart";
+            this.txtTimeStart.Size = new System.Drawing.Size(157, 20);
+            this.txtTimeStart.TabIndex = 3;
             // 
             // label2
             // 
@@ -142,47 +190,6 @@
             this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Call Details";
-            // 
-            // txtInfo
-            // 
-            this.txtInfo.Location = new System.Drawing.Point(17, 281);
-            this.txtInfo.Multiline = true;
-            this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(435, 109);
-            this.txtInfo.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 265);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Captured Information";
-            // 
-            // cbxOutgoing
-            // 
-            this.cbxOutgoing.AutoSize = true;
-            this.cbxOutgoing.Location = new System.Drawing.Point(17, 409);
-            this.cbxOutgoing.Name = "cbxOutgoing";
-            this.cbxOutgoing.Size = new System.Drawing.Size(89, 17);
-            this.cbxOutgoing.TabIndex = 14;
-            this.cbxOutgoing.Text = "Outgoing Call";
-            this.cbxOutgoing.UseVisualStyleBackColor = true;
-            // 
-            // txtTimeStart
-            // 
-            this.txtTimeStart.Location = new System.Drawing.Point(17, 102);
-            this.txtTimeStart.Name = "txtTimeStart";
-            this.txtTimeStart.Size = new System.Drawing.Size(157, 20);
-            this.txtTimeStart.TabIndex = 3;
-            // 
-            // txtTimeEnd
-            // 
-            this.txtTimeEnd.Location = new System.Drawing.Point(17, 147);
-            this.txtTimeEnd.Name = "txtTimeEnd";
-            this.txtTimeEnd.Size = new System.Drawing.Size(157, 20);
-            this.txtTimeEnd.TabIndex = 5;
             // 
             // frmCallDetails
             // 

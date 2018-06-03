@@ -107,12 +107,21 @@ namespace PresentationLayer
             newManufacturer = false;
         }
 
+        private void refetchComponents()
+        {
+            product.Components = ComplexQueryHelper.GetComponentsForProduct(product);
+            dgvUsedComponents.DataSource = new AggregatedPropertyBindingList<Comp>(product.Components);
+            availableComponents = getAvailableComponents(product.Components, Comp.Select());
+            dgvAvailableComponents.DataSource = new AggregatedPropertyBindingList<Comp>(availableComponents);
+        }
+
         private void btnManageComponents_Click(object sender, EventArgs e)
         {
             frmComponent frm = new frmComponent();
             frm.Show();
             frm.FormClosed += (s, events) =>
             {
+                refetchComponents();
                 Show();
             };
             Hide();
@@ -195,6 +204,16 @@ namespace PresentationLayer
         {
             DataGridView senderTemp = sender as DataGridView;
             if (e.RowIndex > -1) senderTemp.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (insert)
+            {
+                MessageBox.Show("A product must be saved in the database before component information can be viewed", "Invalid operation",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

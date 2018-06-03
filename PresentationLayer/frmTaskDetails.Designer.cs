@@ -200,6 +200,7 @@
             // 
             // cmbTaskStatus
             // 
+            this.cmbTaskStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTaskStatus.FormattingEnabled = true;
             this.cmbTaskStatus.Location = new System.Drawing.Point(17, 166);
             this.cmbTaskStatus.Name = "cmbTaskStatus";
@@ -225,6 +226,7 @@
             // 
             // cmbTaskType
             // 
+            this.cmbTaskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTaskType.FormattingEnabled = true;
             this.cmbTaskType.Location = new System.Drawing.Point(17, 114);
             this.cmbTaskType.Name = "cmbTaskType";

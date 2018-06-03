@@ -132,7 +132,7 @@ namespace PresentationLayer
                 edit = insert = false;
             }
 
-            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            lstError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 

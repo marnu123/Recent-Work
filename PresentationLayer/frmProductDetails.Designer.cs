@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabComponents = new System.Windows.Forms.TabPage();
+            this.btnManageComponents = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnRemoveComponent = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
-            this.btnManageComponents = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,6 +94,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1108, 597);
             this.tabControl1.TabIndex = 26;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage1
             // 
@@ -349,6 +350,16 @@
             this.tabComponents.UseVisualStyleBackColor = true;
             this.tabComponents.Enter += new System.EventHandler(this.tabComponents_Enter);
             // 
+            // btnManageComponents
+            // 
+            this.btnManageComponents.Location = new System.Drawing.Point(19, 419);
+            this.btnManageComponents.Name = "btnManageComponents";
+            this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
+            this.btnManageComponents.TabIndex = 35;
+            this.btnManageComponents.Text = "Manage Components";
+            this.btnManageComponents.UseVisualStyleBackColor = true;
+            this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(149, 390);
@@ -488,16 +499,6 @@
             this.button9.Text = "Save";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // btnManageComponents
-            // 
-            this.btnManageComponents.Location = new System.Drawing.Point(19, 419);
-            this.btnManageComponents.Name = "btnManageComponents";
-            this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
-            this.btnManageComponents.TabIndex = 35;
-            this.btnManageComponents.Text = "Manage Components";
-            this.btnManageComponents.UseVisualStyleBackColor = true;
-            this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
             // 
             // frmProductDetails
             // 

@@ -38,6 +38,7 @@ namespace PresentationLayer
             callSim = new CallSimulator(60, 240);
             callSim.Start();
             openForms = new Dictionary<Type, Form>();
+            calls.NewCall += calls_NewCall;
         }
 
         public frmMenu(Employee user)
@@ -48,7 +49,6 @@ namespace PresentationLayer
 
         public frmMenu()
         {
-            calls.NewCall += calls_NewCall;
             initialise();
         }
 

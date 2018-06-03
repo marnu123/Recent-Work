@@ -18,7 +18,7 @@ namespace PresentationLayer
         Timer callTimer = new Timer();
         double secondsPassed;
         CallState currentState;
-        private string nextCall;
+        private string nextCall = "";
         private string currentCallNumber;
         private string employeeId;
         CallerQueue callerQueue;
@@ -136,6 +136,7 @@ namespace PresentationLayer
                 lblNumber.Text = call.CellNumber;
                 lblTitle.Text = "Call In Progress";
                 btnAnswer.Enabled = false;
+                txtInformation.Enabled = true;
                 btnAnswer.Show();
                 btnReject.Show();
                 lblNumber.Show();
@@ -241,10 +242,11 @@ namespace PresentationLayer
 
         private void btnCallStart_Click(object sender, EventArgs e)
         {
-            if (txtNewNumber.Text.Length == 10)
+            //Test if the number length is 10 digits long and add 2 formatting spaces
+            if (txtNewNumber.Text.Length == 12)
             {
                 currentState = CallState.InProgress;
-                call = new Call(0, DateTime.Now, DateTime.Now, employeeId, nextCall, "", true);
+                call = new Call(0, DateTime.Now, DateTime.Now, employeeId, txtNewNumber.Text, "", true);
                 callInProgress(call);
             }
             else MessageBox.Show("The cell number must be 10 digits", "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Error);

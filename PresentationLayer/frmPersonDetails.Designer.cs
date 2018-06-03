@@ -79,6 +79,8 @@
             this.tabContract = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.cmbCustomerImportance = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.lstContractError = new System.Windows.Forms.ListBox();
@@ -102,8 +104,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.dgvContracts = new System.Windows.Forms.DataGridView();
             this.label20 = new System.Windows.Forms.Label();
-            this.cmbCustomerImportance = new System.Windows.Forms.ComboBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlEmployeeDetails.SuspendLayout();
             this.pnlClientDetails.SuspendLayout();
@@ -275,6 +275,7 @@
             // cbmEmployeeType
             // 
             this.cbmEmployeeType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbmEmployeeType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbmEmployeeType.FormattingEnabled = true;
             this.cbmEmployeeType.Items.AddRange(new object[] {
             "Technical"});
@@ -356,6 +357,8 @@
             // 
             // cmbNotificationType
             // 
+            this.cmbNotificationType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cmbNotificationType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbNotificationType.FormattingEnabled = true;
             this.cmbNotificationType.Items.AddRange(new object[] {
             "Technical"});
@@ -423,23 +426,24 @@
             this.tcPerson.Location = new System.Drawing.Point(0, 0);
             this.tcPerson.Name = "tcPerson";
             this.tcPerson.SelectedIndex = 0;
-            this.tcPerson.Size = new System.Drawing.Size(1324, 628);
+            this.tcPerson.Size = new System.Drawing.Size(1124, 628);
             this.tcPerson.TabIndex = 21;
+            this.tcPerson.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tcPerson_Selecting);
             // 
             // tabPerson
             // 
             this.tabPerson.Controls.Add(this.panel1);
             this.tabPerson.Controls.Add(this.panel2);
-            this.tabPerson.Controls.Add(this.pnlEmployeeDetails);
             this.tabPerson.Controls.Add(this.pnlClientDetails);
             this.tabPerson.Controls.Add(this.btnSave);
             this.tabPerson.Controls.Add(this.btnCancel);
             this.tabPerson.Controls.Add(this.btnDelete);
             this.tabPerson.Controls.Add(this.btnEdit);
+            this.tabPerson.Controls.Add(this.pnlEmployeeDetails);
             this.tabPerson.Location = new System.Drawing.Point(4, 22);
             this.tabPerson.Name = "tabPerson";
             this.tabPerson.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPerson.Size = new System.Drawing.Size(1316, 602);
+            this.tabPerson.Size = new System.Drawing.Size(1116, 602);
             this.tabPerson.TabIndex = 0;
             this.tabPerson.Text = "Personal Details";
             this.tabPerson.UseVisualStyleBackColor = true;
@@ -454,7 +458,7 @@
             this.tabLocations.Location = new System.Drawing.Point(4, 22);
             this.tabLocations.Name = "tabLocations";
             this.tabLocations.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLocations.Size = new System.Drawing.Size(1316, 602);
+            this.tabLocations.Size = new System.Drawing.Size(1116, 602);
             this.tabLocations.TabIndex = 2;
             this.tabLocations.Text = "Locations";
             this.tabLocations.UseVisualStyleBackColor = true;
@@ -616,7 +620,7 @@
             this.tabContract.Location = new System.Drawing.Point(4, 22);
             this.tabContract.Name = "tabContract";
             this.tabContract.Padding = new System.Windows.Forms.Padding(3);
-            this.tabContract.Size = new System.Drawing.Size(1316, 602);
+            this.tabContract.Size = new System.Drawing.Size(1116, 602);
             this.tabContract.TabIndex = 3;
             this.tabContract.Text = "Contracts";
             this.tabContract.UseVisualStyleBackColor = true;
@@ -656,6 +660,23 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(554, 387);
             this.panel7.TabIndex = 29;
+            // 
+            // cmbCustomerImportance
+            // 
+            this.cmbCustomerImportance.FormattingEnabled = true;
+            this.cmbCustomerImportance.Location = new System.Drawing.Point(17, 240);
+            this.cmbCustomerImportance.Name = "cmbCustomerImportance";
+            this.cmbCustomerImportance.Size = new System.Drawing.Size(200, 21);
+            this.cmbCustomerImportance.TabIndex = 27;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(14, 224);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(107, 13);
+            this.label26.TabIndex = 26;
+            this.label26.Text = "Customer Importance";
             // 
             // button1
             // 
@@ -872,23 +893,6 @@
             this.label20.Size = new System.Drawing.Size(138, 20);
             this.label20.TabIndex = 23;
             this.label20.Text = "Client Contracts";
-            // 
-            // cmbCustomerImportance
-            // 
-            this.cmbCustomerImportance.FormattingEnabled = true;
-            this.cmbCustomerImportance.Location = new System.Drawing.Point(17, 240);
-            this.cmbCustomerImportance.Name = "cmbCustomerImportance";
-            this.cmbCustomerImportance.Size = new System.Drawing.Size(200, 21);
-            this.cmbCustomerImportance.TabIndex = 27;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(14, 224);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(107, 13);
-            this.label26.TabIndex = 26;
-            this.label26.Text = "Customer Importance";
             // 
             // frmPersonDetails
             // 

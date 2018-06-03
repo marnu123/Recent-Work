@@ -17,19 +17,30 @@ namespace PresentationLayer
     public partial class frmContractTypeDetails : Form
     {
         List<ServiceLevel> serviceLevels;
+        //Only list contract ID's that have not been used
+        List<char> usableContractIDs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
         ContractType contractType;
         ContractType oldCopy;
         BindingSource bindedContractType;
         bool insert = false, edit = false;
 
+        public frmContractTypeDetails(ContractType contractType, List<char> usedIDs, bool insert = false)
+        {
+            //Remove all contract type id's that are already in use and add the currently viewed contract type's ID
+            usableContractIDs = usableContractIDs.Except(usedIDs).ToList();
+            usableContractIDs.Add(contractType.Id);
+            usableContractIDs.Sort();
+            initialise(contractType, insert);
+        }
+
         public frmContractTypeDetails(ContractType contractType, bool insert = false)
         {
-            InitializeComponent();
             initialise(contractType, insert);
         }
 
         private void initialise(ContractType contractType, bool insert)
         {
+            InitializeComponent();
             this.contractType = contractType;
             contractType.DeepCopyInto(ref oldCopy);
             bindedContractType = new BindingSource();
@@ -51,7 +62,7 @@ namespace PresentationLayer
         {
             cmbID.DataBindings.Clear();
             cmbID.DataBindings.Add(new Binding("SelectedItem", bindedContractType, "Id"));
-            cmbID.DataSource = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
+            cmbID.DataSource = usableContractIDs;
 
             txtTitle.DataBindings.Clear();
             txtTitle.DataBindings.Add(new Binding("Text", bindedContractType, "Title"));
@@ -100,7 +111,7 @@ namespace PresentationLayer
                 setFieldsEnable(false);
             }
 
-            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            lstError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 

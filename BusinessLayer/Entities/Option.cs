@@ -8,7 +8,7 @@ using DataLayer.Attributes;
 namespace BusinessLayer.Classes
 {
     [Table("tbloption")]
-    class Option : DataObject
+    public class Option : DataObject
     {
         private string fK_ProductID;
         private string fK_ComponentID;
@@ -28,9 +28,11 @@ namespace BusinessLayer.Classes
             //Quantity = Convert.ToInt32(dataRow["Quantity"]);
         }
 
+        [Key]
         [ForeignKey(typeof(Product))]
         [Column("FK_ProductID")]
         public string FK_ProductID { get => fK_ProductID; set => fK_ProductID = value; }
+        [Key]
         [ForeignKey(typeof(Component))]
         [Column("FK_ComponentID")]
         public string FK_ComponentID { get => fK_ComponentID; set => fK_ComponentID = value; }

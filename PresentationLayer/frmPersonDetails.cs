@@ -19,6 +19,8 @@ namespace PresentationLayer
         Person currentPerson;
         Person oldCopy;
         List<Location> available;
+        List<EmployeeType> employeeTypes;
+        List<NotificationType> notificationTypes;
         bool insert = false;
         bool newEmployeeType = false;
         bool newNotificationType = false;
@@ -26,12 +28,11 @@ namespace PresentationLayer
 
         public frmPersonDetails(ref Employee employee, bool edit = false, bool insert = false)
         {
-            InitializeComponent();
             initialise(employee, insert);
             txtID.DataBindings.Add("Text", employee, "EmployeeID");
             txtPassword.DataBindings.Add("Text", employee, "Password");
 
-            List<EmployeeType> employeeTypes = EmployeeType.Select();
+            employeeTypes = EmployeeType.Select();
             BindingList<EmployeeType> bl = new BindingList<EmployeeType>(employeeTypes);
 
             bindComboBox(cbmEmployeeType, bl, "Title", "Id");
@@ -42,6 +43,7 @@ namespace PresentationLayer
 
         private void initialise(Person person, bool insert)
         {
+            InitializeComponent();
             currentPerson = person;
             initializeFields(insert);
             this.insert = insert;
@@ -57,6 +59,7 @@ namespace PresentationLayer
             createLocationHeadings(dgvUsed);
 
             if (person.GetType() == typeof(Client)) createContractColumns(dgvContracts);
+            enableTabs(!insert);
         }
 
         private void setControlEnabled(bool state)
@@ -73,11 +76,10 @@ namespace PresentationLayer
 
         public frmPersonDetails(ref Client client, bool edit = false, bool insert = false)
         {
-            InitializeComponent();
             initialise(client, insert);
             txtID.DataBindings.Add("Text", client, "ClientID");
 
-            List<NotificationType> notificationTypes = NotificationType.Select();
+            notificationTypes = NotificationType.Select();
             BindingList<NotificationType> bl = new BindingList<NotificationType>(notificationTypes);
 
             bindComboBox(cmbNotificationType, bl, "Title", "Id");
@@ -118,6 +120,21 @@ namespace PresentationLayer
 
         }
 
+        //Enable tabs only if a user already exists in the database
+        private void enableTabs(bool enabled)
+        {
+            if (!enabled)
+            {
+                tabContract.Hide();
+                tabLocations.Hide();
+            }
+            else
+            {
+                tabContract.Show();
+                tabLocations.Show();
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string msg = "Invalid input. Please refer to the error box";
@@ -131,7 +148,9 @@ namespace PresentationLayer
                 if (isValid)
                 {
                     et.Insert();
-                    (currentPerson as Employee).FK_EmployeeTypeId = et.Id;
+                    employeeTypes.Add(et);
+                    cbmEmployeeType.DataSource = employeeTypes;
+                    cbmEmployeeType.SelectedItem = et;
                 }
             }
 
@@ -142,7 +161,9 @@ namespace PresentationLayer
                 if (isValid)
                 {
                     nt.Insert();
-                    (currentPerson as Client).FK_NotificationTypeId = nt.Id;
+                    notificationTypes.Add(nt);
+                    cmbNotificationType.DataSource = notificationTypes;
+                    cmbNotificationType.SelectedItem = nt;
                 }
             }
 
@@ -179,10 +200,13 @@ namespace PresentationLayer
                             msg = "Employee updated";
                         }
                     }
+                    insert = editable = false;
+                    enableTabs(!insert);
+                    setControlEnabled(false);
                 }
             }
 
-            if (!isValid) lstError.DataSource = brokenRules.ToList();
+            lstError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
@@ -368,12 +392,21 @@ namespace PresentationLayer
             dgvUsed.DataSource = currentPerson.Locations;
         }
 
+        private void refreshLocations()
+        {
+            currentPerson.Locations = ComplexQueryHelper.GetLocationsForPerson(currentPerson.Email);
+            available = BusinessLayer.Classes.Location.Select().Except(currentPerson.Locations).ToList();
+            dgvAvailable.DataSource = new AggregatedPropertyBindingList<Location>(available);
+            dgvUsed.DataSource = new AggregatedPropertyBindingList<Location>(currentPerson.Locations);
+        }
+
         private void btnManageLocations_Click(object sender, EventArgs e)
         {
             frmLocation frm = new frmLocation();
             frm.Show();
             frm.FormClosed += (s, events) =>
             {
+                refreshLocations();
                 Show();
             };
             Hide();
@@ -493,6 +526,13 @@ namespace PresentationLayer
             contractInsert = true;
             setEnableContractFields(true);
         }
+       
+        private void refetchClientContracts()
+        {
+            string clientID = (currentPerson as Client).ClientId;
+            (currentPerson as Client).Contracts = Contract.Select(c => c.FK_ClientId == clientID);
+            refreshContracts();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -502,9 +542,20 @@ namespace PresentationLayer
             {
                 contractTypes = ContractType.Select();
                 cmbContractType.DataSource = contractTypes;
+                refetchClientContracts();
                 Show();
             };
             Hide();
+        }
+
+        private void tcPerson_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (insert)
+            {
+                MessageBox.Show("A user must be saved in the database before location or contract information can be viewed", "Invalid operation",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
         }
 
         private void btnSaveContract_Click(object sender, EventArgs e)
@@ -533,7 +584,7 @@ namespace PresentationLayer
                 refreshContracts();
             }
 
-            if (!isValid) lstContractError.DataSource = brokenRules.ToList();
+            lstContractError.DataSource = brokenRules.ToList();
             MessageBox.Show(msg, "Modification Status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
