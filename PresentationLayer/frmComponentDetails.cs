@@ -37,6 +37,7 @@ namespace PresentationLayer
         private void initialise(Comp.Component component, bool insert)
         {
             InitializeComponent();
+            CenterToScreen();
             txtPrice.Minimum = decimal.MinValue;
             txtPrice.Maximum = decimal.MaxValue;
             this.insert = insert;
@@ -254,6 +255,11 @@ namespace PresentationLayer
         {
             edit = true;
             setFieldEnable(true);
+        }
+
+        private void tabConfiguration_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnComponentEdit_Click(object sender, EventArgs e)

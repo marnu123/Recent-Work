@@ -22,17 +22,19 @@ namespace PresentationLayer
         List<TaskType> taskTypes;
         Dictionary<string, string> userEmails;
         List<Location> locations;
-        bool insert, edit;
+        //Specify a variable to prevent the list view from triggering a "SelectedValueChanged" event
+        bool insert, edit, ignoreSelectionChange;
 
         public frmTaskDetails(Task task, bool insert = false)
         {
-            InitializeComponent();
             initialise(task, insert);
             setFieldsEnable(insert);
         }
 
         private void initialise(Task task, bool insert)
         {
+            InitializeComponent();
+            CenterToScreen();
             this.task = task;
             this.insert = insert;
             task.DeepCopyInto(ref oldCopy);
@@ -42,16 +44,25 @@ namespace PresentationLayer
             createDataGridColumns();
             bindFields(task);
 
-            if (task.Location != null) setDataGridViewSelection(task.Location);
+            if (task.Location != null)
+            {
+                updateLocationsTable();
+                setDataGridViewSelection(task.Location);
+            }
         }
 
         private void lstClients_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (lstClients.SelectedIndex > -1)
+            if (lstClients.SelectedIndex > -1 && !ignoreSelectionChange)
             {
-                locations = ComplexQueryHelper.GetLocationsForPerson(lstClients.Text);
-                dgvLocation.DataSource = new AggregatedPropertyBindingList<Location>(locations);
+                updateLocationsTable();
             }
+        }
+
+        private void updateLocationsTable()
+        {
+            locations = ComplexQueryHelper.GetLocationsForPerson(lstClients.Text);
+            dgvLocation.DataSource = new AggregatedPropertyBindingList<Location>(locations);
         }
 
         private void setFieldsEnable(bool state)
@@ -61,7 +72,7 @@ namespace PresentationLayer
             cmbTaskStatus.Enabled = state;
             cmbTaskType.Enabled = state;
             lstClients.Enabled = state;
-            dgvLocation.Enabled = state;
+            //dgvLocation.Enabled = state;
             btnSave.Enabled = state;
         }
 
@@ -156,10 +167,12 @@ namespace PresentationLayer
             cmbTaskType.DisplayMember = "Title";
             cmbTaskType.DataSource = taskTypes;
 
+            ignoreSelectionChange = true;
             lstClients.DataBindings.Add(new Binding("SelectedValue", task, "FK_ClientId"));
             lstClients.ValueMember = "Key";
             lstClients.DisplayMember = "Value";
             lstClients.DataSource = new BindingSource(userEmails, null);
+            ignoreSelectionChange = false;
         }
 
         private void dgvLocation_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -174,13 +187,13 @@ namespace PresentationLayer
 
         private void setDataGridViewSelection(Location selectedItem)
         {
-            foreach (DataGridViewRow dr in dgvLocation.Rows)
+            dgvLocation.ClearSelection();
+            for (int i = 0; i < dgvLocation.Rows.Count; i++)
             {
-                if (dr.DataBoundItem.Equals(selectedItem))
-                {
-                    dr.Selected = true;
-                }
+                if (dgvLocation.Rows[i].DataBoundItem.Equals(selectedItem))
+                    dgvLocation.Rows[i].Selected = true;
             }
+            dgvLocation.Refresh();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using DataLayer;
 using DataLayer.Attributes;
 using BusinessLayer.Validators;
+using BusinessLayer.Helpers;
 
 namespace BusinessLayer.Classes
 { 
@@ -48,7 +49,18 @@ namespace BusinessLayer.Classes
             this.Products = products;
         }
 
-        public List<Product> Products { get => products; set => products = value; }
+        public List<Product> Products
+        {
+            get
+            {
+                if (products == null)
+                {
+                    products = ComplexQueryHelper.GetProductsForLocation(this);
+                }
+                return products;
+            }
+            set => products = value;
+        }
         [Key(true)]
         [Column("PK_LocationID")]
         public int Id { get => id; set => id = value; }

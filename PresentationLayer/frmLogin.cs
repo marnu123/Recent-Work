@@ -17,6 +17,7 @@ namespace PresentationLayer
         public frmLogin()
         {
             InitializeComponent();
+            CenterToScreen();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

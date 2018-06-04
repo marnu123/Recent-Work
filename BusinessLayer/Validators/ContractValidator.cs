@@ -21,7 +21,7 @@ namespace BusinessLayer.Validators
             if (IsZeroOrEmpty(entity.FK_ContractTypeId)) yield return "A contract type has to be selected";
             if (IsDateTimeEmpty(entity.StartDate)) yield return "A start date must be defined";
             if (IsDateTimeEmpty(entity.EndDate)) yield return "An end date must be defined";
-            if (entity.EndDate > entity.StartDate) yield return "A contract's end date must be later than its start date";
+            if (entity.EndDate < entity.StartDate) yield return "A contract's end date must be later than its start date";
         }
 
         public bool IsValid(Contract entity, out IEnumerable<string> brokenRules)

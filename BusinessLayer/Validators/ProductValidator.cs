@@ -12,6 +12,7 @@ namespace BusinessLayer.Validators
     {
         public IEnumerable<string> BrokenRules(Product entity)
         {
+            if (IsEmpty(entity.Id)) yield return "A serial number must be specified";
             if (IsEmpty(entity.Name)) yield return "Product name may not be empty";
             if (IsZeroOrEmpty(entity.FK_ManufacturerId)) yield return "A manufacturer has to be chosen for this product";
             if (IsEmpty(entity.FK_ProductCategoryTitle)) yield return "A product category has to be chosen for this product";

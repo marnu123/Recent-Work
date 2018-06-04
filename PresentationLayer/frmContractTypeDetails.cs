@@ -41,6 +41,7 @@ namespace PresentationLayer
         private void initialise(ContractType contractType, bool insert)
         {
             InitializeComponent();
+            CenterToScreen();
             this.contractType = contractType;
             contractType.DeepCopyInto(ref oldCopy);
             bindedContractType = new BindingSource();

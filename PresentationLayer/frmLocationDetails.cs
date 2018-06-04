@@ -33,6 +33,7 @@ namespace PresentationLayer
         private frmLocationDetails(Location location, bool insert = false)
         {
             InitializeComponent();
+            CenterToScreen();
             this.location = location;
             location.DeepCopyInto(ref oldCopy);
             this.edit = insert;
@@ -161,6 +162,8 @@ namespace PresentationLayer
                     location.Update();
                     msg = "Location Updated";
                 }
+                edit = insert = false;
+                toggleControlsEnable(false);
             }
 
             lstError.DataSource = brokenRules.ToList();
@@ -230,7 +233,7 @@ namespace PresentationLayer
 
         private void tabProducts_Enter(object sender, EventArgs e)
         {
-            if (available == null) available = Product.Select();
+            if (available == null) available = Product.Select().Except(location.Products).ToList();
             bindList(dgvAvailable, available);
             bindList(dgvUsed, location.Products);
             btnAddAvailable.Enabled = false;
@@ -281,6 +284,11 @@ namespace PresentationLayer
             List<Product> itemsToAdd = location.Products.Except(oldCopy.Products).ToList();
             List<Product> itemsToDelete = oldCopy.Products.Except(location.Products).ToList();
             ComplexQueryHelper.UpdateProductsForLocation(location, itemsToAdd, itemsToDelete);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

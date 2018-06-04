@@ -26,6 +26,7 @@ namespace PresentationLayer
         private void initialise()
         {
             InitializeComponent();
+            CenterToScreen();
             dgvComponents.AutoGenerateColumns = true;
             dgvComponents.DataSource = new BindingList<Comp>(componentList);
         }

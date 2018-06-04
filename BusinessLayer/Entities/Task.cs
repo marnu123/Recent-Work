@@ -45,6 +45,15 @@ namespace BusinessLayer.Classes
             FK_ClientId = dataRow["FK_ClientID"].ToString();
             DateAdded = (DateTime)dataRow["TaskDateAdded"];
             OldKey = id;
+
+            try
+            {
+                Location = new Location(dataRow);
+                TaskType = new TaskType(dataRow);
+                TaskStatus = new TaskStatus(dataRow);
+                Client = new Client(dataRow);
+            }
+            catch (Exception e) { }
         }
 
         [Key]

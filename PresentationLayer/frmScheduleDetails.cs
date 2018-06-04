@@ -26,6 +26,14 @@ namespace PresentationLayer
             initialise(schedule, insert);
         }
 
+        public frmScheduleDetails(Task task, bool insert = false)
+        {
+            schedule = new Schedule("", DateTime.Now, 0, TimeSpan.Zero, "", "");
+            schedule.Task = task;
+            schedule.FK_TaskId = task.Id;
+            initialise(schedule, insert);
+        }
+
         public frmScheduleDetails(Schedule schedule, List<Employee> technicians, bool insert = false)
         {
             employees = technicians;
@@ -42,6 +50,7 @@ namespace PresentationLayer
         private void initialise(Schedule schedule, bool insert)
         {
             InitializeComponent();
+            CenterToScreen();
             nudCost.Maximum = decimal.MaxValue;
             nudCost.Minimum = decimal.MinValue;
             createDataGridColumns();
@@ -50,6 +59,8 @@ namespace PresentationLayer
             schedule.DeepCopyInto(ref oldCopy);
             employees = ComplexQueryHelper.GetAllTechnicians();
             tasks = StoredProcedureHelper.GetUnassginedTasksWithContracts();
+            //If a task has already been assigned and the task is in view mode, add the task to the list of available tasks
+            if (schedule.FK_TaskId != "" && !insert) tasks.Add(new TaskWithContract("", schedule.Task));
             bindFields(schedule);
             setFieldsEnable(insert);
         }
@@ -118,34 +129,42 @@ namespace PresentationLayer
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            schedule.Duration = dtpDuration.Value.TimeOfDay;
-            schedule.TimeStart = dtpStartDate.Value.Add(dtpStartTime.Value.TimeOfDay);
-            TaskWithContract selectedTask = dgvTask.SelectedRows.Count == 1 ? (TaskWithContract)dgvTask.SelectedRows[0].DataBoundItem : null;
-            schedule.FK_TaskId = selectedTask != null ? selectedTask.Task.Id : "";
-
-            string msg = "Invalid input.  Please check the error box";
-            IEnumerable<string> brokenRules;
-            bool isValid = schedule.Validate(out brokenRules);
-
-            if (isValid)
+            try
             {
-                if (insert)
+                //Manually calculate the duration of a visit
+                schedule.Duration = dtpDuration.Value.TimeOfDay;
+                schedule.TimeStart = dtpStartDate.Value.Add(dtpStartTime.Value.TimeOfDay);
+                TaskWithContract selectedTask = dgvTask.SelectedRows.Count == 1 ? (TaskWithContract)dgvTask.SelectedRows[0].DataBoundItem : null;
+                schedule.FK_TaskId = selectedTask != null ? selectedTask.Task.Id : "";
+
+                string msg = "Invalid input.  Please check the error box";
+                IEnumerable<string> brokenRules;
+                bool isValid = schedule.Validate(out brokenRules);
+
+                if (isValid)
                 {
-                    schedule.Insert();
-                    msg = "Schedule inserted";
-                }
-                else
-                {
-                    schedule.Update();
-                    msg = "Schedule updated";
+                    if (insert)
+                    {
+                        schedule.Insert();
+                        msg = "Schedule inserted";
+                    }
+                    else
+                    {
+                        schedule.Update();
+                        msg = "Schedule updated";
+                    }
+
+                    insert = edit = false;
+                    setFieldsEnable(false);
                 }
 
-                insert = edit = false;
-                setFieldsEnable(false);
+                lstError.DataSource = brokenRules.ToList();
+                MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
             }
-
-            lstError.DataSource = brokenRules.ToList();
-            MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+                MessageBox.Show("A server error occurred.  Please contact the administrator", "Internal error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void btnViewTask_Click(object sender, EventArgs e)

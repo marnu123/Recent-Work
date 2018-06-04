@@ -18,6 +18,7 @@ namespace PresentationLayer
         public frmCallDetails(Call call)
         {
             InitializeComponent();
+            CenterToScreen();
             this.call = call;
             bindFields();
         }

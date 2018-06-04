@@ -20,6 +20,7 @@ namespace PresentationLayer
         public frmLocation()
         {
             InitializeComponent();
+            CenterToScreen();
             this.locations = Loc.Select();
             dgvLocation.AutoGenerateColumns = false;
             //BindingList<Location> list = new BindingList<Location>(tempLocation);

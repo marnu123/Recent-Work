@@ -17,6 +17,7 @@ namespace PresentationLayer
         public frmCallLog()
         {
             InitializeComponent();
+            CenterToScreen();
             calls = Call.Select();
             dgvCalls.DataSource = calls;
         }

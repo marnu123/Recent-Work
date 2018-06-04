@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using BusinessLayer.Helpers;
 using BusinessLayer.Classes;
@@ -15,17 +15,27 @@ namespace PresentationLayer
 {
     public partial class frmScheduleTreeViewForm : Form
     {
+        volatile bool stopThreads = false;
+        Thread buildTreeThread;
 
         public frmScheduleTreeViewForm()
         {
+            CenterToScreen();
             InitializeComponent();
-            buildTree();
+            buildTreeThread = new Thread(new ThreadStart(buildTree));
+            buildTreeThread.Start();
         }
 
+        //Run this method on a separate thread because the construction of the tree can be a timely process
         private void buildTree()
-        { 
-            treeSchedules.Nodes.Add(new TreeNode("In Progress", getAssignedTasks()));
-            treeSchedules.Nodes.Add(new TreeNode("Unassigned Tasks", getUnassignedTasks()));
+        {
+            TreeNode[] temp = getAssignedTasks();
+            if (stopThreads) return;
+            treeSchedules.Invoke((MethodInvoker)delegate { treeSchedules.Nodes.Add(new TreeNode("In Progress", temp)); });
+            if (stopThreads) return;
+            temp = getUnassignedTasks();
+            if (stopThreads) return;
+            treeSchedules.Invoke((MethodInvoker) delegate { treeSchedules.Nodes.Add(new TreeNode("Unassigned Tasks", temp)); }) ;
         }
 
         private TreeNode[] getAssignedTasks()
@@ -39,6 +49,9 @@ namespace PresentationLayer
             int lengthToAdd = 0;
             foreach (IGrouping<string, Schedule> item in groupedData)
             {
+                //Stop the running thread if the form thread closes
+                if (stopThreads) return null;
+
                 toAdd = new TreeNode[item.Count()];
                 TreeNode nodeToAdd;
 
@@ -68,6 +81,9 @@ namespace PresentationLayer
 
             for (int i = 0; i < tasks.Count; i++)
             {
+                //Stop the running thread if the form thread closes
+                if (stopThreads) return null;
+
                 item = tasks[i].Key.Task;
                 nodeToAdd = new TreeNode(item.Id + ", " + item.FK_ClientId + ", " + item.DateAdded.ToShortDateString() + ", " + tasks[i].Key.Contract + ", " + tasks[i].Value);
                 nodeToAdd.Tag = item;
@@ -140,6 +156,20 @@ namespace PresentationLayer
             
         }
 
+        private void treeNode_OnScheduleClick(object sender, EventArgs e)
+        {
+            Task task = (Task)treeSchedules.SelectedNode.Tag;
+            frmScheduleDetails frm = new frmScheduleDetails(task, true);
+            frm.Show();
+            frm.FormClosed += (s, events) =>
+            {
+                treeSchedules.Nodes.Clear();
+                buildTree();
+                Show();
+            };
+            Hide();
+        }
+
         private void treeSchedules_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -152,12 +182,26 @@ namespace PresentationLayer
                     new MenuItem("Delete", treeNode_OnDeleteClick)
                 });
 
-                if (clickedNode.Name == "Unassigned Task" || clickedNode.Name == "Scheduled Task")
+                if (clickedNode.Name == "Scheduled Task")
                 {
                     treeSchedules.SelectedNode = clickedNode;
                     menu.Show(sender as TreeView, p);
                 }
+                else
+                {
+                    if (clickedNode.Name == "Unassigned Task")
+                    {
+                        treeSchedules.SelectedNode = clickedNode;
+                        menu.MenuItems.Add(new MenuItem("Schedule Task", treeNode_OnScheduleClick));
+                        menu.Show(sender as TreeView, p);
+                    }
+                }
             }
+        }
+
+        private void frmScheduleTreeViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            stopThreads = true;
         }
     }
 }

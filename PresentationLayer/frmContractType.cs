@@ -17,6 +17,7 @@ namespace PresentationLayer
         public frmContractType()
         {
             InitializeComponent();
+            CenterToScreen();
             contractTypes = ContractType.Select();
             dgvContractTypes.DataSource = contractTypes;
         }

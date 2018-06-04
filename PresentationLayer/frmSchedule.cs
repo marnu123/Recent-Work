@@ -20,6 +20,7 @@ namespace PresentationLayer
         public frmSchedule()
         {
             InitializeComponent();
+            CenterToScreen();
             createDataGridViewColumns();
             employees = ComplexQueryHelper.GetAllTechnicians();
             bindFields();

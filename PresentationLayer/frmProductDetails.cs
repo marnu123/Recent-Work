@@ -27,20 +27,29 @@ namespace PresentationLayer
 
         public frmProductDetails(ref Location location, ref Product product, bool insert = false)
         {
+            this.location = location;
+            initialise(product, insert);
+        }
+
+        public frmProductDetails(Product product, bool insert = false)
+        {
+            initialise(product, insert);
+        }
+
+        private void initialise(Product product, bool insert)
+        {
             InitializeComponent();
+            CenterToScreen();
             nudPrice.Minimum = decimal.MinValue;
             nudPrice.Maximum = decimal.MaxValue;
-            this.location = location;
             product.DeepCopyInto(ref oldCopy);
             this.product = product;
             this.insert = insert;
-            setControlEnabled(false);
+            setControlEnabled(insert);
             manufacturers = Manufacturer.Select();
             productCategories = ProductCategory.Select();
             bindFields(product);
         }
-
-
 
         private void bindFields(Product product)
         {
@@ -49,6 +58,7 @@ namespace PresentationLayer
             txtDescription.DataBindings.Add(new Binding("Text", product, "Description"));
             txtSerial.DataBindings.Add(new Binding("Text", product, "Id"));
             nudPrice.DataBindings.Add(new Binding("Value", product, "Price"));
+            txtModel.DataBindings.Add(new Binding("Text", product, "Model"));
 
             cmbManufacturer.ValueMember = "Id";
             cmbManufacturer.DisplayMember = "Name";
@@ -216,6 +226,16 @@ namespace PresentationLayer
             }
         }
 
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dlg = MessageBox.Show("Are you sure you want to delete this product?", "Delete confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -237,52 +257,59 @@ namespace PresentationLayer
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string msg = "Invalid configuration.  Please check the error box";
-            IEnumerable<string> brokenRules;
-            bool isValid = false;
-
-            if (newCategory)
+            try
             {
-                ProductCategory cat = new ProductCategory(cmbCategory.Text, "");
-                if (cat.Validate(out brokenRules) && Validator.IsUnique(cat))
-                {
-                    cat.Insert();
-                    product.ProductCategory = cat;
-                    product.FK_ProductCategoryTitle = cat.Title;
-                    productCategories.Add(cat);
-                }
-            }
+                string msg = "Invalid configuration.  Please check the error box";
+                IEnumerable<string> brokenRules;
+                bool isValid = false;
 
-            if (newManufacturer)
+                if (newCategory)
+                {
+                    ProductCategory cat = new ProductCategory(cmbCategory.Text, "");
+                    if (cat.Validate(out brokenRules) && Validator.IsUnique(cat))
+                    {
+                        cat.Insert();
+                        product.ProductCategory = cat;
+                        product.FK_ProductCategoryTitle = cat.Title;
+                        productCategories.Add(cat);
+                    }
+                }
+
+                if (newManufacturer)
+                {
+                    Manufacturer man = new Manufacturer(0, cmbManufacturer.Text);
+                    if (man.Validate(out brokenRules) && Validator.IsUnique(man))
+                    {
+                        man.Insert();
+                        product.Manufacturer = man;
+                        product.FK_ManufacturerId = man.Id;
+                        manufacturers.Add(man);
+                    }
+                }
+
+                if (product.Validate(out brokenRules))
+                {
+                    isValid = true;
+
+                    if (insert)
+                    {
+                        product.Insert();
+                        msg = "Product Inserted";
+                    }
+                    else
+                    {
+                        product.Update();
+                        msg = "Product Updated";
+                    }
+                }
+
+                if (!isValid) lstError.DataSource = brokenRules.ToList();
+                MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+            }
+            catch (Exception ex)
             {
-                Manufacturer man = new Manufacturer(0, cmbManufacturer.Text);
-                if (man.Validate(out brokenRules) && Validator.IsUnique(man))
-                {
-                    man.Insert();
-                    product.Manufacturer = man;
-                    product.FK_ManufacturerId = man.Id;
-                    manufacturers.Add(man);
-                }
+                MessageBox.Show("A server error occurred.  Please contact the administrator", "Internal error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-            if (product.Validate(out brokenRules))
-            {
-                isValid = true;
-
-                if (insert)
-                {
-                    product.Insert();
-                    msg = "Product Inserted";
-                }
-                else
-                {
-                    product.Update();
-                    msg = "Product Updated";
-                }
-            }
-
-            if (!isValid) lstError.DataSource = brokenRules.ToList();
-            MessageBox.Show(msg, "Modification status", MessageBoxButtons.OK, isValid ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
     }
 }

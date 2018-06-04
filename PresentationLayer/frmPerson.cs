@@ -20,6 +20,9 @@ namespace PresentationLayer
         public frmPerson()
         {
             InitializeComponent();
+            CenterToScreen();
+            buildClientColumns();
+            buildEmployeeColumns();
         }
 
         private void tabClients_FontChanged(object sender, EventArgs e)
@@ -35,21 +38,59 @@ namespace PresentationLayer
                 if (clients.Count == 0) lblClientsEmpty.Show();
                 else
                 {
-                    dgvClients.DataSource = new BindingList<Client>(clients);
+                    dgvClients.DataSource = new AggregatedPropertyBindingList<Client>(clients);
                     lblClientsEmpty.Hide();
                 }
             }
         }
 
-        private void Employees_Enter(object sender, EventArgs e)
+        private void buildClientColumns()
         {
+            dgvClients.AutoGenerateColumns = false;
+            dgvClients.Columns.Add("ID", "ID");
+            dgvClients.Columns["ID"].DataPropertyName = "ClientId";
+
+            dgvClients.Columns.Add("Email", "Email");
+            dgvClients.Columns["Email"].DataPropertyName = "Email";
+
+            dgvClients.Columns.Add("Name", "Name");
+            dgvClients.Columns["Name"].DataPropertyName = "Name";
+
+            dgvClients.Columns.Add("Surname", "Surname");
+            dgvClients.Columns["Surname"].DataPropertyName = "Surname";
+
+            dgvClients.Columns.Add("CellNumber", "Cell Number");
+            dgvClients.Columns["CellNumber"].DataPropertyName = "CellNumber";
+        }
+
+        private void buildEmployeeColumns()
+        {
+            dgvEmployees.AutoGenerateColumns = false;
+            dgvEmployees.Columns.Add("ID", "ID");
+            dgvEmployees.Columns["ID"].DataPropertyName = "EmployeeId";
+
+            dgvEmployees.Columns.Add("Email", "Email");
+            dgvEmployees.Columns["Email"].DataPropertyName = "Email";
+
+            dgvEmployees.Columns.Add("Name", "Name");
+            dgvEmployees.Columns["Name"].DataPropertyName = "Name";
+
+            dgvEmployees.Columns.Add("Surname", "Surname");
+            dgvEmployees.Columns["Surname"].DataPropertyName = "Surname";
+
+            dgvEmployees.Columns.Add("CellNumber", "Cell Number");
+            dgvEmployees.Columns["CellNumber"].DataPropertyName = "CellNumber";
+        }
+
+        private void Employees_Enter(object sender, EventArgs e)
+        { 
             if (employees == null)
             {
                 employees = Employee.Select();
                 if (employees.Count == 0) lblEmployeeEmpty.Show();
                 else
                 {
-                    dgvEmployees.DataSource = new BindingList<Employee>(employees);
+                    dgvEmployees.DataSource = new AggregatedPropertyBindingList<Employee>(employees);
                     lblEmployeeEmpty.Hide();
                 }
             }
@@ -59,24 +100,30 @@ namespace PresentationLayer
         {
             if (e.RowIndex > -1)
             {
-                string id = dgvClients.Rows[e.RowIndex].Cells["ClientId"].Value.ToString();
-                Client temp = null;
-                var q = from c in clients where c.ClientId == id select c;
-                temp = q.First();
+                Client temp = (Client) dgvClients.Rows[e.RowIndex].DataBoundItem;
 
                 frmPersonDetails frm = new frmPersonDetails(ref temp);
-                Utils.ShowForm(this, frm, dgvClients, () => clients = Client.Select());
+                Utils.ShowForm(this, frm, dgvClients, () =>
+                {
+                    clients = Client.Select();
+                    dgvClients.DataSource = new AggregatedPropertyBindingList<Client>(clients);
+                });
             }
         }
 
         private void dgvEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int id = (int)dgvEmployees.Rows[e.RowIndex].Cells["Id"].Value;
-            var q = from c in employees where c.Id == id select c;
-            Employee temp = q.First();
+            if (e.RowIndex > -1)
+            {
+                Employee temp = (Employee)dgvEmployees.Rows[e.RowIndex].DataBoundItem;
 
-            frmPersonDetails frm = new frmPersonDetails(ref temp);
-            Utils.ShowForm(this, frm, dgvEmployees, () => employees = Employee.Select());
+                frmPersonDetails frm = new frmPersonDetails(ref temp);
+                Utils.ShowForm(this, frm, dgvEmployees, () =>
+                {
+                    employees = Employee.Select();
+                    dgvEmployees.DataSource = new AggregatedPropertyBindingList<Employee>(employees);
+                });
+            }
         }
 
         private void btnAddEmployee_Click(object sender, EventArgs e)

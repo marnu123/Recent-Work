@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace PresentationLayer
 {
-    class Utils
+    static class Utils
     {
         public static void ShowForm(Form sender, Form form, DataGridView dgvToRefresh, Action refreshMethod)
         {
@@ -30,6 +30,13 @@ namespace PresentationLayer
         public static bool ConfirmDelete(string msg)
         {
             return DialogResult.Yes == MessageBox.Show(msg, "Delete confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
+
+        public static void Centralise(this Form frm)
+        {
+            System.Drawing.Rectangle windowRect = Screen.PrimaryScreen.Bounds;
+            frm.Left = windowRect.Left + ((windowRect.Width - frm.Width) / 2);
+            frm.Top = windowRect.Top + ((windowRect.Height - frm.Height) / 2);
         }
     }
 }

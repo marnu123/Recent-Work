@@ -22,6 +22,7 @@ namespace PresentationLayer
         public frmProduct(ref Location location, ref List<Product> products)
         {
             InitializeComponent();
+            CenterToScreen();
             this.products = products;
             this.location = location;
             bindFields(products);
@@ -30,6 +31,7 @@ namespace PresentationLayer
         public frmProduct()
         {
             InitializeComponent();
+            CenterToScreen();
             products = Product.Select();
             bindFields(products);
         }
@@ -83,6 +85,27 @@ namespace PresentationLayer
                     });
                 }
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            searchProducts("%" + txtSearchterm.Text + "%");
+        }
+
+        private void searchProducts(string searchterm)
+        {
+            if (searchterm != "") products = Product.Select(p => p.Name != searchterm);
+            else products = Product.Select();
+            dgvProducts.DataSource = new AggregatedPropertyBindingList<Product>(products);
+        }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            frmProductDetails frm = new frmProductDetails(new Product("", "", "", 0, DateTime.Now, ""), true);
+            Utils.ShowForm(this, frm, dgvProducts, () =>
+            {
+                searchProducts("%" + txtSearchterm.Text + "%");
+            });
         }
     }
 }

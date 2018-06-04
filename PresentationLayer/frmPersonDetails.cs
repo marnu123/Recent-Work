@@ -44,6 +44,7 @@ namespace PresentationLayer
         private void initialise(Person person, bool insert)
         {
             InitializeComponent();
+            CenterToScreen();
             currentPerson = person;
             initializeFields(insert);
             this.insert = insert;
@@ -230,25 +231,33 @@ namespace PresentationLayer
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this person?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
+            try
             {
-                string msg = "";
-
-                if (currentPerson.GetType() == typeof(Client))
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this person?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
                 {
-                    (currentPerson as Client).Delete();
-                    msg = "Client deleted";
-                }
-                else
-                {
-                    (currentPerson as Employee).Delete();
-                    msg = "Employee deleted";
-                }
+                    string msg = "";
+                    ((Person)currentPerson).Delete();
 
-                MessageBox.Show(msg);
-                currentPerson = null;
-                this.Close();
+                    if (currentPerson.GetType() == typeof(Client))
+                    {
+                        (currentPerson as Client).Delete();
+                        msg = "Client deleted";
+                    }
+                    else
+                    {
+                        (currentPerson as Employee).Delete();
+                        msg = "Employee deleted";
+                    }
+
+                    MessageBox.Show(msg);
+                    currentPerson = null;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("A server error occurred.  Please contact the administrator", "Internal error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -556,6 +565,11 @@ namespace PresentationLayer
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 e.Cancel = true;
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnSaveContract_Click(object sender, EventArgs e)

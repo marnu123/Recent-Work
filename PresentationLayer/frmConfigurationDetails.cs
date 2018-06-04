@@ -22,6 +22,7 @@ namespace PresentationLayer
         public frmConfigurationDetails(ref Configuration configuration, bool insert = false)
         {
             InitializeComponent();
+            CenterToScreen();
             this.configuration = configuration;
             configuration.DeepCopyInto(ref oldCopy);
             bindFields(this.configuration);

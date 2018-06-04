@@ -86,6 +86,12 @@ namespace PresentationLayer
             call = new Call();
             currentState = CallState.NoCall;
             noCall();
+            //Try to fetch a new call from the queue
+            try
+            {
+                if (callerQueue.Count() > 0) NextCall = callerQueue.GetNextCall();
+            }
+            catch (Exception e) { }
         }
 
         //Initiate a new call
@@ -108,6 +114,7 @@ namespace PresentationLayer
         private void initialise(string employeeId)
         {
             InitializeComponent();
+            CenterToScreen();
             this.employeeId = employeeId;
             callerQueue = CallerQueue.GetInstance();
             callerQueue.NewCall += callerQueue_OnNewCall;
@@ -122,7 +129,10 @@ namespace PresentationLayer
                 {
                     NextCall = callerQueue.GetNextCall();
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    
+                }
             }
         }
 
@@ -162,6 +172,8 @@ namespace PresentationLayer
                 lblTitle.Text = "New Call Incoming";
                 lblNumber.Text = number;
                 lblDuration.Text = "00:00";
+                lblDuration.Show();
+                lblNumber.Show();
                 btnAnswer.Enabled = true;
                 btnReject.Enabled = true;
                 btnAnswer.Show();
@@ -190,7 +202,7 @@ namespace PresentationLayer
                 call.TimeEnd = DateTime.Now;
                 callTimer.Stop();
                 lblTitle.Text = "Call Ended";
-                BackColor = Color.GhostWhite;
+                BackColor = Color.FromArgb(192, 192, 255);
                 showNextCall(nextCall);
             }
         }
@@ -218,10 +230,13 @@ namespace PresentationLayer
 
         private void saveCall(Call call)
         {
-            call.CapturedInformation = txtInformation.Text;
-            call.Insert();
-            callSaved = true;
-            txtInformation.Text = "";
+            if (call != null)
+            {
+                call.CapturedInformation = txtInformation.Text;
+                call.Insert();
+                callSaved = true;
+                txtInformation.Text = "";
+            }
         }
 
         private void btnReject_Click(object sender, EventArgs e)
@@ -229,7 +244,9 @@ namespace PresentationLayer
             btnSave.Enabled = true;
             if (currentState == CallState.Incoming)
             {
+                callSaved = false;
                 currentState = CallState.Rejected;
+                call = new Call(0, DateTime.Now, DateTime.Now, employeeId, currentCallNumber, txtInformation.Text, false);
                 rejectCall(call);
             }
 
@@ -242,6 +259,7 @@ namespace PresentationLayer
 
         private void btnCallStart_Click(object sender, EventArgs e)
         {
+            if (!callSaved) saveCall(call);
             //Test if the number length is 10 digits long and add 2 formatting spaces
             if (txtNewNumber.Text.Length == 12)
             {
@@ -255,6 +273,12 @@ namespace PresentationLayer
         private void btnSave_Click(object sender, EventArgs e)
         {
             saveCall(call);
+        }
+
+        private void frmCall_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            callerQueue.NewCall -= callerQueue_OnNewCall;
+            if (!callSaved) saveCall(call);
         }
     }
 }

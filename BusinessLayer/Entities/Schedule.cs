@@ -22,6 +22,7 @@ namespace BusinessLayer.Classes
         private Task task;
         private Employee employee;
 
+        public Schedule() { }
 
         public Schedule(DataRow dataRow)
         {

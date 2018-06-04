@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductDetails));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -69,6 +70,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
+            this.txtModel = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -98,6 +101,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.tabPage1.Controls.Add(this.btnCancel);
             this.tabPage1.Controls.Add(this.b);
             this.tabPage1.Controls.Add(this.btnDelete);
@@ -109,50 +113,67 @@
             this.tabPage1.Size = new System.Drawing.Size(1100, 571);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Product";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(17, 450);
+            this.btnCancel.BackColor = System.Drawing.Color.Blue;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Location = new System.Drawing.Point(18, 519);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(254, 23);
             this.btnCancel.TabIndex = 29;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // b
             // 
-            this.b.Location = new System.Drawing.Point(106, 421);
+            this.b.BackColor = System.Drawing.Color.Blue;
+            this.b.FlatAppearance.BorderSize = 0;
+            this.b.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.b.ForeColor = System.Drawing.Color.White;
+            this.b.Location = new System.Drawing.Point(107, 490);
             this.b.Name = "b";
             this.b.Size = new System.Drawing.Size(75, 23);
             this.b.TabIndex = 28;
             this.b.Text = "Edit";
-            this.b.UseVisualStyleBackColor = true;
+            this.b.UseVisualStyleBackColor = false;
             this.b.Click += new System.EventHandler(this.b_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(196, 421);
+            this.btnDelete.BackColor = System.Drawing.Color.Blue;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Location = new System.Drawing.Point(197, 490);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(17, 421);
+            this.btnSave.BackColor = System.Drawing.Color.Blue;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(18, 490);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 26;
             this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtModel);
+            this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.txtSerial);
             this.panel1.Controls.Add(this.label14);
@@ -171,7 +192,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 412);
+            this.panel1.Size = new System.Drawing.Size(820, 481);
             this.panel1.TabIndex = 5;
             // 
             // panel5
@@ -180,21 +201,23 @@
             this.panel5.Controls.Add(this.label15);
             this.panel5.Location = new System.Drawing.Point(492, 15);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(240, 250);
+            this.panel5.Size = new System.Drawing.Size(325, 313);
             this.panel5.TabIndex = 22;
             // 
             // lstError
             // 
             this.lstError.FormattingEnabled = true;
+            this.lstError.HorizontalScrollbar = true;
             this.lstError.Location = new System.Drawing.Point(15, 32);
             this.lstError.Name = "lstError";
-            this.lstError.Size = new System.Drawing.Size(210, 199);
+            this.lstError.Size = new System.Drawing.Size(291, 264);
             this.lstError.TabIndex = 1;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.White;
             this.label15.Location = new System.Drawing.Point(12, 11);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(81, 18);
@@ -205,12 +228,13 @@
             // 
             this.txtSerial.Location = new System.Drawing.Point(17, 59);
             this.txtSerial.Name = "txtSerial";
-            this.txtSerial.Size = new System.Drawing.Size(157, 20);
+            this.txtSerial.Size = new System.Drawing.Size(198, 20);
             this.txtSerial.TabIndex = 21;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.White;
             this.label14.Location = new System.Drawing.Point(14, 43);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(73, 13);
@@ -222,9 +246,9 @@
             this.cmbManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbManufacturer.FormattingEnabled = true;
-            this.cmbManufacturer.Location = new System.Drawing.Point(17, 345);
+            this.cmbManufacturer.Location = new System.Drawing.Point(17, 303);
             this.cmbManufacturer.Name = "cmbManufacturer";
-            this.cmbManufacturer.Size = new System.Drawing.Size(157, 21);
+            this.cmbManufacturer.Size = new System.Drawing.Size(198, 21);
             this.cmbManufacturer.TabIndex = 19;
             this.cmbManufacturer.SelectedIndexChanged += new System.EventHandler(this.cmbManufacturer_SelectedIndexChanged);
             this.cmbManufacturer.TextChanged += new System.EventHandler(this.cmbManufacturer_TextChanged);
@@ -232,7 +256,8 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(14, 329);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(14, 287);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 13);
             this.label13.TabIndex = 18;
@@ -240,34 +265,36 @@
             // 
             // dtpDateAdded
             // 
-            this.dtpDateAdded.Location = new System.Drawing.Point(17, 245);
+            this.dtpDateAdded.Location = new System.Drawing.Point(17, 203);
             this.dtpDateAdded.Name = "dtpDateAdded";
-            this.dtpDateAdded.Size = new System.Drawing.Size(200, 20);
+            this.dtpDateAdded.Size = new System.Drawing.Size(198, 20);
             this.dtpDateAdded.TabIndex = 17;
             // 
             // nudPrice
             // 
             this.nudPrice.DecimalPlaces = 2;
-            this.nudPrice.Location = new System.Drawing.Point(17, 201);
+            this.nudPrice.Location = new System.Drawing.Point(17, 159);
             this.nudPrice.Name = "nudPrice";
-            this.nudPrice.Size = new System.Drawing.Size(157, 20);
+            this.nudPrice.Size = new System.Drawing.Size(198, 20);
             this.nudPrice.TabIndex = 16;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(17, 155);
+            this.txtDescription.Location = new System.Drawing.Point(17, 406);
+            this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(157, 20);
+            this.txtDescription.Size = new System.Drawing.Size(314, 72);
             this.txtDescription.TabIndex = 15;
+            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // cmbCategory
             // 
             this.cmbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(17, 295);
+            this.cmbCategory.Location = new System.Drawing.Point(17, 253);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(157, 21);
+            this.cmbCategory.Size = new System.Drawing.Size(198, 21);
             this.cmbCategory.TabIndex = 13;
             this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
             this.cmbCategory.TextChanged += new System.EventHandler(this.cmbCategory_TextChanged);
@@ -275,7 +302,8 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 279);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(14, 237);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 12;
@@ -284,7 +312,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 229);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(14, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 13);
             this.label5.TabIndex = 8;
@@ -293,7 +322,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 184);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(14, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 6;
@@ -302,22 +332,25 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 139);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(14, 390);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Description";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(17, 110);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(157, 20);
+            this.txtName.Size = new System.Drawing.Size(198, 20);
             this.txtName.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(14, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
@@ -328,6 +361,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(13, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 20);
@@ -336,6 +370,7 @@
             // 
             // tabComponents
             // 
+            this.tabComponents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.tabComponents.Controls.Add(this.btnManageComponents);
             this.tabComponents.Controls.Add(this.button5);
             this.tabComponents.Controls.Add(this.panel2);
@@ -347,27 +382,34 @@
             this.tabComponents.Size = new System.Drawing.Size(1100, 571);
             this.tabComponents.TabIndex = 1;
             this.tabComponents.Text = "Components";
-            this.tabComponents.UseVisualStyleBackColor = true;
             this.tabComponents.Enter += new System.EventHandler(this.tabComponents_Enter);
             // 
             // btnManageComponents
             // 
+            this.btnManageComponents.BackColor = System.Drawing.Color.Blue;
+            this.btnManageComponents.FlatAppearance.BorderSize = 0;
+            this.btnManageComponents.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageComponents.ForeColor = System.Drawing.Color.White;
             this.btnManageComponents.Location = new System.Drawing.Point(19, 419);
             this.btnManageComponents.Name = "btnManageComponents";
             this.btnManageComponents.Size = new System.Drawing.Size(254, 23);
             this.btnManageComponents.TabIndex = 35;
             this.btnManageComponents.Text = "Manage Components";
-            this.btnManageComponents.UseVisualStyleBackColor = true;
+            this.btnManageComponents.UseVisualStyleBackColor = false;
             this.btnManageComponents.Click += new System.EventHandler(this.btnManageComponents_Click);
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.Blue;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Location = new System.Drawing.Point(149, 390);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(124, 23);
             this.button5.TabIndex = 34;
             this.button5.Text = "Cancel";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // panel2
@@ -385,18 +427,23 @@
             // 
             // btnRemoveComponent
             // 
+            this.btnRemoveComponent.BackColor = System.Drawing.Color.Blue;
+            this.btnRemoveComponent.FlatAppearance.BorderSize = 0;
+            this.btnRemoveComponent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveComponent.ForeColor = System.Drawing.Color.White;
             this.btnRemoveComponent.Location = new System.Drawing.Point(503, 174);
             this.btnRemoveComponent.Name = "btnRemoveComponent";
             this.btnRemoveComponent.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveComponent.TabIndex = 31;
             this.btnRemoveComponent.Text = "Remove ->";
-            this.btnRemoveComponent.UseVisualStyleBackColor = true;
+            this.btnRemoveComponent.UseVisualStyleBackColor = false;
             this.btnRemoveComponent.Click += new System.EventHandler(this.btnRemoveComponent_Click);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(13, 33);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(234, 13);
@@ -405,12 +452,16 @@
             // 
             // btnAddComponent
             // 
+            this.btnAddComponent.BackColor = System.Drawing.Color.Blue;
+            this.btnAddComponent.FlatAppearance.BorderSize = 0;
+            this.btnAddComponent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddComponent.ForeColor = System.Drawing.Color.White;
             this.btnAddComponent.Location = new System.Drawing.Point(503, 134);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(75, 23);
             this.btnAddComponent.TabIndex = 26;
             this.btnAddComponent.Text = "<- Add";
-            this.btnAddComponent.UseVisualStyleBackColor = true;
+            this.btnAddComponent.UseVisualStyleBackColor = false;
             this.btnAddComponent.Click += new System.EventHandler(this.btnAddComponent_Click);
             // 
             // panel4
@@ -426,6 +477,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(11, 10);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(168, 17);
@@ -455,6 +507,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(11, 10);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(218, 17);
@@ -475,6 +528,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(9, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(177, 20);
@@ -492,13 +546,34 @@
             // 
             // button9
             // 
+            this.button9.BackColor = System.Drawing.Color.Blue;
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.ForeColor = System.Drawing.Color.White;
             this.button9.Location = new System.Drawing.Point(19, 390);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(124, 23);
             this.button9.TabIndex = 31;
             this.button9.Text = "Save";
-            this.button9.UseVisualStyleBackColor = true;
+            this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // txtModel
+            // 
+            this.txtModel.Location = new System.Drawing.Point(17, 358);
+            this.txtModel.Name = "txtModel";
+            this.txtModel.Size = new System.Drawing.Size(198, 20);
+            this.txtModel.TabIndex = 24;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(14, 342);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(36, 13);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Model";
             // 
             // frmProductDetails
             // 
@@ -506,6 +581,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1109, 592);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProductDetails";
             this.Text = "frmProductDetails";
             this.tabControl1.ResumeLayout(false);
@@ -572,5 +648,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnRemoveComponent;
         private System.Windows.Forms.Button btnManageComponents;
+        private System.Windows.Forms.TextBox txtModel;
+        private System.Windows.Forms.Label label12;
     }
 }

@@ -36,27 +36,7 @@ namespace DataLayer
             return result;
         }
 
-        private string getWhereString(Type obj, List<UnaryExpression> whereCols, out List<SqlParameter> parms, out List<Type>tables)
-        {
-            StringBuilder result = new StringBuilder();
-            parms = new List<SqlParameter>();
-            tables = new List<Type>();
-
-            foreach (Expression ex in whereCols)
-            {
-                result.Append(getWherePart(ex, ref parms, ref tables));
-                result.Append(" AND ");
-            }
-
-            //Ensure that the last AND also has a boolean right side
-            if (whereCols.Count > 0)
-            {
-                result.Append(" 1 = 1 ");
-            }
-
-            return result.ToString();
-        }
-
+        #region Expression methods
         private string resolveExpressionTypeSymbol(ExpressionType typeToResolve)
         {
             switch(typeToResolve)
@@ -113,6 +93,29 @@ namespace DataLayer
                 return getPropertyValueFromClosure(ce.Value, prop);
             }
             else return getValueFromExpression((ex as MemberExpression).Expression, prop);
+        }
+        #endregion
+
+        #region Where builders
+        private string getWhereString(Type obj, List<UnaryExpression> whereCols, out List<SqlParameter> parms, out List<Type> tables)
+        {
+            StringBuilder result = new StringBuilder();
+            parms = new List<SqlParameter>();
+            tables = new List<Type>();
+
+            foreach (Expression ex in whereCols)
+            {
+                result.Append(getWherePart(ex, ref parms, ref tables));
+                result.Append(" AND ");
+            }
+
+            //Ensure that the last AND also has a boolean right side
+            if (whereCols.Count > 0)
+            {
+                result.Append(" 1 = 1 ");
+            }
+
+            return result.ToString();
         }
 
         private string getWherePart(Expression ex, ref List<SqlParameter> parms, ref List<Type>tables, string memberName = "")
@@ -179,6 +182,9 @@ namespace DataLayer
             }
             return result;
         }
+        #endregion
+
+        #region From builder
 
         public string getFromString(List<Type> tables)
         {
@@ -220,6 +226,9 @@ namespace DataLayer
 
             return result;
         }
+        #endregion
+
+        #region Select executers
 
         public DataTable Select<T>(params Expression[] expression)
         {
@@ -267,7 +276,9 @@ namespace DataLayer
             da.Fill(result);
             return result;
         }
+        #endregion
 
+        #region Update builder
 
         public void Update<T>(T entity)
         {
@@ -284,6 +295,7 @@ namespace DataLayer
             sc.ExecuteNonQuery();
             conn.Close();
         }
+        
 
         private string getUpdateString(Type entity)
         { 
@@ -347,12 +359,15 @@ namespace DataLayer
             return props.First().Name ?? throw new ArgumentException("Class does not contain an KeyStorage field for the " + 
                 "requested property");
         }
+        #endregion
+
+        #region Delete builders
 
         public void Delete<T>(T entity)
         {
             updateCache(typeof(T));
             List<SqlParameter> parms = getParameterList<T>(entity);
-            SqlCommand sc = new SqlCommand(getDeleteString(entity.GetType()), conn);
+            SqlCommand sc = new SqlCommand(getDeleteString(typeof(T)), conn);
 
             foreach (SqlParameter sp in parms)
             {
@@ -380,7 +395,10 @@ namespace DataLayer
             resultStr += " WHERE " + String.Join(" AND ", keyCols);
             return resultStr;
         }
+        #endregion
 
+
+        #region Insert Builder
         public object Insert<T>(T entity)
         {
             updateCache(typeof(T));
@@ -424,6 +442,7 @@ namespace DataLayer
 
             return resultStr;
         }
+        #endregion
 
         private List<SqlParameter> getParameterList<T>(T entity)
         {

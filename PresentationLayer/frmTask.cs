@@ -22,6 +22,7 @@ namespace PresentationLayer
         public frmTask()
         {
             InitializeComponent();
+            CenterToScreen();
             tasks = ComplexQueryHelper.GetCompleteTaskDetails();
             createColumnHeadings();
             bindDataGridView();
@@ -82,7 +83,17 @@ namespace PresentationLayer
                     dgvTasks.DataSource = dataSource;
                 });
             }
+        }
 
+        private void searchTasks(string searchterm)
+        {
+            tasks = Task.Select(t => t.FK_ClientId == searchterm);
+            dgvTasks.DataSource = new AggregatedPropertyBindingList<Task>(tasks);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            searchTasks("%" + txtSearchterm.Text + "%");
         }
     }
 }

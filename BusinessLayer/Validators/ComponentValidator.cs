@@ -12,6 +12,7 @@ namespace BusinessLayer.Validators
     {
         public IEnumerable<string> BrokenRules(Component entity)
         {
+            if (IsEmpty(entity.Id)) yield return "A component ID has to be specified";
             if (IsEmpty(entity.Title)) yield return "Component title may not be empty";
         }
 

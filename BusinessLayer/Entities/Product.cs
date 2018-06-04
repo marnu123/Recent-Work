@@ -145,5 +145,33 @@ namespace BusinessLayer.Classes
         {
             return validator.IsValid(this, out brokenRules);
         }
+
+        public override bool Equals(object obj)
+        {
+            var product = obj as Product;
+            return product != null &&
+                   id == product.id &&
+                   name == product.name &&
+                   description == product.description &&
+                   price == product.price &&
+                   dateAdded == product.dateAdded &&
+                   fK_ProductCategoryTitle == product.fK_ProductCategoryTitle &&
+                   fK_ManufacturerId == product.fK_ManufacturerId &&
+                   model == product.model;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 2140974439;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(description);
+            hashCode = hashCode * -1521134295 + price.GetHashCode();
+            hashCode = hashCode * -1521134295 + dateAdded.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(fK_ProductCategoryTitle);
+            hashCode = hashCode * -1521134295 + fK_ManufacturerId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(model);
+            return hashCode;
+        }
     }
 }
