@@ -23,7 +23,7 @@ namespace DataLayer
 
         private DataHandler()
         {
-            conn = new SqlConnection("Data Source=DESKTOP-43FGIVP\\SQLEXPRESS;Initial Catalog=shs_management;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            conn = new SqlConnection("Data Source=MARNU-ASUS;Initial Catalog=shs_management;Integrated Security=True");
         }
 
         public DataTable SelectAll(Type objType)

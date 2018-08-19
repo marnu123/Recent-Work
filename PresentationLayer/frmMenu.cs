@@ -37,7 +37,7 @@ namespace PresentationLayer
             InitializeComponent();
             CenterToScreen();
             Left = 50;
-            callSim = new CallSimulator(30, 240);
+            callSim = new CallSimulator(30, 120);
             callSim.Start();
             openForms = new Dictionary<Type, Form>();
             calls.NewCall += calls_NewCall;
