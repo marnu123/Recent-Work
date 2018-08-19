@@ -572,6 +572,11 @@ namespace PresentationLayer
 
         }
 
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void btnSaveContract_Click(object sender, EventArgs e)
         {
             IEnumerable<string> brokenRules;
